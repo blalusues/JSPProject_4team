@@ -1,2 +1,4 @@
-/test/
 /servlet/
+/service/
+/dao/
+/vo/
