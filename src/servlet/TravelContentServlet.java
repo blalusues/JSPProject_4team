@@ -1,7 +1,6 @@
 package servlet;
 
 //2017/10/23 생성
-//후기 내용 servlet
 
 import java.io.IOException;
 
@@ -12,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.TravelContentService;
+
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
+	TravelContentService service = new TravelContentService();
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
