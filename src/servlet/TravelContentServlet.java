@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.TravelContentService;
+import vo.ContentDetailVO;
 
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
@@ -22,6 +23,19 @@ public class TravelContentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String task = request.getParameter("task");
 		String path = "";
+		
+		if(task.equals("read")) { //후기 읽기
+			String contentNumberStr = request.getParameter("contentNumber");
+			int contentNumber = Integer.parseInt(contentNumberStr);
+			
+			ContentDetailVO contentDetail = service.read(contentNumber);
+			if (contentDetail != null) {
+				request.setAttribute("contentDetail", contentDetail);
+				path = "read.jsp";
+			} else {
+				path = "article_not_found.jsp";
+			}
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
