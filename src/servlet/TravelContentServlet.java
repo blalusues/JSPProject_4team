@@ -3,6 +3,7 @@ package servlet;
 //2017/10/23 생성
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,10 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.TravelContentService;
 import vo.ContentDetailVO;
+import vo.ContentVO;
 
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
-	TravelContentService service = new TravelContentService();
+	private TravelContentService service = TravelContentService.getInstance();
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,13 +26,16 @@ public class TravelContentServlet extends HttpServlet {
 		String task = request.getParameter("task");
 		String path = "";
 		
-		if(task.equals("read")) { //후기 읽기
+		if(task.equals("read")) { //후기 읽기 10/24작성 중
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			
-			ContentDetailVO contentDetail = service.read(contentNumber);
-			if (contentDetail != null) {
-				request.setAttribute("contentDetail", contentDetail);
+			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
+			ContentVO content = service.read(id,contentNumber);
+			
+			if (contentDetailList != null) {
+				request.setAttribute("contentDetail", contentDetailList);
+				request.setAttribute("contentDetail", content);
 				path = "read.jsp";
 			} else {
 				path = "article_not_found.jsp";
