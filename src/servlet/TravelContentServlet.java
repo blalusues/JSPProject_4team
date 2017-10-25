@@ -3,6 +3,8 @@ package servlet;
 //2017/10/23 생성
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,42 +15,85 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.TravelContentService;
 import vo.ContentDetailVO;
+import vo.ContentVO;
 
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
-	TravelContentService service = new TravelContentService();
-	//////////////////////////////////////////////////////////////////////////////////////////////
+	private TravelContentService service = TravelContentService.getInstance();
+/////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String task = request.getParameter("task");
 		String path = "";
 		
-		if(task.equals("read")) { //후기 읽기
+		if(task.equals("read")) { //후기 읽기 10/24작성 중
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			
-			ContentDetailVO contentDetail = service.read(contentNumber);
-			if (contentDetail != null) {
-				request.setAttribute("contentDetail", contentDetail);
+			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
+			ContentVO content = service.read(id,contentNumber);
+			
+			if (contentDetailList != null) {
+				request.setAttribute("contentDetail", contentDetailList);
+				request.setAttribute("content", content);
 				path = "read.jsp";
 			} else {
 				path = "article_not_found.jsp";
 			}
+			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리..) 
+		} else if(task.equals("wirte_form")) {
+			
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("euc-kr");
 		String task = request.getParameter("task");
 		String path = "";
-
+		
+		// 글 작성 완료 후 submit 버튼 눌렀을 때 
+		if(task.equals("write")) {
+			ContentVO content = new ContentVO();
+			List<ContentDetailVO> detailList = new ArrayList<>();
+			
+			content.setTitle(request.getParameter("title"));
+			content.setWriter(request.getParameter("writer"));
+			content.setLocation(request.getParameter("location"));
+			content.setMain_img(request.getParameter("main_img"));
+			
+			// day 개수 (Day02까지 썼으면 day=2)
+			String dayStr = request.getParameter("day");
+			int day = 0;
+			if(dayStr != null && dayStr.length() > 0) {
+				day = Integer.parseInt(dayStr);
+			}
+			
+			// day 개수만큼 detailList 만들기 
+			// (Day02의 content, path의 parameter이름은 content2, path2)
+			for(int i=1; i<day+1; i++) {
+				ContentDetailVO detail = new ContentDetailVO();
+	
+				detail.setDay(i);
+				detail.setContent(request.getParameter("content" + i));
+				detail.setPath(request.getParameter("path" + i));
+				
+				detailList.add(detail);
+			}
+			
+			if(service.write(content, detailList) == 1) {
+				path = "write_success.jsp";
+			} else {
+				path = "write_fail.jsp";
+			}
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
