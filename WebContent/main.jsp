@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
 
 <head>
 
@@ -65,17 +64,12 @@
 								aria-expanded="false"> Category </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#"> 서울 </a> <a
-									class="dropdown-item" href="#"> Busan </a> <a
-									class="dropdown-item" href="#"> Jeonju </a>
+								<a class="dropdown-item" href="#"> 서울 </a> 
+								<a class="dropdown-item" href="#"> Busan </a> 
+								<a class="dropdown-item" href="#"> Jeonju </a>
 							</div>
-
-
-
-
 						</div>
 					</li>
-
 				</ul>
 			</div>
 		</div>
@@ -109,11 +103,6 @@
 
 
 				</div>
-
-
-
-
-
 
 			</div>
 			<div class="row">
@@ -302,6 +291,8 @@
 									culpa incidunt minus dignissimos deserunt repellat aperiam
 									quasi sunt officia expedita beatae cupiditate, maiores
 									repudiandae, nostrum, reiciendis facere nemo!</p>
+									<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+									<br><br><br><br><br><br><br><br><br><br><br>
 								<ul class="list-inline">
 									<li>Date: January 2017</li>
 									<li>Client: Threads</li>
