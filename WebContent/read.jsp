@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <script src="//code.jquery.com/jquery.min.js"></script>
+
+
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -19,8 +21,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>글 상세내용</title>
 </head>
-<body>
-	<style>
+
+<style>
 .scrollspy-example {
 	position: relative;
 	height: 200px;
@@ -50,10 +52,14 @@
 	height: 900px;
 }
 #div2 {
-	height: 700px;
+	height: 800px;
+	white-space: normal;
 }
-</style>
 
+
+
+</style>
+<body>
 	<div class='row'>
 		<div id="div1" class="container col-sm-8">
 			<h2>${content.title}</h2>
@@ -71,51 +77,19 @@
 				</div>
 				<div class="collapse navbar-collapse navbar-scrollspy">
 					<ul class="nav navbar-nav">
-					<c:forEach var="content" items="${contentPage.contentList}">
-						<li class="active"><a href="#day0+"${contentDetail.day}"">@day0+"${content.count_no}"</a></li>
-						<li class="active"><a href="#day02">@day02</a></li>
-						<li class="active"><a href="#day03">@day03</a></li>
-						<li class="active"><a href="#day04">@day04</a></li>
+					<c:forEach var="contentDetail" items="${contentDetailList}">
+						<li class="active"><a href="#day0${contentDetail.day}">@day0${contentDetail.day}</a></li>
 					</c:forEach>
-
 					</ul>
 				</div>
 			</div>
 			</nav>
 			<div id="div2" data-spy="scroll" data-target="#navbar-example"
 				data-offset="0" class="scrollspy-example">
-				<h4 id="day01">@1일차</h4>
-				<p></p>
-				<h4 id="day02">@2일차</h4>
-				<p>
-					모르겠다.<br> <br> <br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					
-				</p>
-				<h4 id="day03">@3일차</h4>
-				<p>
-					ㅁㄴㅇㅁㄴㅇ<br> <br> <br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					
-				</p>
-				<h4 id="day04">@4일차</h4>
-				<p>
-					즐거웠다.<br> <br> <br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					
-				</p>
+				<c:forEach var="contentDetail" items="${contentDetailList}">
+				<h4 id="day0${contentDetail.day}">@Day${contentDetail.day}</h4>
+				${contentDetail.content}
+				</c:forEach>
 			</div>
 		</div>
 		<div class='col-sm-4'>
