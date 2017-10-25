@@ -85,14 +85,14 @@ public class ContentDao {
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
 	// 글 검색 페이지 만들기
-	public int selectSearchCount(String search) {
+	public int selectSearchCount(String searchTitle) {
 		con = DBUtil.makeConnection();
 		int result = 0;
 		String sql = "SELECT COUNT(*) FROM CONTENT WHERE TITLE LIKE '%?%'";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, search);
+			pstmt.setString(1, searchTitle);
 			
 			rs = pstmt.executeQuery();
 			
@@ -108,7 +108,7 @@ public class ContentDao {
 		}
 		return result;
 	}
-	public List<ContentVO> selectSearchList(String search, int startRow, int count) {
+	public List<ContentVO> selectSearchList(String searchTitle, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
 				+ "FROM CONTENT WHERE TITLE LIKE '%?%' ORDER BY READ_COUNT DESC LIMIT ?,?";
@@ -117,7 +117,7 @@ public class ContentDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, search);
+			pstmt.setString(1, searchTitle);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, count);
 			
@@ -137,6 +137,45 @@ public class ContentDao {
 			}
 		} catch (SQLException e) {
 			System.out.println("ContentDao selectSearchList 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return contentList;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
+	// 카테고리 검색(location select)
+	public List<ContentVO> selectLocationList(String location, int startRow, int count) {
+		con = DBUtil.makeConnection();
+		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
+				+ "FROM CONTENT WHERE LOCATION=? ORDER BY READ_COUNT DESC LIMIT ?,?";
+		
+		List<ContentVO> contentList = new ArrayList<>();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, location);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, count);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ContentVO content = new ContentVO();
+				content.setContent_no(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setRead_count(rs.getInt(3));
+				content.setWriter(rs.getString(4));
+				content.setWrite_time(rs.getDate(5));
+				content.setMain_img(rs.getString(6));
+				content.setLocation(rs.getString(7));
+				
+				contentList.add(content);
+			}
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectLocationList 에러");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -308,5 +347,6 @@ public class ContentDao {
 		return result;
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }
