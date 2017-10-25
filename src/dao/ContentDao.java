@@ -147,6 +147,29 @@ public class ContentDao {
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
 	// 카테고리 검색(location select)
+	public int selectLocationCount(String location) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENT WHERE LOCATION=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, location);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectSearchCount 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
 	public List<ContentVO> selectLocationList(String location, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
