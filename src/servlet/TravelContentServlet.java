@@ -20,7 +20,7 @@ import vo.ContentVO;
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
 	private TravelContentService service = TravelContentService.getInstance();
-	//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class TravelContentServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -76,6 +76,7 @@ public class TravelContentServlet extends HttpServlet {
 			}
 			
 			// day 개수만큼 detailList 만들기 
+			// (Day02의 content, path의 parameter이름은 content2, path2)
 			for(int i=1; i<day+1; i++) {
 				ContentDetailVO detail = new ContentDetailVO();
 	
@@ -85,6 +86,7 @@ public class TravelContentServlet extends HttpServlet {
 				
 				detailList.add(detail);
 			}
+			
 			if(service.write(content, detailList) == 1) {
 				path = "write_success.jsp";
 			} else {
