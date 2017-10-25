@@ -3,7 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<style type="text/css">
+#line{ 
+font-size: 40px;
+color: black;
 
+}
+</style>
 <meta charset="EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -92,10 +98,20 @@
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-								<input type="text" class="form-control" size="500" placeholder="Search..."> 
+							<form action="<%=request.getContextPath()%>/content">
+								<input type="hidden" name="task" value="search">
+								<c:if test="${empty searchTitle}">
+									<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
+								</c:if>
+								<c:if test="${not empty searchTitle}">
+									<input type="text" class="form-control" name="searchTitle" size="500" value="${searchTitle}"> 
+								</c:if>
 								<span class="input-group-btn">
-									<button class="btn btn-secondary" type="button">Go!</button>
+<%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
+										<input type="submit" class="btn btn-secondary" value="Go">
+<!-- 									</a> -->
 								</span>
+							</form>
 							</div>
 						</div>
 					</h2>
@@ -125,8 +141,8 @@
 		</div>
 	</section>
 	<!---------------------- 페이지 버튼 시작 -------------------------->
-	<div class="text-center">
-		<ul class="pagination">
+	<div class="text-center" style="color: black">
+		<ul id="line" >
 			<c:if test="${contentPage.startPage>1}">
 				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
 			</c:if>

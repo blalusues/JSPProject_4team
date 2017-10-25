@@ -52,6 +52,19 @@ public class TravelContentServlet extends HttpServlet {
 			ContentPageVO contentPage = service.makePage(page);
 			request.setAttribute("contentPage", contentPage);
 			path = "main.jsp";
+		} else if(task.equals("search")) {
+			// 검색 버튼 클릭 시
+			int page = 1;
+			String pageStr = request.getParameter("page");
+			if(pageStr != null && pageStr.length() > 0) {
+				page = Integer.parseInt(pageStr);
+			}
+			String searchTitle = (String) request.getParameter("searchTitle");
+			ContentPageVO searchPage = service.makeSearchPage(page, searchTitle);
+			request.setAttribute("contentPage", searchPage);
+			request.setAttribute("searchTitle", searchTitle);
+			
+			path = "main.jsp";
 		} else if(task.equals("wirteForm")) { 
 			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			
@@ -102,20 +115,7 @@ public class TravelContentServlet extends HttpServlet {
 			} else {
 				path = "write_fail.jsp";
 			}
-		} else if(task.equals("search")) {
-			// 검색 버튼 클릭 시
-			int page = 1;
-			String pageStr = request.getParameter("page");
-			if(pageStr != null && pageStr.length() > 0) {
-				page = Integer.parseInt(pageStr);
-			}
-			String searchTitle = (String) request.getAttribute("searchTitle");
-			ContentPageVO searchPage = service.makeSearchPage(page, searchTitle);
-			request.setAttribute("searchPage", searchPage);
-			request.setAttribute("searchTitle", searchTitle);
-			
-			path = "main.jsp";
-		}
+		} 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
