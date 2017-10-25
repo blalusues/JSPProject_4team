@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.ContentDao;
+import vo.CommentVO;
 import vo.ContentDetailVO;
 import vo.ContentPageVO;
 import vo.ContentVO;
@@ -143,5 +144,27 @@ public class TravelContentService {
 			}
 		}
 		return result;
+	}
+	
+	public boolean commentSignUp(CommentVO comment) {
+		comment.setWrite_date(new Date());
+		if (dao.insertComment(comment) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public List<CommentVO> commentSelect(int articleNum) {
+		List<CommentVO> commentList = dao.selectComment(articleNum);
+			return commentList;
+	}
+	
+	public boolean commentDelete(CommentVO comment) {
+		if(dao.deleteComment(comment)>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

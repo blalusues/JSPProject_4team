@@ -94,9 +94,61 @@
 		</div>
 		<div class='col-sm-4'>
 			<h3>요약</h3>
+			
+		</div>
+		<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
+			<div style="text-align: center">
+			<c:if test="${not empty sessionScope.loginId}">
+			<form action="${myContextPath}/board" method="post">
+				<input type="hidden" name="comment_board" value="${content.content_no}">
+				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
+				<input type="hidden" name="task" value="commentCheck">
+				<table border="1">
+					<tr>
+						<!-- 아이디-->
+						<td width="150">${sessionScope.loginId}</td>
+						<!-- 본문 작성-->
+						<td width="550"><textarea name="comment_content" rows="4"
+							cols="70" placeholder="여기에 내용을 입력하세요."></textarea></td>
+						<!-- 댓글 등록 버튼 -->
+						<td width="100">
+							<div style="text-align: center;">
+							<input type="submit" value="등록"
+								style="width: 80px; height: 4S0px; font-size: 15pt">
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			</c:if>
+		</div>
+		<div>
+			 <c:forEach var="comment" items="${comment}">
+			 <table border="1">
+					<tr>
+						<td width="150">${comment.writer}</td>
+						<td width="550">${comment.content}</td>
+						<td width="100">
+							<div style="text-align: center;">
+							<c:if test="${sessionScope.loginId == comment.writer}">
+							<form action="${myContextPath}/board" method="post">
+								<input type="hidden" name="comment_board" value="${board.articleNum}">
+								<input type="hidden" name="comment_num" value="${comment.commentNum}">
+								<input type="hidden" name="task" value="commentDelete">
+								${comment.write_date}
+								<input type="submit" value="삭제"
+								style="width: 80px; height: 4S0px; font-size: 15pt">
+							</form>
+							</c:if>
+							<c:if test="${sessionScope.loginId != comment.writer}">
+								${comment.write_date}
+							</c:if>
+							</div>
+						</td>
+					</tr>
+				</table>
+			 </c:forEach>
 		</div>
 	</div>
-
-
 </body>
 </html>

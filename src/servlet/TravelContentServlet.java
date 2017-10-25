@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.TravelContentService;
+import vo.CommentVO;
 import vo.ContentDetailVO;
 import vo.ContentPageVO;
 import vo.ContentVO;
@@ -34,10 +35,11 @@ public class TravelContentServlet extends HttpServlet {
 			System.out.println(contentNumber);
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
 			ContentVO content = service.read("아이디수정하세염",contentNumber);
-			
+			List<CommentVO> comment = service.commentSelect(content.getContent_no());
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetailList", contentDetailList);
 				request.setAttribute("content", content);
+				request.setAttribute("comment", comment);
 				path = "read.jsp";
 			} else {
 				path = "article_not_found.jsp";
@@ -142,6 +144,43 @@ public class TravelContentServlet extends HttpServlet {
 			request.setAttribute("searchTitle", searchTitle);
 			
 			path = "main_search.jsp";
+		}else if(task.equals("commentCheck")) {
+			String articleNumStr = request.getParameter("comment_board");
+			int articleNum = Integer.parseInt(articleNumStr);
+			String comment_content = request.getParameter("comment_content");
+			comment_content=comment_content.replace("\r\n","<br>");
+			
+			CommentVO comment = new CommentVO();
+			comment.setBrdNo(articleNum);
+			comment.setWriter(request.getParameter("comment_id"));
+			comment.setContent(comment_content);
+			System.out.println("commentCheck");
+			boolean result = service.commentSignUp(comment);
+			System.out.println("result: "+result);
+			if(result == true) {
+				request.setAttribute("articleNum", articleNum);
+				path = "comment_success.jsp";
+			}else {
+				request.setAttribute("articleNum", articleNum);
+				path = "comment_fail.jsp";
+			}
+		}else if(task.equals("commentDelete")) {
+			System.out.println("ddd");
+			String articleNumStr = request.getParameter("comment_board");
+			int articleNum = Integer.parseInt(articleNumStr);
+			CommentVO comment = new CommentVO();
+			String comment_numStr = request.getParameter("comment_num");
+			int comment_num = Integer.parseInt(comment_numStr);
+			comment.setCommentNum(comment_num);
+			boolean result = service.commentDelete(comment);
+			
+			if(result == true) {
+				request.setAttribute("articleNum", articleNum);
+				path = "commentDelete_success.jsp";
+			}else {
+				request.setAttribute("articleNum", articleNum);
+				path = "commentDelete_fail.jsp";
+			}
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);

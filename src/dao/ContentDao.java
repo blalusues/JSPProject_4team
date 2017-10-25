@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import vo.CommentVO;
 import vo.ContentDetailVO;
 import vo.ContentVO;
 
@@ -369,7 +370,81 @@ public class ContentDao {
 		}
 		return result;
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//댓글
+	public int insertComment(CommentVO comment) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "INSERT INTO COMM(BRDNO,COMNO,WRITER,CONTENT,WRITE_DATE) "
+				     + "VALUES(?,RCOUNT.NEXTVAL,?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment.getBrdNo());
+			pstmt.setString(2, comment.getWriter());
+			pstmt.setString(3, comment.getContent());
+			pstmt.setTimestamp(4, new Timestamp(comment.getWrite_date().getTime()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("insertComment 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+		}
+		return result;
+	}
+	
+	public List<CommentVO> selectComment(int articleNum) {
+		con = DBUtil.makeConnection();
+		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE FROM COMM WHERE BRDNO = ? "
+					+"ORDER BY COMNO DESC";
+		List<CommentVO> commentList = new ArrayList<>();
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleNum);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentVO comment = new CommentVO();
+				comment.setCommentNum(rs.getInt(1));
+				comment.setWriter(rs.getString(2));
+				comment.setContent(rs.getString(3));
+				comment.setWrite_date(rs.getTimestamp(4));
+
+				commentList.add(comment);
+			}
+		} catch (SQLException e) {
+			System.out.println("select list 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeRs(rs);
+		}
+		return commentList;
+	}
+	
+	public int deleteComment(CommentVO comment) {
+		con = DBUtil.makeConnection();
+		int result=0;
+		String sql = "DELETE FROM COMM WHERE COMNO = ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment.getCommentNum());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("deleteComment 에러");
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+		}
+		return result;
+	}
 
 }
