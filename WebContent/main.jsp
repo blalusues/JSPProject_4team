@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -64,7 +65,7 @@
 								aria-expanded="false"> Category </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#"> Seoul </a> <a
+								<a class="dropdown-item" href="#"> 서울 </a> <a
 									class="dropdown-item" href="#"> Busan </a> <a
 									class="dropdown-item" href="#"> Jeonju </a>
 							</div>
@@ -96,7 +97,7 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control" size="500"
-									placeholder="Search��"> <span
+									placeholder="Search"> <span
 									class="input-group-btn">
 									<button class="btn btn-secondary" type="button">Go!</button>
 								</span>
