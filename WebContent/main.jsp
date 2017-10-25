@@ -5,6 +5,7 @@
 
 <head>
 
+<meta charset="EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -128,7 +129,7 @@
 						src="./Bootstrap/img/portfolio/01-thumbnail.jpg" alt="">
 					</a>
 					<div class="portfolio-caption">
-						<h4>Threads</h4>
+						<h4>	Threads</h4>
 						<p class="text-muted">Illustration</p>
 					</div>
 				</div>
@@ -376,7 +377,7 @@
 						<div class="col-lg-8 mx-auto">
 							<div class="modal-body">
 								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
+								<h2 class="text-uppercase">3번째꺼</h2>
 								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
 									consectetur.</p>
 								<img class="img-fluid d-block mx-auto"
