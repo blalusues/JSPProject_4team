@@ -25,7 +25,7 @@ public class TravelContentServlet extends HttpServlet {
 /////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 		String task = request.getParameter("task");
 		String path = "";
 		

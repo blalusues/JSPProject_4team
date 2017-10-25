@@ -376,8 +376,8 @@ public class ContentDao {
 	public int insertComment(CommentVO comment) {
 		con = DBUtil.makeConnection();
 		int result = 0;
-		String sql = "INSERT INTO COMM(BRDNO,COMNO,WRITER,CONTENT,WRITE_DATE) "
-				     + "VALUES(?,RCOUNT.NEXTVAL,?,?,?)";
+		String sql = "INSERT INTO CMT(BRDNO,WRITER,CONTENT,WRITE_DATE) "
+				     + "VALUES(?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -399,7 +399,7 @@ public class ContentDao {
 	
 	public List<CommentVO> selectComment(int articleNum) {
 		con = DBUtil.makeConnection();
-		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE FROM COMM WHERE BRDNO = ? "
+		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE FROM CMT WHERE BRDNO = ? "
 					+"ORDER BY COMNO DESC";
 		List<CommentVO> commentList = new ArrayList<>();
 
@@ -431,7 +431,7 @@ public class ContentDao {
 	public int deleteComment(CommentVO comment) {
 		con = DBUtil.makeConnection();
 		int result=0;
-		String sql = "DELETE FROM COMM WHERE COMNO = ?";
+		String sql = "DELETE FROM CMT WHERE COMNO = ?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
