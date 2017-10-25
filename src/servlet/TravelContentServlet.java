@@ -36,7 +36,7 @@ public class TravelContentServlet extends HttpServlet {
 			ContentVO content = service.read("아이디수정하세염",contentNumber);
 			
 			if (contentDetailList != null) {
-				request.setAttribute("contentDetail", contentDetailList);
+				request.setAttribute("contentDetailList", contentDetailList);
 				request.setAttribute("content", content);
 				path = "read.jsp";
 			} else {

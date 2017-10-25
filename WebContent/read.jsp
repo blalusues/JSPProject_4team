@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,7 +56,7 @@
 
 	<div class='row'>
 		<div id="div1" class="container col-sm-8">
-			<h2>재미있는여행후기</h2>
+			<h2>${content.title}</h2>
 			<nav id="navbar-example" class="navbar navbar-default navbar-static"
 				role="navigation">
 			<div class="container-fluid">
@@ -70,10 +71,12 @@
 				</div>
 				<div class="collapse navbar-collapse navbar-scrollspy">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#day01">@day01</a></li>
+					<c:forEach var="content" items="${contentPage.contentList}">
+						<li class="active"><a href="#day0+"${contentDetail.day}"">@day0+"${content.count_no}"</a></li>
 						<li class="active"><a href="#day02">@day02</a></li>
 						<li class="active"><a href="#day03">@day03</a></li>
 						<li class="active"><a href="#day04">@day04</a></li>
+					</c:forEach>
 
 					</ul>
 				</div>
@@ -82,15 +85,7 @@
 			<div id="div2" data-spy="scroll" data-target="#navbar-example"
 				data-offset="0" class="scrollspy-example">
 				<h4 id="day01">@1일차</h4>
-				<p>
-					재미있었다.<br> <br> <br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
-					
-				</p>
+				<p></p>
 				<h4 id="day02">@2일차</h4>
 				<p>
 					모르겠다.<br> <br> <br> <br> <br> <br> <br>
