@@ -104,7 +104,7 @@
 			<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+						<a class="portfolio-link" href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
 									<i class="fa fa-plus fa-3x"></i>

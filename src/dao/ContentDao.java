@@ -196,9 +196,10 @@ public class ContentDao {
 				content.setContent_no(rs.getInt(1));
 				content.setTitle(rs.getString(2));
 				content.setRead_count(rs.getInt(3));
-				content.setWrite_time(rs.getTimestamp(4));
-				content.setMain_img(rs.getString(5));
-				content.setLocation(rs.getString(6));
+				content.setWriter(rs.getString(4));
+				content.setWrite_time(rs.getTimestamp(5));
+				content.setMain_img(rs.getString(6));
+				content.setLocation(rs.getString(7));
 			}
 		} catch (SQLException e) {
 			System.out.println("ContentDao contentSelect ¿¡·¯");

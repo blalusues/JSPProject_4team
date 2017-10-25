@@ -31,7 +31,7 @@ public class TravelContentServlet extends HttpServlet {
 		if(task.equals("read")) { //후기 읽기 10/24작성 중
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
-			
+			System.out.println(contentNumber);
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
 			ContentVO content = service.read("아이디수정하세염",contentNumber);
 			
