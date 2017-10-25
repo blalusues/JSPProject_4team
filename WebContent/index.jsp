@@ -32,14 +32,9 @@
  <br>
  <br>
  <br>
-  <br>
-    <span id="visual-btn" name="btn" onclick="btnCheck_onclick();">BE OPEN TO YOUR DREAMS
-    </span>
-   <script>
-	function btnCheck_onclick(){
-		    location.href="main.jsp";
-	}
-  </script>
+ <br>
+ <a href="<%=request.getContextPath()%>/content?task=contentList" style="text-decoration:none"><span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
+    <span id="visual-btn" name="btn" onclick="btnCheck_onclick();">BE OPEN TO YOUR DREAMS</span>
   </div>
 </div>
 

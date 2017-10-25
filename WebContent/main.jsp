@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
 
 <head>
 
@@ -66,17 +66,12 @@
 								aria-expanded="false"> Category </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#"> 서울 </a> <a
-									class="dropdown-item" href="#"> Busan </a> <a
-									class="dropdown-item" href="#"> Jeonju </a>
+								<a class="dropdown-item" href="#"> 서울 </a> 
+								<a class="dropdown-item" href="#"> 부산 </a> 
+								<a class="dropdown-item" href="#"> 충청도 </a>
 							</div>
-
-
-
-
 						</div>
 					</li>
-
 				</ul>
 			</div>
 		</div>
@@ -92,32 +87,21 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-
 					<h2 class="section-heading text-uppercase">
-
 						<div class="col-lg-6">
 							<div class="input-group">
-								<input type="text" class="form-control" size="500"
-									placeholder="Search"> <span
-									class="input-group-btn">
+								<input type="text" class="form-control" size="500" placeholder="Search..."> 
+								<span class="input-group-btn">
 									<button class="btn btn-secondary" type="button">Go!</button>
 								</span>
 							</div>
 						</div>
-
 					</h2>
 					<h3 class="section-subheading text-muted"></h3>
-
-
 				</div>
-
-
-
-
-
-
 			</div>
 			<div class="row">
+<<<<<<< HEAD
 				<div class="col-md-4 col-sm-6 portfolio-item">
 					<a class="portfolio-link" data-toggle="modal"
 						href="#portfolioModal1">
@@ -206,12 +190,33 @@
 					<div class="portfolio-caption">
 						<h4>Window</h4>
 						<p class="text-muted">Photography</p>
+=======
+			<!-------------------------------- content 시작 ---------------------------------->
+				<c:forEach var="content" items="${contentPage.contentList}">
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div> 
+							<img class="img-fluid" src="${content.main_img}" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>${content.title}</h4>
+							<p class="text-muted">${content.read_count}</p>
+						</div>
+>>>>>>> 1c0b28e62a2ead64ef76a5636c0335ab2a3751bf
 					</div>
-				</div>
+				</c:forEach>
+			<!-------------------------------- content 끝 ---------------------------------->
 			</div>
 		</div>
 	</section>
-
+	<!---------------------- 페이지 버튼 추가하기 -------------------------->
+	
+	<!---------------------- 페이지 버튼 추가하기 -------------------------->
+	
 	<!-- About -->
 
 	<!-- Team -->
@@ -303,6 +308,8 @@
 									culpa incidunt minus dignissimos deserunt repellat aperiam
 									quasi sunt officia expedita beatae cupiditate, maiores
 									repudiandae, nostrum, reiciendis facere nemo!</p>
+									<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+									<br><br><br><br><br><br><br><br><br><br><br>
 								<ul class="list-inline">
 									<li>Date: January 2017</li>
 									<li>Client: Threads</li>
