@@ -22,7 +22,7 @@ public class TravelContentService {
 	
 	private TravelContentService() {}
 //////////////////////////////////////////////////////////////////////////////////////////////
-	private static final int COUNT_PER_PAGE = 10;
+	private static final int COUNT_PER_PAGE = 6;
 	public ContentPageVO makePage(int page) {
 		int totalContentCount = dao.selectContentCount(); 
 		

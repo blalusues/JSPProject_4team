@@ -52,7 +52,6 @@ public class TravelContentServlet extends HttpServlet {
 			ContentPageVO contentPage = service.makePage(page);
 			request.setAttribute("contentPage", contentPage);
 			path = "main.jsp";
-			System.out.println("서블릿돌아감");
 		} else if(task.equals("wirteForm")) { 
 			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			

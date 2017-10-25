@@ -7,38 +7,33 @@
 <link href ="style.css" rel="stylesheet" type="text/css">
 
 <body>
-
 <div id="visual">
-  <div id="video-bg">
-    <iframe src="https://www.youtube.com/embed/HTc_2XmKK-M?autoplay=1&vq=hd1080&start=60&controls=0&showinfo=0&wmode=opaque&autohide=1&loop=1&playlist=cZcsko5a9lE?">
-    </iframe>
-  </div>
-  <div id="visual-content">
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <a href="<%=request.getContextPath()%>/content?task=contentList" style="text-decoration:none"><span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
-    <span id="visual-btn" name="btn" onclick="btnCheck_onclick();">BE OPEN TO YOUR DREAMS</span>
-  </div>
+<div id="video-bg">
+<iframe src="https://www.youtube.com/embed/HTc_2XmKK-M?autoplay=1&vq=hd1080&start=60&controls=0&showinfo=0&wmode=opaque&autohide=1&loop=1&playlist=cZcsko5a9lE?">
+</iframe>
 </div>
-
-
-
+<div id="visual-content">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="<%=request.getContextPath()%>/content?task=contentList" style="text-decoration:none"><span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
+</div>
+</div>
 </body>
 </html>
