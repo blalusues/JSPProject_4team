@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class ContentDao {
 	 private ContentDao() {
 	        DBUtil.loadDriver(); // mysql 드라이버 로딩 
 	    }
-	//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
     //후기 내용,day,경로 select
 	public List<ContentDetailVO> contentDetailSelect(int contentNumber){
 		con = DBUtil.makeConnection();
@@ -60,7 +61,7 @@ public class ContentDao {
 		}
 		return contentDetailList;
 	}
-	//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 	//작성자,날짜,조회수 등등 select
 	public ContentVO contentSelect(int contentNumber) {
 		con = DBUtil.makeConnection();
@@ -92,7 +93,7 @@ public class ContentDao {
 		}
 		return content;
 	}
-	/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 	//조회수 증가
 	public int updateReadCount(int contentNumber){
 		con = DBUtil.makeConnection();
@@ -112,7 +113,80 @@ public class ContentDao {
 		}
 		return result;
 	}
-	/////////////////////////////////////////////////////////////////////////////////
-	//글쓰기
+//////////////////////////////////////////////////////////////////////////////////////////////
+	// 글쓰기(테이블 두 개에 다 추가되어야 함)
+	// content 테이블에 추가 (작성에 한번만 실행)
+	public int insertContent(ContentVO content) {
+		con = DBUtil.makeConnection();
+		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRTIE_TIME, MAIN_IMG, READ_COUNT) "
+				+ "VALUES(?,?,?,?,?)";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, content.getTitle());
+			pstmt.setString(2, content.getWriter());
+			pstmt.setTimestamp(3, new Timestamp(content.getWrite_time().getTime()));
+			pstmt.setString(4, content.getMain_img());
+			pstmt.setInt(5, content.getRead_count());
+			
+			result = pstmt.executeUpdate(); // SQL 실행
+		} catch (SQLException e) {
+			System.out.println("ContentDao insertContent 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
 	
+	// 방금 전에 쓴 글번호 받아오기
+	public int selectMaxContentNo() {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT MAX(CONTENT_NO) FROM CONTENT";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectMaxContentNo 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	
+	// contentDetail 테이블에 추가 (작성에 Day마다 실행) 
+	public int insertDetail(ContentDetailVO detail) {
+		con = DBUtil.makeConnection();
+		String sql = "INSERT INTO CONTENTDETAIL(CONTENT_NO, DAY, CONTENT, PATH) VALUES(?,?,?,?)";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, detail.getContent_no());
+			pstmt.setInt(2, detail.getDay());
+			pstmt.setString(3, detail.getContent());
+			pstmt.setString(4, detail.getPath());
+			
+			result = pstmt.executeUpdate(); // SQL 실행
+		} catch (SQLException e) {
+			System.out.println("ContentDao insertDetail 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
 }
