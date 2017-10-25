@@ -1,10 +1,6 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +18,14 @@ public class ContentDao {
 	}
 
 	 private ContentDao() {
-	        DBUtil.loadDriver(); // mysql 드라이버 로딩 
-	    }
+		 DBUtil.loadDriver(); // mysql 드라이버 로딩 
+	 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 //////////////////////////////////////////////////////////////////////////////////////////////
-	// 페이지 만들기 
+	// 조회수 순으로 페이지 만들기 
 	public int selectContentCount() {
 		con = DBUtil.makeConnection();
 		int result = 0;
@@ -79,6 +75,68 @@ public class ContentDao {
 			}
 		} catch (SQLException e) {
 			System.out.println("ContentDao selectContentList 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return contentList;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
+	// 글 검색 페이지 만들기
+	public int selectSearchCount(String search) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENT WHERE TITLE LIKE '%?%'";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectSearchCount 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	public List<ContentVO> selectSearchList(String search, int startRow, int count) {
+		con = DBUtil.makeConnection();
+		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
+				+ "FROM CONTENT WHERE TITLE LIKE '%?%' ORDER BY READ_COUNT DESC LIMIT ?,?";
+		
+		List<ContentVO> contentList = new ArrayList<>();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, count);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ContentVO content = new ContentVO();
+				content.setContent_no(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setRead_count(rs.getInt(3));
+				content.setWriter(rs.getString(4));
+				content.setWrite_time(rs.getDate(5));
+				content.setMain_img(rs.getString(6));
+				content.setLocation(rs.getString(7));
+				
+				contentList.add(content);
+			}
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectSearchList 에러");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -177,8 +235,8 @@ public class ContentDao {
 	// content 테이블에 추가 (작성에 한번만 실행)
 	public int insertContent(ContentVO content) {
 		con = DBUtil.makeConnection();
-		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRITE_TIME, MAIN_IMG, READ_COUNT, LOCATION) "
-				+ "VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRITE_TIME, MAIN_IMG, READ_COUNT, "
+				+ "LOCATION) VALUES(?,?,?,?,?,?)";
 		int result = 0;
 		
 		try {
@@ -249,4 +307,5 @@ public class ContentDao {
 		return result;
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
+
 }
