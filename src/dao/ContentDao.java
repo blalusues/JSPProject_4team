@@ -88,7 +88,7 @@ public class ContentDao {
 	public int selectSearchCount(String searchTitle) {
 		con = DBUtil.makeConnection();
 		int result = 0;
-		String sql = "SELECT COUNT(*) FROM CONTENT WHERE TITLE LIKE '%?%'";
+		String sql = "SELECT COUNT(*) FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%')";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -111,7 +111,7 @@ public class ContentDao {
 	public List<ContentVO> selectSearchList(String searchTitle, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				+ "FROM CONTENT WHERE TITLE LIKE '%?%' ORDER BY READ_COUNT DESC LIMIT ?,?";
+				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
 		
@@ -147,6 +147,29 @@ public class ContentDao {
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
 	// 카테고리 검색(location select)
+	public int selectLocationCount(String location) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENT WHERE LOCATION=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, location);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectSearchCount 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
 	public List<ContentVO> selectLocationList(String location, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "

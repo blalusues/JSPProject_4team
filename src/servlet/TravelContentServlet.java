@@ -52,7 +52,34 @@ public class TravelContentServlet extends HttpServlet {
 			ContentPageVO contentPage = service.makePage(page);
 			request.setAttribute("contentPage", contentPage);
 			path = "main.jsp";
-		} else if(task.equals("wirteForm")) { 
+		} else if(task.equals("category")) {
+			// 카테고리 검색
+			int page = 1;
+			String pageStr = request.getParameter("page");
+			if(pageStr != null && pageStr.length() > 0) {
+				page = Integer.parseInt(pageStr);
+			}
+			String location = request.getParameter("location");
+			System.out.println(location);
+			System.out.println(page);
+			ContentPageVO contentPage = service.makeCategoryPage(page, location);
+			request.setAttribute("contentPage", contentPage);
+			request.setAttribute("location", location);
+			path = "main_category.jsp";
+		} else if(task.equals("search")) {
+			// 검색 버튼 클릭 시
+			int page = 1;
+			String pageStr = request.getParameter("page");
+			if(pageStr != null && pageStr.length() > 0) {
+				page = Integer.parseInt(pageStr);
+			}
+			String searchTitle = (String) request.getParameter("searchTitle");
+			ContentPageVO searchPage = service.makeSearchPage(page, searchTitle);
+			request.setAttribute("contentPage", searchPage);
+			request.setAttribute("searchTitle", searchTitle);
+			
+			path = "main_search.jsp";
+		}else if(task.equals("wirteForm")) { 
 			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			
 		}
@@ -109,12 +136,12 @@ public class TravelContentServlet extends HttpServlet {
 			if(pageStr != null && pageStr.length() > 0) {
 				page = Integer.parseInt(pageStr);
 			}
-			String searchTitle = (String) request.getAttribute("searchTitle");
+			String searchTitle = (String) request.getParameter("searchTitle");
 			ContentPageVO searchPage = service.makeSearchPage(page, searchTitle);
-			request.setAttribute("searchPage", searchPage);
+			request.setAttribute("contentPage", searchPage);
 			request.setAttribute("searchTitle", searchTitle);
 			
-			path = "main.jsp";
+			path = "main_search.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);

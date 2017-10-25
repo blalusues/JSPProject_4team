@@ -53,7 +53,6 @@ public class TravelContentService {
 	
 	public ContentPageVO makeSearchPage(int page, String searchTitle) {
 		int totalContentCount = dao.selectSearchCount(searchTitle); 
-		
 		// 총 페이지 수 계산
 		int totalPage = totalContentCount / COUNT_PER_PAGE;
 		if(totalContentCount % COUNT_PER_PAGE > 0) {
@@ -70,11 +69,36 @@ public class TravelContentService {
 		}
 		
 		// limit 시작행 계산
-		int startRow = (page-1)*10;
+		int startRow = (page-1)*COUNT_PER_PAGE;
 		
 		// DB에서 현재 페이지에 보여질 게시글들 조회 
 		List<ContentVO> contentList = dao.selectSearchList(searchTitle, startRow, COUNT_PER_PAGE);
+		// 한 페이지에 보여질 모든 데이터 담아서 작업 완료
+		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
+	}
+	
+	public ContentPageVO makeCategoryPage(int page, String location) {
+		int totalContentCount = dao.selectLocationCount(location); 
+		// 총 페이지 수 계산
+		int totalPage = totalContentCount / COUNT_PER_PAGE;
+		if(totalContentCount % COUNT_PER_PAGE > 0) {
+			totalPage++;
+		}
 		
+		// 하단 시작 페이지
+		int startPage = (page-1)/10*10 + 1;
+		
+		// 하단 끝 페이지
+		int endPage = startPage + 9;
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}
+		
+		// limit 시작행 계산
+		int startRow = (page-1)*COUNT_PER_PAGE;
+		
+		// DB에서 현재 페이지에 보여질 게시글들 조회 
+		List<ContentVO> contentList = dao.selectLocationList(location, startRow, COUNT_PER_PAGE);
 		// 한 페이지에 보여질 모든 데이터 담아서 작업 완료
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}

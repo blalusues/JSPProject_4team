@@ -100,7 +100,12 @@ color: black;
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="search">
-								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
+								<c:if test="${empty searchTitle}">
+									<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
+								</c:if>
+								<c:if test="${not empty searchTitle}">
+									<input type="text" class="form-control" name="searchTitle" size="500" value="${searchTitle}"> 
+								</c:if>
 								<span class="input-group-btn">
 <%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
 										<input type="submit" class="btn btn-secondary" value="Go">
@@ -142,7 +147,7 @@ color: black;
 				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
 			</c:if>
 			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
-				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}"> 
+				<a href="<%=request.getContextPath()%>/content?task=search&page=${page}&searchTitle=${searchTitle}"> 
 					${page} 
 				</a>
 			</c:forEach>
