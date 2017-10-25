@@ -35,7 +35,7 @@ public class TravelContentServlet extends HttpServlet {
 			
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetail", contentDetailList);
-				request.setAttribute("contentDetail", content);
+				request.setAttribute("content", content);
 				path = "read.jsp";
 			} else {
 				path = "article_not_found.jsp";
