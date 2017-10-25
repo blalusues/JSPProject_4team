@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-
 <head>
 
 <meta charset="EUC-KR">
@@ -58,17 +57,22 @@
 
 					<li class="nav-item">
 
-
 						<div class="dropdown show">
 							<a class="btn btn-secondary dropdown-toggle"
 								href="https://example.com" id="dropdownMenuLink"
 								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Category </a>
+								aria-expanded="false"> 지역 선택 </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="#"> 서울 </a> 
+								<a class="dropdown-item" href="#"> 대전 </a> 
+								<a class="dropdown-item" href="#"> 대구 </a> 
 								<a class="dropdown-item" href="#"> 부산 </a> 
+								<a class="dropdown-item" href="#"> 인천 </a>
+								<a class="dropdown-item" href="#"> 강원도 </a> 
 								<a class="dropdown-item" href="#"> 충청도 </a>
+								<a class="dropdown-item" href="#"> 전라도 </a>
+								<a class="dropdown-item" href="#"> 제주도 </a>
 							</div>
 						</div>
 					</li>
@@ -76,11 +80,9 @@
 			</div>
 		</div>
 	</nav>
-
 	<!-- Header -->
 
 	<!-- Services -->
-
 
 	<!-- Portfolio Grid -->
 	<section class="bg-light" id="portfolio">
@@ -122,9 +124,23 @@
 			</div>
 		</div>
 	</section>
-	<!---------------------- 페이지 버튼 추가하기 -------------------------->
-	
-	<!---------------------- 페이지 버튼 추가하기 -------------------------->
+	<!---------------------- 페이지 버튼 시작 -------------------------->
+	<div class="text-center">
+		<ul class="pagination">
+			<c:if test="${contentPage.startPage>1}">
+				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
+			</c:if>
+			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
+				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}"> 
+					${page} 
+				</a>
+			</c:forEach>
+			<c:if test="${contentPage.endPage<contentPage.totalPage}">
+				<a href="${myContextPath}/content?page=${contentPage.endPage+1}"> [다음] </a>
+			</c:if>
+		</ul>
+	</div>
+	<!---------------------- 페이지 버튼 끝 -------------------------->
 	
 	<!-- About -->
 

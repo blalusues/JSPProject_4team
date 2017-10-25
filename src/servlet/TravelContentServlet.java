@@ -42,7 +42,7 @@ public class TravelContentServlet extends HttpServlet {
 			} else {
 				path = "article_not_found.jsp";
 			}
-		} else if(task == null || task.equals("contentList")) {
+		} else if(task.equals("contentList")) {
 			// 메인페이지 만들기 위한 Page 정보 만들기 
 			int page = 1;
 			String pageStr = request.getParameter("page");
@@ -102,6 +102,19 @@ public class TravelContentServlet extends HttpServlet {
 			} else {
 				path = "write_fail.jsp";
 			}
+		} else if(task.equals("search")) {
+			// 검색 버튼 클릭 시
+			int page = 1;
+			String pageStr = request.getParameter("page");
+			if(pageStr != null && pageStr.length() > 0) {
+				page = Integer.parseInt(pageStr);
+			}
+			String searchTitle = (String) request.getAttribute("searchTitle");
+			ContentPageVO searchPage = service.makeSearchPage(page, searchTitle);
+			request.setAttribute("searchPage", searchPage);
+			request.setAttribute("searchTitle", searchTitle);
+			
+			path = "main.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
