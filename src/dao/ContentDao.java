@@ -29,6 +29,65 @@ public class ContentDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 //////////////////////////////////////////////////////////////////////////////////////////////
+	// 페이지 만들기 
+	public int selectContentCount() {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENT";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectContentCount 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	public List<ContentVO> selectContentList(int startRow, int count){
+		con = DBUtil.makeConnection();
+		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
+			     + "FROM CONTENT ORDER BY READ_COUNT DESC LIMIT ?,?";
+		
+		List<ContentVO> contentList = new ArrayList<>();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, count);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ContentVO content = new ContentVO();
+				content.setContent_no(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setRead_count(rs.getInt(3));
+				content.setWriter(rs.getString(4));
+				content.setWrite_time(rs.getDate(5));
+				content.setMain_img(rs.getString(6));
+				content.setLocation(rs.getString(7));
+				
+				contentList.add(content);
+			}
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectContentList 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return contentList;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
     //후기 내용,day,경로 select
 	public List<ContentDetailVO> contentDetailSelect(int contentNumber){
 		con = DBUtil.makeConnection();
@@ -55,9 +114,9 @@ public class ContentDao {
 			System.out.println("ContentDao contentDetailSelect 에러");
 			e.printStackTrace();
 		}finally {
-			DBUtil.closeCon(con);
-			DBUtil.closePstmt(pstmt);
 			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
 		}
 		return contentDetailList;
 	}
@@ -87,9 +146,9 @@ public class ContentDao {
 			System.out.println("ContentDao contentSelect 에러");
 			e.printStackTrace();
 		}finally {
-			DBUtil.closeCon(con);
-			DBUtil.closePstmt(pstmt);
 			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
 		}
 		return content;
 	}
@@ -118,8 +177,8 @@ public class ContentDao {
 	// content 테이블에 추가 (작성에 한번만 실행)
 	public int insertContent(ContentVO content) {
 		con = DBUtil.makeConnection();
-		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRTIE_TIME, MAIN_IMG, READ_COUNT) "
-				+ "VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRITE_TIME, MAIN_IMG, READ_COUNT, LOCATION) "
+				+ "VALUES(?,?,?,?,?,?)";
 		int result = 0;
 		
 		try {
@@ -129,6 +188,7 @@ public class ContentDao {
 			pstmt.setTimestamp(3, new Timestamp(content.getWrite_time().getTime()));
 			pstmt.setString(4, content.getMain_img());
 			pstmt.setInt(5, content.getRead_count());
+			pstmt.setString(6, content.getLocation());
 			
 			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.TravelContentService;
 import vo.ContentDetailVO;
+import vo.ContentPageVO;
 import vo.ContentVO;
 
 @WebServlet("/content")
@@ -32,7 +33,7 @@ public class TravelContentServlet extends HttpServlet {
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
-			ContentVO content = service.read(id,contentNumber);
+			ContentVO content = service.read("아이디수정하세염",contentNumber);
 			
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetail", contentDetailList);
@@ -41,11 +42,21 @@ public class TravelContentServlet extends HttpServlet {
 			} else {
 				path = "article_not_found.jsp";
 			}
-			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리..) 
-		} else if(task.equals("wirte_form")) {
+		} else if(task == null || task.equals("contentList")) {
+			// 메인페이지 만들기 위한 Page 정보 만들기 
+			int page = 1;
+			String pageStr = request.getParameter("page");
+			if(pageStr != null && pageStr.length() > 0) {
+				page = Integer.parseInt(pageStr);
+			}
+			ContentPageVO contentPage = service.makePage(page);
+			request.setAttribute("contentPage", contentPage);
+			path = "main.jsp";
+			System.out.println("서블릿돌아감");
+		} else if(task.equals("wirteForm")) { 
+			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
