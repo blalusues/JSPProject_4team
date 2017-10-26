@@ -585,14 +585,14 @@ public class ContentDao {
 		return result;
 	}
 
-	public int insertDay(ContentDetailVO detail) {
+	public int insertDay(int contentNum,ContentDetailVO detail) {
 		con = DBUtil.makeConnection();
 		int result = 0;
-		String sql = "INSERT INSERT INTO CONTENTDETAIL(CONTENT_NO,DAY,CONTENT,PATH) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO CONTENTDETAIL(CONTENT_NO,DAY,CONTENT,PATH) VALUES(?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, detail.getContent_no());
+			pstmt.setInt(1, contentNum);
 			pstmt.setInt(2, detail.getDay());
 			pstmt.setString(3, detail.getContent());
 			pstmt.setString(4, detail.getPath());

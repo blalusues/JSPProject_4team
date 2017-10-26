@@ -183,7 +183,7 @@ public class TravelContentService {
 		int result = 0;
 		for (int i = 0; i < detailListOther.size(); i++) {
 			ContentDetailVO detail = detailListOther.get(i);
-			result = dao.insertDay(detail);
+			result = dao.insertDay(contentNum,detail);
 			if (result == 0) {
 				return false;
 			}
