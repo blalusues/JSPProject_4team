@@ -8,7 +8,6 @@
 <html>
 <head>
 <style type="text/css">
-<<<<<<< HEAD
 	#line{ 
 		font-size: 40px;
 		color: black;
@@ -17,16 +16,6 @@
 	body{
 		background-image:url('../img/background.jpg');
 	}
-=======
-#line {
-	font-size: 40px;
-	color: black;
-}
-
-body {
-	background-image: url('../img/background.jpg');
-}
->>>>>>> e36e13dc2553d8a418167460fe9d99a4801594ab
 </style>
 
 <meta charset="EUC-KR">
@@ -116,9 +105,7 @@ body {
 		</div>
 	</nav>
 	<!-- Header -->
-
 	<!-- Services -->
-
 	<!-- Portfolio Grid -->
 	<section class="bg-light" id="portfolio">
 		<div class="container">
@@ -127,40 +114,18 @@ body {
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-<<<<<<< HEAD
 								<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="contentList">
 								<input type="hidden" name="category" value="${category}">
+								<span class="input-group-btn">
 								<c:if test="${empty search}">
-									<span class="input-group-btn">
 									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
 								</c:if>
 								<c:if test="${not empty search}">
-									<span class="input-group-btn">
 									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
 								</c:if>
-									<input type="submit" class="btn btn-secondary" value="Go">
-									</span>
-=======
-								<form action="<%=request.getContextPath()%>/content"
-									method="post">
-									<input type="hidden" name="task" value="contentList"> <input
-										type="hidden" name="category" value="${category}">
-									<c:if test="${empty search}">
-										<span class="input-group-btn"> <input type="text"
-											class="form-control" name="search" size="500"
-											placeholder="Search...">
-									</c:if>
-									<c:if test="${not empty search}">
-										<input type="text" class="form-control" name="search"
-											size="500" value="${search}">
-									</c:if>
-
-									<input type="submit" class="btn btn-secondary" value="Go">
-									</span>
-
-
->>>>>>> e36e13dc2553d8a418167460fe9d99a4801594ab
+								<input type="submit" class="btn btn-secondary" value="Go">
+								</span>
 								</form>
 							</div>
 						</div>
@@ -169,7 +134,7 @@ body {
 				</div>
 			</div>
 			<div class="row">
-				<!-------------------------------- content 시작 ---------------------------------->
+	<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
 						<a class="portfolio-link"
@@ -186,7 +151,7 @@ body {
 						</div>
 					</div>
 				</c:forEach>
-				<!-------------------------------- content 끝 ---------------------------------->
+	<!-------------------------------- content 끝 ---------------------------------->
 			</div>
 		</div>
 	</section>
@@ -194,26 +159,19 @@ body {
 	<div class="text-center" style="color: black">
 		<ul id="line">
 			<c:if test="${contentPage.startPage>1}">
-				<a href="${myContextPath}/content?page=${contentPage.startPage-1}">
-					[이전] </a>
+				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
 			</c:if>
-			<c:forEach var="page" begin="${contentPage.startPage}"
-				end="${contentPage.endPage}">
-				<a
-					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
-					${page} </a>
+			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
+				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
+					${page} 
+				</a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
-				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
-					[다음] </a>
+				<a href="${myContextPath}/content?page=${contentPage.endPage+1}"> [다음] </a>
 			</c:if>
 		</ul>
 	</div>
 	<!---------------------- 페이지 버튼 끝 -------------------------->
-<<<<<<< HEAD
-=======
-
->>>>>>> e36e13dc2553d8a418167460fe9d99a4801594ab
 	<!-- About -->
 	<!-- Team -->
 	<!-- Clients -->
@@ -245,8 +203,6 @@ body {
 	</section>
 
 	<!-- Contact -->
-<<<<<<< HEAD
-=======
 
 	<!-------------------------------글 쓰기 버튼 ------------------------->
 	<div style="position: fixed; bottom: 60px; right: 20px;">
@@ -269,7 +225,6 @@ body {
 		</button>
 	</div>
 
->>>>>>> e36e13dc2553d8a418167460fe9d99a4801594ab
 	<!-- Footer -->
 	<footer>
 		<div class="container">
@@ -313,6 +268,5 @@ body {
 
 	<!-- Custom scripts for this template -->
 	<script src="./Bootstrap/js/agency.min.js"></script>
-
 </body>
 </html>
