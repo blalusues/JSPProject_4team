@@ -236,7 +236,6 @@ public class TravelContentServlet extends HttpServlet {
 		} else if (task.contentEquals("updateRead")) {
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-
 			List<ContentDetailVO> detailListOhter = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
 
