@@ -236,7 +236,7 @@ public class TravelContentServlet extends HttpServlet {
 		} else if (task.contentEquals("updateRead")) {
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-			List<ContentDetailVO> detailListOhter = new ArrayList<>();
+			List<ContentDetailVO> detailListOther = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
 
 			String contentNumStr = request.getParameter("글 번호 변수");
@@ -268,10 +268,10 @@ public class TravelContentServlet extends HttpServlet {
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
 
-					detailListOhter.add(detail);
+					detailListOther.add(detail);
 				}
 
-				if (service.updateRead(content, detailList) && service.insertDay(contentNum, detailListOhter)) {
+				if (service.updateRead(content, detailList) && service.insertDay(contentNum, detailListOther)) {
 					path = "update_success.jsp";
 				} else {
 					path = "update_fail.jsp";
@@ -303,10 +303,10 @@ public class TravelContentServlet extends HttpServlet {
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
 
-					detailListOhter.add(detail);
+					detailListOther.add(detail);
 				}
 
-				if (service.updateRead(content, detailList) && service.DeleteDay(contentNum, detailListOhter)) {
+				if (service.updateRead(content, detailList) && service.DeleteDay(contentNum, detailListOther)) {
 					path = "update_success.jsp";
 				} else {
 					path = "update_fail.jsp";

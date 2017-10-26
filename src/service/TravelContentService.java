@@ -167,12 +167,12 @@ public class TravelContentService {
 		return result;
 	}
 
-	public boolean insertDay(int contentNum, List<ContentDetailVO> detailListOhter) {
-		
+	public boolean insertDay(int contentNum, List<ContentDetailVO> detailListOther) {
+		for(int i=contentNum; i<detailListOther)
 		return false;
 	}
 
-	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOhter) {
+	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOther) {
 		
 		return false;
 	}
