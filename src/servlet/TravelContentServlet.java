@@ -234,22 +234,17 @@ public class TravelContentServlet extends HttpServlet {
 				path = "commentDelete_fail.jsp";
 			}
 		} else if (task.contentEquals("updateRead")) {
-			int contentNumber = 2; //테스트용
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-<<<<<<< HEAD
+
 			List<ContentDetailVO> detailListOhter = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
 
 			String articleNumStr = request.getParameter("글 번호 변수");
 			int articleNum = Integer.parseInt(articleNumStr);
-
+			int contentNumber = service.caculateDLNum(articleNum);
+			
 			content.setContent_no(articleNum);
-=======
-			String contentNumStr = request.getParameter("contentNum");
-			int contentNum = Integer.parseInt(contentNumStr);
-			int DLNum = service.caculateDLNum(contentNum);
->>>>>>> d05035a2a057d9b3d429979b3e87f3e45af66c15
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
