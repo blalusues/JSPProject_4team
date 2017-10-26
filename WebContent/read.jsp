@@ -105,7 +105,6 @@
 		<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
 		<div style="text-align: center">
 			<c:if test="${not empty sessionScope.loginId}">
-<<<<<<< HEAD
 				<form action="${myContextPath}/board" method="post">
 					<input type="hidden" name="comment_board"
 						value="${content.content_no}"> <input type="hidden"
@@ -128,7 +127,6 @@
 						</tr>
 					</table>
 				</form>
-=======
 			<form action="${myContextPath}/content" method="post">
 				<input type="hidden" name="comment_board" value="${content.content_no}">
 				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
@@ -150,7 +148,6 @@
 					</tr>
 				</table>
 			</form>
->>>>>>> d0734682a3251dc69c2628723481fb62a633e279
 			</c:if>
 		</div>
 		<div>
@@ -161,7 +158,6 @@
 						<td width="550">${comment.content}</td>
 						<td width="100">
 							<div style="text-align: center;">
-<<<<<<< HEAD
 								<c:if test="${sessionScope.loginId == comment.writer}">
 									<form action="${myContextPath}/board" method="post">
 										<input type="hidden" name="comment_board"
@@ -172,8 +168,7 @@
 											style="width: 80px; height: 4S0px; font-size: 15pt">
 									</form>
 								</c:if>
-								<c:if test="${sessionScope.loginId != comment.writer}">
-=======
+							
 							<c:if test="${sessionScope.loginId == comment.writer}">
 							<form action="${myContextPath}/content" method="post">
 								<input type="hidden" name="comment_board" value="${board.articleNum}">
@@ -185,7 +180,6 @@
 							</form>
 							</c:if>
 							<c:if test="${sessionScope.loginId != comment.writer}">
->>>>>>> d0734682a3251dc69c2628723481fb62a633e279
 								${comment.write_date}
 							</c:if>
 							</div>
