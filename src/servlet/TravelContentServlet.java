@@ -48,16 +48,6 @@ public class TravelContentServlet extends HttpServlet {
 				path = "article_not_found.jsp";
 			}
 		} else if(task.equals("contentList")) {
-			// 메인페이지 만들기 위한 Page 정보 만들기 
-			int page = 1;
-			String pageStr = request.getParameter("page");
-			if(pageStr != null && pageStr.length() > 0) {
-				page = Integer.parseInt(pageStr);
-			}
-			ContentPageVO contentPage = service.makePage(page);
-			request.setAttribute("contentPage", contentPage);
-			path = "main.jsp";
-		} else if(task.equals("search")) {
 			// 검색 버튼 클릭 시
 			int page = 1;
 			ContentPageVO contentPage = null;
@@ -66,35 +56,37 @@ public class TravelContentServlet extends HttpServlet {
 				page = Integer.parseInt(pageStr);
 			}
 			
-			String searchTitle = request.getParameter("searchTitle");
-			String location = request.getParameter("location");
+			String search = request.getParameter("search");
+			String category = request.getParameter("category");
 			
-			System.out.println("타이틀 : " + searchTitle);
-			System.out.println("지역 : " + location);
+			System.out.println("get");
+			System.out.println("타이틀 : " + search);
+			System.out.println("지역 : " + category);
+			System.out.println("-----------------");
 			
-			if(searchTitle != null && location != null) {
+			if(!search.equals("") && !category.equals("")) {
 				// 타이틀 + 지역 검색 
 				System.out.println("타이틀 지역 검색");
 				path = "main_search.jsp";
-			} else if(searchTitle != null && location == null) {
-				// 타이틀 검색
-				System.out.println("타이틀 검색");
-				contentPage = service.makeSearchPage(page, searchTitle);
-				path = "main_search.jsp";
-			} else if(searchTitle == null && location != null) {
-				// 지역 검색
-				System.out.println("지역 검색");
-				contentPage = service.makeCategoryPage(page, location);
-				path = "main_search.jsp";
-			} else {
+			} else if(search.equals("") && category.equals("")) {
 				// 둘 다 null이면 그냥 main
 				System.out.println("일반");
 				contentPage = service.makePage(page);
-				path = "main.jsp";
-			}
+				path = "main_search.jsp";
+			} else if(category.equals("")) {
+				// 타이틀 검색
+				System.out.println("타이틀 검색");
+				contentPage = service.makeSearchPage(page, search);
+				path = "main_search.jsp";
+			} else if(search.equals("")) {
+				// 지역 검색
+				System.out.println("지역 검색");
+				contentPage = service.makeCategoryPage(page, category);
+				path = "main_search.jsp";
+			} 
 			request.setAttribute("contentPage", contentPage);
-			request.setAttribute("location", location);
-			request.setAttribute("searchTitle", searchTitle);
+			request.setAttribute("location", category);
+			request.setAttribute("search", search);
 		} else if(task.equals("wirteForm")) { 
 			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			
@@ -146,16 +138,6 @@ public class TravelContentServlet extends HttpServlet {
 				path = "write_fail.jsp";
 			}
 		} else if(task.equals("contentList")) {
-			// 메인페이지 만들기 위한 Page 정보 만들기 
-			int page = 1;
-			String pageStr = request.getParameter("page");
-			if(pageStr != null && pageStr.length() > 0) {
-				page = Integer.parseInt(pageStr);
-			}
-			ContentPageVO contentPage = service.makePage(page);
-			request.setAttribute("contentPage", contentPage);
-			path = "main.jsp";
-		} else if(task.equals("search")) {
 			// 검색 버튼 클릭 시
 			int page = 1;
 			ContentPageVO contentPage = null;
@@ -164,35 +146,37 @@ public class TravelContentServlet extends HttpServlet {
 				page = Integer.parseInt(pageStr);
 			}
 			
-			String searchTitle = request.getParameter("searchTitle");
-			String location = request.getParameter("location");
+			String search = request.getParameter("search");
+			String category = request.getParameter("category");
 			
-			System.out.println("타이틀 : " + searchTitle);
-			System.out.println("지역 : " + location);
+			System.out.println("post");
+			System.out.println("타이틀 : " + search);
+			System.out.println("지역 : " + category);
+			System.out.println("-----------------");
 			
-			if(searchTitle != null && location != null) {
+			if(!search.equals("") && !category.equals("")) {
 				// 타이틀 + 지역 검색 
 				System.out.println("타이틀 지역 검색");
 				path = "main_search.jsp";
-			} else if(searchTitle != null && location == null) {
-				// 타이틀 검색
-				System.out.println("타이틀 검색");
-				contentPage = service.makeSearchPage(page, searchTitle);
-				path = "main_search.jsp";
-			} else if(searchTitle == null && location != null) {
-				// 지역 검색
-				System.out.println("지역 검색");
-				contentPage = service.makeCategoryPage(page, location);
-				path = "main_search.jsp";
-			} else {
+			} else if(search.equals("") && category.equals("")) {
 				// 둘 다 null이면 그냥 main
 				System.out.println("일반");
 				contentPage = service.makePage(page);
-				path = "main.jsp";
-			}
+				path = "main_search.jsp";
+			} else if(category.equals("")) {
+				// 타이틀 검색
+				System.out.println("타이틀 검색");
+				contentPage = service.makeSearchPage(page, search);
+				path = "main_search.jsp";
+			} else if(search.equals("")) {
+				// 지역 검색
+				System.out.println("지역 검색");
+				contentPage = service.makeCategoryPage(page, category);
+				path = "main_search.jsp";
+			} 
 			request.setAttribute("contentPage", contentPage);
-			request.setAttribute("location", location);
-			request.setAttribute("searchTitle", searchTitle);
+			request.setAttribute("location", category);
+			request.setAttribute("search", search);
 		}else if(task.equals("commentCheck")) {
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
