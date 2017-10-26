@@ -469,17 +469,22 @@ public class ContentDao {
 		return result;
 	}
 
-	public int updateContentDetail(List<ContentDetailVO> detailList) {
+	public int updateContentDetail(ContentDetailVO content) {
 		con = DBUtil.makeConnection();
 		int result =0;
 		String sql = "UPDATE CONTENTDETAIL SET CONTENT=?, PATH=? WHERE CONTENT_NO=? AND DAY=?";
 		
 		try {
+			
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, content.getContent());
+			pstmt.setString(2, content.getContent());
+			pstmt.setInt(3, content.getContent_no());
+			pstmt.setInt(4, content.getDay());
 			
-			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			
+			System.out.println("dao updateContentdeTail ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
