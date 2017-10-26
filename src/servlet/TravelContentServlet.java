@@ -23,21 +23,22 @@ import vo.ContentVO;
 @WebServlet("/content")
 public class TravelContentServlet extends HttpServlet {
 	private TravelContentService service = TravelContentService.getInstance();
-/////////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+			throws ServletException, IOException {
 		String task = request.getParameter("task");
 		String path = "";
-		
-		if(task.equals("read")) { //후기 읽기 10/24작성 중
+
+		if (task.equals("read")) { // 후기 읽기 10/24작성 중
 			HttpSession session = request.getSession();
 			session.setAttribute("loginId", "123");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			System.out.println(contentNumber);
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
-			ContentVO content = service.read("아이디수정하세염",contentNumber);
+			ContentVO content = service.read("아이디수정하세염", contentNumber);
 			List<CommentVO> comment = service.commentSelect(content.getContent_no());
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetailList", contentDetailList);
@@ -47,61 +48,61 @@ public class TravelContentServlet extends HttpServlet {
 			} else {
 				path = "article_not_found.jsp";
 			}
-		} else if(task.equals("contentList")) {
+		} else if (task.equals("contentList")) {
 			// 페이지 만들기
 			int page = 1;
 			ContentPageVO contentPage = null;
 			String pageStr = request.getParameter("page");
-			if(pageStr != null && pageStr.length() > 0) {
+			if (pageStr != null && pageStr.length() > 0) {
 				page = Integer.parseInt(pageStr);
 			}
-			
+
 			String search = request.getParameter("search");
 			String category = request.getParameter("category");
-			
+
 			System.out.println("get");
 			System.out.println("타이틀 : " + search);
 			System.out.println("지역 : " + category);
-			
-			if((search.equals("") && category.equals(""))) {
+
+			if ((search.equals("") && category.equals(""))) {
 				// 둘 다 null이면 그냥 main
 				System.out.println("일반");
 				contentPage = service.makePage(1, page, search, category);
 				path = "main_search.jsp";
-			} else if(category.equals("")) {
+			} else if (category.equals("")) {
 				// 타이틀 검색
 				System.out.println("타이틀 검색");
 				contentPage = service.makePage(2, page, search, category);
 				path = "main_search.jsp";
-			} else if(search.equals("")) {
+			} else if (search.equals("")) {
 				// 지역 검색
 				System.out.println("지역 검색");
 				contentPage = service.makePage(3, page, search, category);
 				path = "main_search.jsp";
 			} else {
-				// 타이틀 + 지역 검색 
+				// 타이틀 + 지역 검색
 				System.out.println("타이틀 지역 검색");
 				contentPage = service.makePage(4, page, search, category);
 				path = "main_search.jsp";
 			}
-			
+
 			System.out.println("-----------------");
-			
+
 			request.setAttribute("contentPage", contentPage);
 			request.setAttribute("category", category);
 			request.setAttribute("search", search);
-		} else if(task.equals("wirteForm")) { 
-			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
-			
-		} else if(task.equals("updateForm")) { 
+		} else if (task.equals("wirteForm")) {
+			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
+
+		} else if (task.equals("updateForm")) {
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("loginId");
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
-			
+
 			ContentVO content = service.read("", contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
-			
+
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
 			path = "update_form.jsp";
@@ -110,112 +111,112 @@ public class TravelContentServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String task = request.getParameter("task");
 		String path = "";
-		
-		// 글 작성 완료 후 submit 버튼 눌렀을 때 
-		if(task.equals("write")) {
+
+		// 글 작성 완료 후 submit 버튼 눌렀을 때
+		if (task.equals("write")) {
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-			
+
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
 			content.setMain_img(request.getParameter("main_img"));
-			
+
 			// day 개수 (Day02까지 썼으면 day=2)
 			String dayStr = request.getParameter("day");
 			int day = 0;
-			if(dayStr != null && dayStr.length() > 0) {
+			if (dayStr != null && dayStr.length() > 0) {
 				day = Integer.parseInt(dayStr);
 			}
-			
-			// day 개수만큼 detailList 만들기 
+
+			// day 개수만큼 detailList 만들기
 			// (Day02의 content, path의 parameter이름은 content2, path2)
-			for(int i=1; i<day+1; i++) {
+			for (int i = 1; i < day + 1; i++) {
 				ContentDetailVO detail = new ContentDetailVO();
-	
+
 				detail.setDay(i);
 				detail.setContent(request.getParameter("content" + i));
 				detail.setPath(request.getParameter("path" + i));
-				
+
 				detailList.add(detail);
 			}
-			
-			if(service.write(content, detailList) == 1) {
+
+			if (service.write(content, detailList) == 1) {
 				path = "write_success.jsp";
 			} else {
 				path = "write_fail.jsp";
 			}
-		} else if(task.equals("contentList")) {
+		} else if (task.equals("contentList")) {
 			// 페이지 만들기
 			int page = 1;
 			ContentPageVO contentPage = null;
 			String pageStr = request.getParameter("page");
-			if(pageStr != null && pageStr.length() > 0) {
+			if (pageStr != null && pageStr.length() > 0) {
 				page = Integer.parseInt(pageStr);
 			}
-			
+
 			String search = request.getParameter("search");
 			String category = request.getParameter("category");
-			
+
 			System.out.println("post");
 			System.out.println("타이틀 : " + search);
 			System.out.println("지역 : " + category);
-			
-			if((search.equals("") && category.equals(""))) {
+
+			if ((search.equals("") && category.equals(""))) {
 				// 둘 다 null이면 그냥 main
 				System.out.println("일반");
 				contentPage = service.makePage(1, page, search, category);
 				path = "main_search.jsp";
-			} else if(category.equals("")) {
+			} else if (category.equals("")) {
 				// 타이틀 검색
 				System.out.println("타이틀 검색");
 				contentPage = service.makePage(2, page, search, category);
 				path = "main_search.jsp";
-			} else if(search.equals("")) {
+			} else if (search.equals("")) {
 				// 지역 검색
 				System.out.println("지역 검색");
 				contentPage = service.makePage(3, page, search, category);
 				path = "main_search.jsp";
 			} else {
-				// 타이틀 + 지역 검색 
+				// 타이틀 + 지역 검색
 				System.out.println("타이틀 지역 검색");
 				contentPage = service.makePage(4, page, search, category);
 				path = "main_search.jsp";
 			}
-			
+
 			System.out.println("-----------------");
-			
+
 			request.setAttribute("contentPage", contentPage);
 			request.setAttribute("category", category);
 			request.setAttribute("search", search);
-		}else if(task.equals("commentCheck")) {
+		} else if (task.equals("commentCheck")) {
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
 			String comment_content = request.getParameter("comment_content");
-			comment_content=comment_content.replace("\r\n","<br>");
-			
+			comment_content = comment_content.replace("\r\n", "<br>");
+
 			CommentVO comment = new CommentVO();
 			comment.setBrdNo(articleNum);
 			comment.setWriter(request.getParameter("comment_id"));
 			comment.setContent(comment_content);
 			System.out.println("commentCheck");
 			boolean result = service.commentSignUp(comment);
-			System.out.println("result: "+result);
-			if(result == true) {
+			System.out.println("result: " + result);
+			if (result == true) {
 				request.setAttribute("articleNum", articleNum);
 				path = "comment_success.jsp";
-			}else {
+			} else {
 				request.setAttribute("articleNum", articleNum);
 				path = "comment_fail.jsp";
 			}
-		}else if(task.equals("commentDelete")) {
+		} else if (task.equals("commentDelete")) {
 			System.out.println("ddd");
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
@@ -224,46 +225,95 @@ public class TravelContentServlet extends HttpServlet {
 			int comment_num = Integer.parseInt(comment_numStr);
 			comment.setCommentNum(comment_num);
 			boolean result = service.commentDelete(comment);
-			
-			if(result == true) {
+
+			if (result == true) {
 				request.setAttribute("articleNum", articleNum);
 				path = "commentDelete_success.jsp";
-			}else {
+			} else {
 				request.setAttribute("articleNum", articleNum);
 				path = "commentDelete_fail.jsp";
 			}
-		}else if(task.contentEquals("updateRead")) {	
+		} else if (task.contentEquals("updateRead")) {
+			int contentNumber = 2; //테스트용
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-//			int DLNum = service.caculateDLNum();
+			List<ContentDetailVO> detailListOhter = new ArrayList<>();
+			ContentDetailVO detail = new ContentDetailVO();
+
+			String articleNumStr = request.getParameter("글 번호 변수");
+			int articleNum = Integer.parseInt(articleNumStr);
+
+			content.setContent_no(articleNum);
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
 			content.setMain_img(request.getParameter("main_img"));
-			
+
 			String dayStr = request.getParameter("day");
 			int day = 0;
-			if(dayStr != null && dayStr.length() > 0) {
+			if (dayStr != null && dayStr.length() > 0) {
 				day = Integer.parseInt(dayStr);
 			}
-			
-			for(int i=1; i<day+1; i++) {
-				ContentDetailVO detail = new ContentDetailVO();
-	
-				detail.setDay(i);
-				detail.setContent(request.getParameter("content" + i));
-				detail.setPath(request.getParameter("path" + i));
-				
-				detailList.add(detail);
+
+			if (detailList.size() > contentNumber) {
+				for (int i = 1; i < contentNumber + 1; i++) {
+					detail.setDay(i);
+					detail.setContent(request.getParameter("content" + i));
+					detail.setPath(request.getParameter("path" + i));
+
+					detailList.add(detail);
+				}
+				for (int i = contentNumber + 1; i < detailList.size() + 1; i++) {
+					detail.setDay(i);
+					detail.setContent(request.getParameter("content" + i));
+					detail.setPath(request.getParameter("path" + i));
+
+					detailListOhter.add(detail);
+				}
+
+				if (service.updateRead(content, detailList) && service.updateWrite(articleNum, detailListOhter)) {
+					path = "update_success.jsp";
+				} else {
+					path = "update_fail.jsp";
+				}
+			} else if (detailList.size() == contentNumber) {
+				for (int i = 1; i < detailList.size() + 1; i++) {
+					detail.setDay(i);
+					detail.setContent(request.getParameter("content" + i));
+					detail.setPath(request.getParameter("path" + i));
+
+					detailList.add(detail);
+				}
+				if (service.updateRead(content, detailList)) {
+					path = "update_success.jsp";
+				} else {
+					path = "update_fail.jsp";
+				}
+			} else if (detailList.size() < contentNumber) {
+				for (int i = 1; i < detailList.size() + 1; i++) {
+					detail.setDay(i);
+					detail.setContent(request.getParameter("content" + i));
+					detail.setPath(request.getParameter("path" + i));
+
+					detailList.add(detail);
+				}
+
+				for (int i = detailList.size() + 1; i < contentNumber + 1; i++) {
+					detail.setDay(i);
+					detail.setContent(request.getParameter("content" + i));
+					detail.setPath(request.getParameter("path" + i));
+
+					detailListOhter.add(detail);
+				}
+
+				if (service.updateRead(content, detailList) && service.updateDelete(articleNum, detailListOhter)) {
+					path = "update_success.jsp";
+				} else {
+					path = "update_fail.jsp";
+				}
 			}
-			if(service.updateRead(content, detailList)) {
-				path = "update_success.jsp";
-			} else {
-				path = "update_fail.jsp";
-			}
-			
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
