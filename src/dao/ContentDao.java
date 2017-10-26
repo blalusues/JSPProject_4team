@@ -209,9 +209,6 @@ public class ContentDao {
 		return contentList;
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////
-	// 카테고리 + 검색 페이지
-	
-//////////////////////////////////////////////////////////////////////////////////////////////
     //후기 내용,day,경로 select
 	public List<ContentDetailVO> contentDetailSelect(int contentNumber){
 		con = DBUtil.makeConnection();
@@ -449,5 +446,6 @@ public class ContentDao {
 		}
 		return result;
 	}
+	
 
 }

@@ -119,6 +119,9 @@ public class TravelContentService {
 			return content;
 		}		
 	}
+	public ContentVO readWithoutReadCount(int contentNum) {
+		return dao.contentSelect(contentNum);
+	}
 	
 	public int write(ContentVO content, List<ContentDetailVO> detailList) {
 		int content_no = 0;
@@ -166,5 +169,13 @@ public class TravelContentService {
 		}else {
 			return false;
 		}
+	}
+
+	public boolean updateRead(ContentVO content, List<ContentDetailVO> detailList) {
+		content.setWrite_time(new Date());
+		if((dao.updateContent(content)&&dao.updateContentDetail(detailList))==1) {
+			return true;
+		}
+		return false;
 	}
 }
