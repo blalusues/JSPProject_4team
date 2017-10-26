@@ -99,7 +99,7 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
-								<input type="hidden" name="task" value="search">
+								<input type="hidden" name="task" value="contentList">
 								<input type="hidden" name="category" value="${category}">
 								<c:if test="${empty search}">
 									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
