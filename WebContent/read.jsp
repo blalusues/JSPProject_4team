@@ -99,7 +99,7 @@
 		<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
 			<div style="text-align: center">
 			<c:if test="${not empty sessionScope.loginId}">
-			<form action="${myContextPath}/board" method="post">
+			<form action="${myContextPath}/content" method="post">
 				<input type="hidden" name="comment_board" value="${content.content_no}">
 				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
 				<input type="hidden" name="task" value="commentCheck">
@@ -131,7 +131,7 @@
 						<td width="100">
 							<div style="text-align: center;">
 							<c:if test="${sessionScope.loginId == comment.writer}">
-							<form action="${myContextPath}/board" method="post">
+							<form action="${myContextPath}/content" method="post">
 								<input type="hidden" name="comment_board" value="${board.articleNum}">
 								<input type="hidden" name="comment_num" value="${comment.commentNum}">
 								<input type="hidden" name="task" value="commentDelete">
