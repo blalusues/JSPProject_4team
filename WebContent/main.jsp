@@ -104,7 +104,7 @@ color: black;
 								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
 							
 
-										<input type="submit" class="btn btn-secondary" value="Go">
+										<input type="submit" class="btn btn-secondary" value="Go" style="border:0px; background-color:#51a3f7">
 
 								</span>
 							</form>

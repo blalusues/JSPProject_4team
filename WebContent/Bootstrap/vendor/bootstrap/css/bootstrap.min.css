@@ -2223,7 +2223,7 @@ select.form-control:focus::-ms-value {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	border: 1px solid transparent;
+	border: 0px solid transparent;
 	padding: .375rem .75rem;
 	font-size: 1rem;
 	line-height: 1.5;
