@@ -29,54 +29,55 @@ public class TravelContentService {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private static final int COUNT_PER_PAGE = 6;
+
 	// 페이지 만들기
 	public ContentPageVO makePage(int type, int page, String search, String category) {
 		int totalContentCount = 0;
-		
+
 		// type=1 일반, type=2 search, type=3 category, type=4 search+category
-		if(type == 1) {
+		if (type == 1) {
 			totalContentCount = dao.selectContentCount();
-		} else if(type == 2) {
+		} else if (type == 2) {
 			totalContentCount = dao.selectSearchCount(search);
-		} else if(type == 3) {
+		} else if (type == 3) {
 			totalContentCount = dao.selectCategoryCount(category);
-		} else if(type == 4) {
+		} else if (type == 4) {
 			totalContentCount = dao.selectAllSearchCount(search, category);
 		}
-		 
+
 		// 총 페이지 수 계산
 		int totalPage = totalContentCount / COUNT_PER_PAGE;
-		if(totalContentCount % COUNT_PER_PAGE > 0) {
+		if (totalContentCount % COUNT_PER_PAGE > 0) {
 			totalPage++;
 		}
-		
+
 		// 하단 시작 페이지
-		int startPage = (page-1)/10*10 + 1;
-		
+		int startPage = (page - 1) / 10 * 10 + 1;
+
 		// 하단 끝 페이지
 		int endPage = startPage + 9;
-		if(endPage > totalPage) {
+		if (endPage > totalPage) {
 			endPage = totalPage;
 		}
-		
+
 		// limit 시작행 계산
-		int startRow = (page-1)*COUNT_PER_PAGE;
-		
+		int startRow = (page - 1) * COUNT_PER_PAGE;
+
 		List<ContentVO> contentList = new ArrayList<>();
-		// DB에서 현재 페이지에 보여질 게시글들 조회 
-		if(type == 1) {
+		// DB에서 현재 페이지에 보여질 게시글들 조회
+		if (type == 1) {
 			contentList = dao.selectContentList(startRow, COUNT_PER_PAGE);
-		} else if(type == 2) {
+		} else if (type == 2) {
 			contentList = dao.selectSearchList(search, startRow, COUNT_PER_PAGE);
-		} else if(type == 3) {
+		} else if (type == 3) {
 			contentList = dao.selectCategoryList(category, startRow, COUNT_PER_PAGE);
-		} else if(type == 4) {
+		} else if (type == 4) {
 			contentList = dao.selectAllSearchList(search, category, startRow, COUNT_PER_PAGE);
 		}
 		// 한 페이지에 보여질 모든 데이터 담아서 작업 완료
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
-	
+
 	public List<ContentDetailVO> read(int contentNumber) {
 		List<ContentDetailVO> contentDetail = dao.contentDetailSelect(contentNumber);
 		return contentDetail;
@@ -155,25 +156,34 @@ public class TravelContentService {
 				if (result == 0) {
 					return false;
 				}
-			}return true;
-		}else {
+			}
+			return true;
+		} else {
 			return false;
 		}
 	}
 
 	public int caculateDLNum(int content_no) {
 		int result = dao.selectDayNumber(content_no);
-		
+
 		return result;
 	}
 
 	public boolean insertDay(int contentNum, List<ContentDetailVO> detailListOther) {
-		for(int i=contentNum; i<detailListOther)
-		return false;
+		int result = 0;
+		for (int i = 0; i < detailListOther.size(); i++) {
+			ContentDetailVO detail = detailListOther.get(i);
+			result = dao.insertDay(detail);
+			if (result == 0) {
+				return false;
+			}
+		}
+		return true;
+
 	}
 
 	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOther) {
-		
+
 		return false;
 	}
 }
