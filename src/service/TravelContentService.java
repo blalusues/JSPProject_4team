@@ -147,7 +147,6 @@ public class TravelContentService {
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
 	
->>>>>>> d54fbf4f002b28be94a7e57ca55a5792239af100
 	public List<ContentDetailVO> read(int contentNumber) {
 		List<ContentDetailVO> contentDetail = dao.contentDetailSelect(contentNumber);
 		return contentDetail;
