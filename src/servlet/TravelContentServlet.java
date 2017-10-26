@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.TravelContentService;
 import vo.CommentVO;
@@ -30,6 +31,8 @@ public class TravelContentServlet extends HttpServlet {
 		String path = "";
 		
 		if(task.equals("read")) { //후기 읽기 10/24작성 중
+			HttpSession session = request.getSession();
+			session.setAttribute("loginId", "123");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			System.out.println(contentNumber);
