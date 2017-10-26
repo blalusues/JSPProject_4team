@@ -59,6 +59,9 @@
 	word-break: break-all;
 	white-space: normal;
 	text-overflow: clip;
+#div3 {
+	
+}
 }
 textarea{
 	resize: none;
@@ -71,13 +74,11 @@ table{
 	}
 </style>
 <body>
-	<div class='row'>
-	<h1>asdasdasdad</h1>
-	</div>
+<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
 	<div class='row'>
 		<div id="div1" class="container col-sm-8">
 			<h2>${content.title}</h2>
-			<h3>${content.writer}</h3>
+			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a><button>수정</button><button>삭제</button>
 			<nav id="navbar-example" class="navbar navbar-default navbar-static"
 				role="navigation">
 			<div class="container-fluid">
@@ -107,12 +108,15 @@ table{
 				</c:forEach>
 			</div>
 		</div>
-		<div class='col-sm-4'>
+		<div id = "div3" class='col-sm-4'>
 			<h3>요약</h3>
+			<c:forEach var="contentDetail" items="${contentDetailList}">
+			<img src="${contentDetail.path}">
+			</c:forEach>
 		</div>
 	</div>
 	<br>
-	<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
+	
 		<div>
 			<c:if test="${not empty sessionScope.loginId}">
 			<form action="${myContextPath}/content" method="post">
@@ -163,6 +167,7 @@ table{
 					</tr>
 				</table>
 			</c:forEach>
+			<button>ㅁㄴㅇ</button>
 		</div>
 		<br>
 </body>
