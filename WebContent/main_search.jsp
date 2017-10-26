@@ -18,6 +18,9 @@ body {
 }
 </style>
 
+<!------------- 로그인 알림창 ---------------->
+<!--------------------------------------->
+
 <meta charset="EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -221,7 +224,7 @@ body {
 	<div style="position: fixed; bottom: 60px; right: 20px;">
 		<%
 			String clientId = "TZblhGxHqxzRPDaQz4FJ";//애플리케이션 클라이언트 아이디값";
-			String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/login/callback.jsp",
+			String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/callback",
 					"UTF-8");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
@@ -231,11 +234,15 @@ body {
 			apiURL += "&state=" + state;
 			session.setAttribute("state", state);
 		%>
-		<button
+		<button id="write"
 			style="background-color: transparent; border: 0; outline: 0; float: right;"
-			onclick="window.open('<%=apiURL%>','window', 'width=430,height=500,location=no,status=no,scrollbars=yes')">
+			class="btn btn-info btn-lg" data-toggle="modal"
+			data-target="#myModal">
 			<img src="write.png" style="width: 70px; height: 70px">
 		</button>
+		<input type="hidden" id="apiURL" value="<%=apiURL%>">
+		<!-- Modal -->
+
 	</div>
 
 	<!-- Footer -->
@@ -267,12 +274,35 @@ body {
 			</div>
 		</div>
 	</footer>
-
+	<!-- /.modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						로그인이 필요한 기능입니다. <br>로그인하시겠습니까?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button id="login_no" type="button" class="btn btn-default"
+						data-dismiss="modal" style="margin-right: 10px; color: white">NO</button>
+					<button id="login_ok" type="button" class="btn btn-default"
+						data-dismiss="modal" style="color: white">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Bootstrap core JavaScript -->
 	<script src="./Bootstrap/vendor/jquery/jquery.min.js"></script>
 	<script src="./Bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="./Bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Contact form JavaScript -->
@@ -282,5 +312,27 @@ body {
 	<!-- Custom scripts for this template -->
 	<script src="./Bootstrap/js/agency.min.js"></script>
 
+	<script type="text/javascript">
+	$(function(){
+		$("#write").click(function(){
+			
+			//세션 체크해서 없을 경우 로그인 화면 있으면 글쓰기
+			//원래는 session에 token을 저장해서 유효성을 체크해야 하지만 자동 로그인이 없기 때문에
+			//사용자가 사이트에 접속할 때마다 로그인을 해야하므로 session에 있는 name만 불러온다.
+			//name ->  null 이면 로그인 x , null이 아니면 로그인o
+<%-- 			var session_name = "<%=(String)session.getAttribute("name")%>"; --%>
+			var session_name = "${sessionScope.name}";
+			if (session_name != null && session_name.length > 0) {
+				
+			} else {
+				$("#login_ok").click(function(){
+	            	//로그인화면 띄우기
+	            	var url = $('#apiURL').val();
+	            	window.open(url,"", "width=430,height=500,location=no,status=no,scrollbars=yes");
+				})
+			}
+		})
+	})
+</script>
 </body>
 </html>
