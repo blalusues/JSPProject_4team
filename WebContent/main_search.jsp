@@ -9,15 +9,9 @@
 		color: black;
 	}
 
-
 	body{
-	
-	background-image:url('../img/background.jpg');
-		
-
-	
+		background-image:url('../img/background.jpg');
 	}
-	
 </style>
 
 <meta charset="EUC-KR">
@@ -108,22 +102,20 @@
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-							<form action="<%=request.getContextPath()%>/content" method="post">
+								<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="contentList">
 								<input type="hidden" name="category" value="${category}">
 								<c:if test="${empty search}">
-								<span class="input-group-btn">
+									<span class="input-group-btn">
 									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
 								</c:if>
 								<c:if test="${not empty search}">
+									<span class="input-group-btn">
 									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
 								</c:if>
-								
 									<input type="submit" class="btn btn-secondary" value="Go">
-								</span>
-								
-								
-							</form>
+									</span>
+								</form>
 							</div>
 						</div>
 					</h2>
@@ -169,9 +161,7 @@
 		</ul>
 	</div>
 	<!---------------------- 페이지 버튼 끝 -------------------------->
-	
 	<!-- About -->
-
 	<!-- Team -->
 	<!-- Clients -->
 	<section class="py-5">
@@ -202,8 +192,6 @@
 	</section>
 
 	<!-- Contact -->
-
-
 	<!-- Footer -->
 	<footer>
 		<div class="container">
