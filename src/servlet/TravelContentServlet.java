@@ -92,6 +92,18 @@ public class TravelContentServlet extends HttpServlet {
 		} else if(task.equals("wirteForm")) { 
 			 // 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			
+		} else if(task.equals("updateForm")) { 
+			HttpSession session = request.getSession();
+			String loginId = (String) session.getAttribute("loginId");
+			String contentNumStr = request.getParameter("contentNum");
+			int contentNum = Integer.parseInt(contentNumStr);
+			
+			ContentVO content = service.read("", contentNum);
+			List<ContentDetailVO> contentDetailList = service.read(contentNum);
+			
+			request.setAttribute("contentDetailList", contentDetailList);
+			request.setAttribute("content", content);
+			path = "update_form.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
@@ -218,6 +230,37 @@ public class TravelContentServlet extends HttpServlet {
 				request.setAttribute("articleNum", articleNum);
 				path = "commentDelete_fail.jsp";
 			}
+		}else if(task.contentEquals("updateRead")) {	
+			ContentVO content = new ContentVO();
+			List<ContentDetailVO> detailList = new ArrayList<>();
+			
+			content.setTitle(request.getParameter("title"));
+			content.setWriter(request.getParameter("writer"));
+			content.setLocation(request.getParameter("location"));
+			content.setMain_img(request.getParameter("main_img"));
+			
+			
+			String dayStr = request.getParameter("day");
+			int day = 0;
+			if(dayStr != null && dayStr.length() > 0) {
+				day = Integer.parseInt(dayStr);
+			}
+			
+			for(int i=1; i<day+1; i++) {
+				ContentDetailVO detail = new ContentDetailVO();
+	
+				detail.setDay(i);
+				detail.setContent(request.getParameter("content" + i));
+				detail.setPath(request.getParameter("path" + i));
+				
+				detailList.add(detail);
+			}
+			if(service.updateRead(content, detailList)) {
+				path = "update_success.jsp";
+			} else {
+				path = "update_fail.jsp";
+			}
+			
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);

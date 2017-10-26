@@ -102,14 +102,17 @@
 								<input type="hidden" name="task" value="contentList">
 								<input type="hidden" name="category" value="${category}">
 								<c:if test="${empty search}">
+								<span class="input-group-btn">
 									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
 								</c:if>
 								<c:if test="${not empty search}">
 									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
 								</c:if>
-								<span class="input-group-btn">
+								
 									<input type="submit" class="btn btn-secondary" value="Go">
 								</span>
+								
+								
 							</form>
 							</div>
 						</div>
