@@ -32,7 +32,8 @@
 <br>
 <br>
 <br>
-<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" style="text-decoration:none"><span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
+<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" style="text-decoration:none">
+<span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
 </div>
 </div>
 </body>
