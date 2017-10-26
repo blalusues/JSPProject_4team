@@ -100,11 +100,12 @@ color: black;
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="search">
+									 <span class="input-group-btn">
 								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
-								<span class="input-group-btn">
-<%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
-										<input type="submit" class="btn btn-secondary" value="Go">
-<!-- 									</a> -->
+							
+
+										<input type="submit" class="btn btn-secondary" value="Go" style="border:0px; background-color:#51a3f7">
+
 								</span>
 							</form>
 							</div>
@@ -113,7 +114,7 @@ color: black;
 					<h3 class="section-subheading text-muted"></h3>
 				</div>
 			</div>
-			<div class="row">
+		
 			<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">

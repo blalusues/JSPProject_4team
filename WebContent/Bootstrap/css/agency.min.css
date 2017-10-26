@@ -14,7 +14,7 @@ p {
 }
 
 a {
-	color: #fed136
+	color: #51a3f7
 }
 
 a.active, a:active, a:focus, a:hover {
@@ -60,7 +60,8 @@ section h3.section-subheading {
 
 .btn {
 	font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: 700
+	font-weight: 700;
+	background-color: #51a3f7
 }
 
 .btn-primary {
