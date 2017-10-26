@@ -160,4 +160,10 @@ public class TravelContentService {
 			return false;
 		}
 	}
+
+	public int caculateDLNum(int content_no) {
+		int result = dao.selectDayNumber(content_no);
+		
+		return result;
+	}
 }

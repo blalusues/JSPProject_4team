@@ -235,7 +235,9 @@ public class TravelContentServlet extends HttpServlet {
 		}else if(task.contentEquals("updateRead")) {	
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-//			int DLNum = service.caculateDLNum();
+			String contentNumStr = request.getParameter("contentNum");
+			int contentNum = Integer.parseInt(contentNumStr);
+			int DLNum = service.caculateDLNum(contentNum);
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
