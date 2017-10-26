@@ -237,6 +237,7 @@ public class TravelContentServlet extends HttpServlet {
 			int contentNumber = 2; //테스트용
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
+<<<<<<< HEAD
 			List<ContentDetailVO> detailListOhter = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
 
@@ -244,6 +245,11 @@ public class TravelContentServlet extends HttpServlet {
 			int articleNum = Integer.parseInt(articleNumStr);
 
 			content.setContent_no(articleNum);
+=======
+			String contentNumStr = request.getParameter("contentNum");
+			int contentNum = Integer.parseInt(contentNumStr);
+			int DLNum = service.caculateDLNum(contentNum);
+>>>>>>> d05035a2a057d9b3d429979b3e87f3e45af66c15
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
