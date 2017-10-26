@@ -239,7 +239,6 @@ public class TravelContentServlet extends HttpServlet {
 			content.setLocation(request.getParameter("location"));
 			content.setMain_img(request.getParameter("main_img"));
 			
-			
 			String dayStr = request.getParameter("day");
 			int day = 0;
 			if(dayStr != null && dayStr.length() > 0) {

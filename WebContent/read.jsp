@@ -67,7 +67,9 @@ table{
 		width:60%;
 		height:7%;
 		margin:auto;
+		border: solid;
 		text-align: center;
+		border-radius: 7px 10px 7px 20px;
 	}
 </style>
 <body>
@@ -119,7 +121,7 @@ table{
 				<input type="hidden" name="comment_board" value="${content.content_no}">
 				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
 				<input type="hidden" name="task" value="commentCheck">
-				<table border="1">
+				<table>
 					<tr>
 						<!-- ¾ÆÀÌµð-->
 						<td width=15%>${sessionScope.loginId}</td>
