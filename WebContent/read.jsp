@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -54,12 +54,21 @@
 
 #div2 {
 	width: 830px;
-	height: 800px;
+	height: 700px;
 	overFlow: auto;
 	word-break: break-all;
 	white-space: normal;
 	text-overflow: clip;
 }
+textarea{
+	resize: none;
+}
+table{
+		width:60%;
+		height:7%;
+		margin:auto;
+		text-align: center;
+	}
 </style>
 <body>
 	<div class='row'>
@@ -100,33 +109,12 @@
 		</div>
 		<div class='col-sm-4'>
 			<h3>요약</h3>
-
 		</div>
-		<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
-		<div style="text-align: center">
+	</div>
+	<br>
+	<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
+		<div>
 			<c:if test="${not empty sessionScope.loginId}">
-				<form action="${myContextPath}/board" method="post">
-					<input type="hidden" name="comment_board"
-						value="${content.content_no}"> <input type="hidden"
-						name="comment_id" value="${sessionScope.loginId}"> <input
-						type="hidden" name="task" value="commentCheck">
-					<table border="1">
-						<tr>
-							<!-- 아이디-->
-							<td width="150">${sessionScope.loginId}</td>
-							<!-- 본문 작성-->
-							<td width="550"><textarea name="comment_content" rows="4"
-									cols="70" placeholder="여기에 내용을 입력하세요."></textarea></td>
-							<!-- 댓글 등록 버튼 -->
-							<td width="100">
-								<div style="text-align: center;">
-									<input type="submit" value="등록"
-										style="width: 80px; height: 4S0px; font-size: 15pt">
-								</div>
-							</td>
-						</tr>
-					</table>
-				</form>
 			<form action="${myContextPath}/content" method="post">
 				<input type="hidden" name="comment_board" value="${content.content_no}">
 				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
@@ -134,60 +122,48 @@
 				<table border="1">
 					<tr>
 						<!-- 아이디-->
-						<td width="150">${sessionScope.loginId}</td>
+						<td width=15%>${sessionScope.loginId}</td>
 						<!-- 본문 작성-->
-						<td width="550"><textarea name="comment_content" rows="4"
-							cols="70" placeholder="여기에 내용을 입력하세요."></textarea></td>
+						<td width=70%>
+							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard">
+							</textarea>
+						</td>
 						<!-- 댓글 등록 버튼 -->
-						<td width="100">
-							<div style="text-align: center;">
+						<td width=15%>
 							<input type="submit" value="등록"
-								style="width: 80px; height: 4S0px; font-size: 15pt">
-							</div>
+								style="width:100%; height:100%; font-size: 15pt;">
 						</td>
 					</tr>
 				</table>
 			</form>
 			</c:if>
 		</div>
+		<br>
 		<div>
 			<c:forEach var="comment" items="${comment}">
 				<table border="1">
 					<tr>
-						<td width="150">${comment.writer}</td>
-						<td width="550">${comment.content}</td>
-						<td width="100">
-							<div style="text-align: center;">
-								<c:if test="${sessionScope.loginId == comment.writer}">
-									<form action="${myContextPath}/board" method="post">
-										<input type="hidden" name="comment_board"
-											value="${board.articleNum}"> <input type="hidden"
-											name="comment_num" value="${comment.commentNum}"> <input
-											type="hidden" name="task" value="commentDelete">
-										${comment.write_date} <input type="submit" value="삭제"
-											style="width: 80px; height: 4S0px; font-size: 15pt">
-									</form>
-								</c:if>
-							
+						<td width=15%>${comment.writer}</td>
+						<td width=70%>${comment.content}</td>
+						<td width=15%>
 							<c:if test="${sessionScope.loginId == comment.writer}">
 							<form action="${myContextPath}/content" method="post">
-								<input type="hidden" name="comment_board" value="${board.articleNum}">
+								<input type="hidden" name="comment_board" value="${content.content_no}">
 								<input type="hidden" name="comment_num" value="${comment.commentNum}">
 								<input type="hidden" name="task" value="commentDelete">
 								${comment.write_date}
 								<input type="submit" value="삭제"
-								style="width: 80px; height: 4S0px; font-size: 15pt">
+								style="width:100%; height:100%; font-size: 15pt;">
 							</form>
 							</c:if>
 							<c:if test="${sessionScope.loginId != comment.writer}">
 								${comment.write_date}
 							</c:if>
-							</div>
 						</td>
 					</tr>
 				</table>
 			</c:forEach>
 		</div>
-	</div>
+		<br>
 </body>
 </html>

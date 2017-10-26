@@ -7,7 +7,7 @@
 <link href ="style.css" rel="stylesheet" type="text/css">
 
 <body>
-<div id="visual">
+<div id="visual">.
 <div id="video-bg">
 <iframe src="https://www.youtube.com/embed/HTc_2XmKK-M?autoplay=1&vq=hd1080&start=60&controls=0&showinfo=0&wmode=opaque&autohide=1&loop=1&playlist=cZcsko5a9lE?">
 </iframe>
@@ -32,7 +32,8 @@
 <br>
 <br>
 <br>
-<a href="<%=request.getContextPath()%>/content?task=contentList" style="text-decoration:none"><span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
+<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" style="text-decoration:none">
+<span id="visual-btn">BE OPEN TO YOUR DREAMS</span></a>
 </div>
 </div>
 </body>

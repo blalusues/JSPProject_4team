@@ -8,6 +8,16 @@
 		font-size: 40px;
 		color: black;
 	}
+
+
+	body{
+	
+	background-image:url('../img/background.jpg');
+		
+
+	
+	}
+	
 </style>
 
 <meta charset="EUC-KR">
