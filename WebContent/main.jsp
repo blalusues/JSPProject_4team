@@ -103,9 +103,9 @@ color: black;
 									 <span class="input-group-btn">
 								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
 							
-<%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
+
 										<input type="submit" class="btn btn-secondary" value="Go">
-<!-- 									</a> -->
+
 								</span>
 							</form>
 							</div>
@@ -114,7 +114,7 @@ color: black;
 					<h3 class="section-subheading text-muted"></h3>
 				</div>
 			</div>
-			<div class="row">
+		
 			<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
