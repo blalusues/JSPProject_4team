@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.security.SecureRandom"%>
+<%@ page import="java.math.BigInteger"%>
+<%@ page import="java.net.URLEncoder"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <style type="text/css">
-	#line{ 
-		font-size: 40px;
-		color: black;
-	}
+#line {
+	font-size: 40px;
+	color: black;
+}
 </style>
 
 <meta charset="EUC-KR">
@@ -70,15 +74,25 @@
 								aria-expanded="false"> 지역 선택 </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울"> 서울 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대전"> 대전 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대구"> 대구 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=부산"> 부산 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=인천"> 인천 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=강원도"> 강원도 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=충청도"> 충청도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=전라도"> 전라도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=제주도"> 제주도 </a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
+									서울 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대전">
+									대전 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대구">
+									대구 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=부산">
+									부산 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=인천">
+									인천 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=강원도">
+									강원도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=충청도">
+									충청도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=전라도">
+									전라도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=제주도">
+									제주도 </a>
 							</div>
 						</div>
 					</li>
@@ -98,22 +112,25 @@
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-							<form action="<%=request.getContextPath()%>/content" method="post">
-								<input type="hidden" name="task" value="contentList">
-								<input type="hidden" name="category" value="${category}">
-								<c:if test="${empty search}">
-								<span class="input-group-btn">
-									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
-								</c:if>
-								<c:if test="${not empty search}">
-									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
-								</c:if>
-								
+								<form action="<%=request.getContextPath()%>/content"
+									method="post">
+									<input type="hidden" name="task" value="contentList"> <input
+										type="hidden" name="category" value="${category}">
+									<c:if test="${empty search}">
+										<span class="input-group-btn"> <input type="text"
+											class="form-control" name="search" size="500"
+											placeholder="Search...">
+									</c:if>
+									<c:if test="${not empty search}">
+										<input type="text" class="form-control" name="search"
+											size="500" value="${search}">
+									</c:if>
+
 									<input type="submit" class="btn btn-secondary" value="Go">
-								</span>
-								
-								
-							</form>
+									</span>
+
+
+								</form>
 							</div>
 						</div>
 					</h2>
@@ -121,16 +138,16 @@
 				</div>
 			</div>
 			<div class="row">
-	<!-------------------------------- content 시작 ---------------------------------->
+				<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
+						<a class="portfolio-link"
+							href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
 									<i class="fa fa-plus fa-3x"></i>
 								</div>
-							</div> 
-							<img class="img-fluid" src="${content.main_img}" alt="">
+							</div> <img class="img-fluid" src="${content.main_img}" alt="">
 						</a>
 						<div class="portfolio-caption">
 							<h4>${content.title}</h4>
@@ -138,28 +155,31 @@
 						</div>
 					</div>
 				</c:forEach>
-	<!-------------------------------- content 끝 ---------------------------------->
+				<!-------------------------------- content 끝 ---------------------------------->
 			</div>
 		</div>
 	</section>
 	<!---------------------- 페이지 버튼 시작 -------------------------->
 	<div class="text-center" style="color: black">
-		<ul id="line" >
+		<ul id="line">
 			<c:if test="${contentPage.startPage>1}">
-				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
+				<a href="${myContextPath}/content?page=${contentPage.startPage-1}">
+					[이전] </a>
 			</c:if>
-			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
-				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}"> 
-					${page} 
-				</a>
+			<c:forEach var="page" begin="${contentPage.startPage}"
+				end="${contentPage.endPage}">
+				<a
+					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
+					${page} </a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
-				<a href="${myContextPath}/content?page=${contentPage.endPage+1}"> [다음] </a>
+				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
+					[다음] </a>
 			</c:if>
 		</ul>
 	</div>
 	<!---------------------- 페이지 버튼 끝 -------------------------->
-	
+
 	<!-- About -->
 
 	<!-- Team -->
@@ -193,7 +213,27 @@
 
 	<!-- Contact -->
 
-
+	<!-------------------------------글 쓰기 버튼 ------------------------->
+	<div style="position: fixed; bottom: 60px; right: 20px;">
+		<%
+			String clientId = "TZblhGxHqxzRPDaQz4FJ";//애플리케이션 클라이언트 아이디값";
+			String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/login/callback.jsp",
+					"UTF-8");
+			SecureRandom random = new SecureRandom();
+			String state = new BigInteger(130, random).toString();
+			String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+			apiURL += "&client_id=" + clientId;
+			apiURL += "&redirect_uri=" + redirectURI;
+			apiURL += "&state=" + state;
+			session.setAttribute("state", state);
+		%>
+		<button
+			style="background-color: transparent; border: 0; outline: 0; float: right;"
+			onclick="window.open('<%=apiURL%>','window', 'width=430,height=500,location=no,status=no,scrollbars=yes')">
+			<img src="write.png" style="width: 70px; height: 70px">
+		</button>
+	</div>
+	
 	<!-- Footer -->
 	<footer>
 		<div class="container">
