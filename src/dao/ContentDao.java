@@ -112,7 +112,8 @@ public class ContentDao {
 	public List<ContentVO> selectSearchList(String search, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') ORDER BY READ_COUNT DESC LIMIT ?,?";
+				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') "
+				+ "ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
 		
@@ -200,6 +201,73 @@ public class ContentDao {
 			}
 		} catch (SQLException e) {
 			System.out.println("ContentDao selectCategoryList 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return contentList;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
+	// 타이틀, 지역 검색
+	public int selectAllSearchCount(String search, String category) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') AND "
+				+ "LOCATION=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, category);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectAllSearchCount 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	public List<ContentVO> selectAllSearchList(String search, String category, int startRow, 
+			int count) {
+		con = DBUtil.makeConnection();
+		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
+				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') AND LOCATION=? "
+				+ "ORDER BY READ_COUNT DESC LIMIT ?,?";
+		
+		List<ContentVO> contentList = new ArrayList<>();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setString(2, category);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, count);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ContentVO content = new ContentVO();
+				content.setContent_no(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setRead_count(rs.getInt(3));
+				content.setWriter(rs.getString(4));
+				content.setWrite_time(rs.getDate(5));
+				content.setMain_img(rs.getString(6));
+				content.setLocation(rs.getString(7));
+				
+				contentList.add(content);
+			}
+		} catch (SQLException e) {
+			System.out.println("ContentDao selectAllSearchList 에러");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
