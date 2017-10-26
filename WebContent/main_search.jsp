@@ -4,12 +4,12 @@
 <html>
 <head>
 <style type="text/css">
-#line{ 
-font-size: 40px;
-color: black;
-
-}
+	#line{ 
+		font-size: 40px;
+		color: black;
+	}
 </style>
+
 <meta charset="EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -70,15 +70,15 @@ color: black;
 								aria-expanded="false"> 지역 선택 </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=서울"> 서울 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대전"> 대전 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대구"> 대구 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=부산"> 부산 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=인천"> 인천 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=강원도"> 강원도 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=충청도"> 충청도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=전라도"> 전라도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=제주도"> 제주도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울"> 서울 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대전"> 대전 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대구"> 대구 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=부산"> 부산 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=인천"> 인천 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=강원도"> 강원도 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=충청도"> 충청도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=전라도"> 전라도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=제주도"> 제주도 </a>
 							</div>
 						</div>
 					</li>
@@ -99,18 +99,20 @@ color: black;
 						<div class="col-lg-6">
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
-								<input type="hidden" name="task" value="search">
-								<c:if test="${empty searchTitle}">
-									<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
-								</c:if>
-								<c:if test="${not empty searchTitle}">
-									<input type="text" class="form-control" name="searchTitle" size="500" value="${searchTitle}"> 
-								</c:if>
+								<input type="hidden" name="task" value="contentList">
+								<input type="hidden" name="category" value="${category}">
+								<c:if test="${empty search}">
 								<span class="input-group-btn">
-<%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
-										<input type="submit" class="btn btn-secondary" value="Go">
-<!-- 									</a> -->
+									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
+								</c:if>
+								<c:if test="${not empty search}">
+									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
+								</c:if>
+								
+									<input type="submit" class="btn btn-secondary" value="Go">
 								</span>
+								
+								
 							</form>
 							</div>
 						</div>
@@ -119,7 +121,7 @@ color: black;
 				</div>
 			</div>
 			<div class="row">
-			<!-------------------------------- content 시작 ---------------------------------->
+	<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
 						<a class="portfolio-link" href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
@@ -136,7 +138,7 @@ color: black;
 						</div>
 					</div>
 				</c:forEach>
-			<!-------------------------------- content 끝 ---------------------------------->
+	<!-------------------------------- content 끝 ---------------------------------->
 			</div>
 		</div>
 	</section>
@@ -147,7 +149,7 @@ color: black;
 				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
 			</c:if>
 			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
-				<a href="<%=request.getContextPath()%>/content?task=search&page=${page}&searchTitle=${searchTitle}"> 
+				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}"> 
 					${page} 
 				</a>
 			</c:forEach>
@@ -222,262 +224,6 @@ color: black;
 		</div>
 	</footer>
 
-	<!-- Portfolio Modals -->
-
-	<!-- Modal 1 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal1"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/01-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-									<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-									<br><br><br><br><br><br><br><br><br><br><br>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Threads</li>
-									<li>Category: Illustration</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal 2 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal2"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/02-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Explore</li>
-									<li>Category: Graphic Design</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal 3 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal3"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">3번째꺼</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/03-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Finish</li>
-									<li>Category: Identity</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal 4 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal4"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/04-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Lines</li>
-									<li>Category: Branding</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal 5 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal5"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/05-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Southwest</li>
-									<li>Category: Website Design</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal 6 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal6"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="modal-body">
-								<!-- Project Details Go Here -->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="img/portfolio/06-full.jpg" alt="">
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2017</li>
-									<li>Client: Window</li>
-									<li>Category: Photography</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fa fa-times"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Bootstrap core JavaScript -->
 	<script src="./Bootstrap/vendor/jquery/jquery.min.js"></script>
 	<script src="./Bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -493,5 +239,4 @@ color: black;
 	<script src="./Bootstrap/js/agency.min.js"></script>
 
 </body>
-
 </html>

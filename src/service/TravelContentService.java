@@ -52,8 +52,8 @@ public class TravelContentService {
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
 	
-	public ContentPageVO makeSearchPage(int page, String searchTitle) {
-		int totalContentCount = dao.selectSearchCount(searchTitle); 
+	public ContentPageVO makeSearchPage(int page, String search) {
+		int totalContentCount = dao.selectSearchCount(search); 
 		// 총 페이지 수 계산
 		int totalPage = totalContentCount / COUNT_PER_PAGE;
 		if(totalContentCount % COUNT_PER_PAGE > 0) {
@@ -73,13 +73,13 @@ public class TravelContentService {
 		int startRow = (page-1)*COUNT_PER_PAGE;
 		
 		// DB에서 현재 페이지에 보여질 게시글들 조회 
-		List<ContentVO> contentList = dao.selectSearchList(searchTitle, startRow, COUNT_PER_PAGE);
+		List<ContentVO> contentList = dao.selectSearchList(search, startRow, COUNT_PER_PAGE);
 		// 한 페이지에 보여질 모든 데이터 담아서 작업 완료
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
 	
-	public ContentPageVO makeCategoryPage(int page, String location) {
-		int totalContentCount = dao.selectLocationCount(location); 
+	public ContentPageVO makeCategoryPage(int page, String category) {
+		int totalContentCount = dao.selectCategoryCount(category); 
 		// 총 페이지 수 계산
 		int totalPage = totalContentCount / COUNT_PER_PAGE;
 		if(totalContentCount % COUNT_PER_PAGE > 0) {
@@ -99,7 +99,7 @@ public class TravelContentService {
 		int startRow = (page-1)*COUNT_PER_PAGE;
 		
 		// DB에서 현재 페이지에 보여질 게시글들 조회 
-		List<ContentVO> contentList = dao.selectLocationList(location, startRow, COUNT_PER_PAGE);
+		List<ContentVO> contentList = dao.selectCategoryList(category, startRow, COUNT_PER_PAGE);
 		// 한 페이지에 보여질 모든 데이터 담아서 작업 완료
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
@@ -118,6 +118,9 @@ public class TravelContentService {
 			content.setRead_count(content.getRead_count() + 1);
 			return content;
 		}		
+	}
+	public ContentVO readWithoutReadCount(int contentNum) {
+		return dao.contentSelect(contentNum);
 	}
 	
 	public int write(ContentVO content, List<ContentDetailVO> detailList) {
@@ -166,5 +169,13 @@ public class TravelContentService {
 		}else {
 			return false;
 		}
+	}
+
+	public boolean updateRead(ContentVO content, List<ContentDetailVO> detailList) {
+		content.setWrite_time(new Date());
+		if((dao.updateContent(content)&&dao.updateContentDetail(detailList))==1) {
+			return true;
+		}
+		return false;
 	}
 }
