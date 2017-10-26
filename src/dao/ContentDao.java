@@ -514,8 +514,7 @@ public class ContentDao {
 		}
 		return result;
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//업데이트
+
 	public int updateContent(ContentVO content) {
 		con = DBUtil.makeConnection();
 		int result =0;
@@ -585,5 +584,50 @@ public class ContentDao {
 		}
 		return result;
 	}
-//////////////////////////////////////////////////////////////////////////////////////////
+
+	public int insertDay(ContentDetailVO detail) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "INSERT INSERT INTO CONTENTDETAIL(CONTENT_NO,DAY,CONTENT,PATH) VALUES(?,?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, detail.getContent_no());
+			pstmt.setInt(2, detail.getDay());
+			pstmt.setString(3, detail.getContent());
+			pstmt.setString(4, detail.getPath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("DAO insertDay 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		
+		return result;
+	}
+
+	public int deleteDay(ContentDetailVO detail,int contentNum) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "DELETE FROM CONTENTDETAIL WHERE DAY = ? AND CONTENT_NO =? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, detail.getDay());
+			pstmt.setInt(2, contentNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("DAO deleteDay 에러");
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+		}
+		return result;
+	
+	}
+
 }
