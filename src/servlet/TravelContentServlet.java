@@ -60,34 +60,23 @@ public class TravelContentServlet extends HttpServlet {
 			String search = request.getParameter("search");
 			String category = request.getParameter("category");
 
-			System.out.println("get");
-			System.out.println("타이틀 : " + search);
-			System.out.println("지역 : " + category);
-
 			if ((search.equals("") && category.equals(""))) {
 				// 둘 다 null이면 그냥 main
-				System.out.println("일반");
 				contentPage = service.makePage(1, page, search, category);
 				path = "main_search.jsp";
 			} else if (category.equals("")) {
 				// 타이틀 검색
-				System.out.println("타이틀 검색");
 				contentPage = service.makePage(2, page, search, category);
 				path = "main_search.jsp";
 			} else if (search.equals("")) {
 				// 지역 검색
-				System.out.println("지역 검색");
 				contentPage = service.makePage(3, page, search, category);
 				path = "main_search.jsp";
 			} else {
 				// 타이틀 + 지역 검색
-				System.out.println("타이틀 지역 검색");
 				contentPage = service.makePage(4, page, search, category);
 				path = "main_search.jsp";
 			}
-
-			System.out.println("-----------------");
-
 			request.setAttribute("contentPage", contentPage);
 			request.setAttribute("category", category);
 			request.setAttribute("search", search);
@@ -165,34 +154,23 @@ public class TravelContentServlet extends HttpServlet {
 			String search = request.getParameter("search");
 			String category = request.getParameter("category");
 
-			System.out.println("post");
-			System.out.println("타이틀 : " + search);
-			System.out.println("지역 : " + category);
-
 			if ((search.equals("") && category.equals(""))) {
 				// 둘 다 null이면 그냥 main
-				System.out.println("일반");
 				contentPage = service.makePage(1, page, search, category);
 				path = "main_search.jsp";
 			} else if (category.equals("")) {
 				// 타이틀 검색
-				System.out.println("타이틀 검색");
 				contentPage = service.makePage(2, page, search, category);
 				path = "main_search.jsp";
 			} else if (search.equals("")) {
 				// 지역 검색
-				System.out.println("지역 검색");
 				contentPage = service.makePage(3, page, search, category);
 				path = "main_search.jsp";
 			} else {
 				// 타이틀 + 지역 검색
-				System.out.println("타이틀 지역 검색");
 				contentPage = service.makePage(4, page, search, category);
 				path = "main_search.jsp";
 			}
-
-			System.out.println("-----------------");
-
 			request.setAttribute("contentPage", contentPage);
 			request.setAttribute("category", category);
 			request.setAttribute("search", search);

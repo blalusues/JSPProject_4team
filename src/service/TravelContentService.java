@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-
 import dao.ContentDao;
 import vo.CommentVO;
 import vo.ContentDetailVO;
@@ -96,13 +94,13 @@ public class TravelContentService {
 		}
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
 	// 어떤 용도인지 써주세요ㅎㅎ
 	public ContentVO readWithoutReadCount(int contentNum) {
 		return dao.contentSelect(contentNum);
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
 	// 글 쓰기
 	public int write(ContentVO content, List<ContentDetailVO> detailList) {
 		int content_no = 0;
@@ -189,7 +187,6 @@ public class TravelContentService {
 			}
 		}
 		return true;
-
 	}
 
 	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOther) {
@@ -204,4 +201,5 @@ public class TravelContentService {
 		return true;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////
+	
 }
