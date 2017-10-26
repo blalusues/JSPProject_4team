@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <style type="text/css">
-#line{ 
-font-size: 40px;
-color: black;
-
+#line {
+	font-size: 40px;
+	color: black;
 }
 </style>
 <meta charset="EUC-KR">
@@ -42,7 +41,6 @@ color: black;
 <link href="./Bootstrap/css/agency.min.css" rel="stylesheet">
 
 </head>
-
 <body id="page-top">
 
 	<!-- Navigation -->
@@ -70,15 +68,25 @@ color: black;
 								aria-expanded="false"> 지역 선택 </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=서울"> 서울 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대전"> 대전 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대구"> 대구 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=부산"> 부산 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=인천"> 인천 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=강원도"> 강원도 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=충청도"> 충청도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=전라도"> 전라도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=제주도"> 제주도 </a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=서울">
+									서울 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=대전">
+									대전 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=대구">
+									대구 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=부산">
+									부산 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=인천">
+									인천 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=강원도">
+									강원도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=충청도">
+									충청도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=전라도">
+									전라도 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=category&location=제주도">
+									제주도 </a>
 							</div>
 						</div>
 					</li>
@@ -98,62 +106,66 @@ color: black;
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-							<form action="<%=request.getContextPath()%>/content" method="post">
-								<input type="hidden" name="task" value="search">
-									 <span class="input-group-btn">
-								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
-							
+								<form action="<%=request.getContextPath()%>/content"
+									method="post">
+									<input type="hidden" name="task" value="search"> <span
+										class="input-group-btn"> <input type="text"
+										class="form-control" name="searchTitle" size="500"
+										placeholder="Search..."> <input type="submit"
+										class="btn btn-secondary" value="Go"
+										style="border: 0px; background-color: #51a3f7">
 
-										<input type="submit" class="btn btn-secondary" value="Go" style="border:0px; background-color:#51a3f7">
-
-								</span>
-							</form>
+									</span>
+								</form>
 							</div>
 						</div>
 					</h2>
 					<h3 class="section-subheading text-muted"></h3>
 				</div>
 			</div>
-		
+
 			<!-------------------------------- content 시작 ---------------------------------->
-				<c:forEach var="content" items="${contentPage.contentList}">
-					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a class="portfolio-link" href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<i class="fa fa-plus fa-3x"></i>
-								</div>
-							</div> 
-							<img class="img-fluid" src="${content.main_img}" alt="">
-						</a>
-						<div class="portfolio-caption">
-							<h4>${content.title}</h4>
-							<p class="text-muted">${content.read_count}</p>
-						</div>
+			<c:forEach var="content" items="${contentPage.contentList}">
+				<div class="col-md-4 col-sm-6 portfolio-item">
+					<a class="portfolio-link"
+						href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
+						<div class="portfolio-hover">
+							<div class="portfolio-hover-content">
+								<i class="fa fa-plus fa-3x"></i>
+							</div>
+						</div> <img class="img-fluid" src="${content.main_img}" alt="">
+					</a>
+					<div class="portfolio-caption">
+						<h4>${content.title}</h4>
+						<p class="text-muted">${content.read_count}</p>
 					</div>
-				</c:forEach>
+				</div>
+			</c:forEach>
 			<!-------------------------------- content 끝 ---------------------------------->
-			</div>
+		</div>
 		</div>
 	</section>
 	<!---------------------- 페이지 버튼 시작 -------------------------->
 	<div class="text-center" style="color: black">
-		<ul id="line" >
+		<ul id="line">
 			<c:if test="${contentPage.startPage>1}">
-				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
+				<a href="${myContextPath}/content?page=${contentPage.startPage-1}">
+					[이전] </a>
 			</c:if>
-			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
-				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}"> 
-					${page} 
-				</a>
+			<c:forEach var="page" begin="${contentPage.startPage}"
+				end="${contentPage.endPage}">
+				<a
+					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}">
+					${page} </a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
-				<a href="${myContextPath}/content?page=${contentPage.endPage+1}"> [다음] </a>
+				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
+					[다음] </a>
 			</c:if>
 		</ul>
 	</div>
 	<!---------------------- 페이지 버튼 끝 -------------------------->
-	
+
 	<!-- About -->
 
 	<!-- Team -->
@@ -186,7 +198,7 @@ color: black;
 	</section>
 
 	<!-- Contact -->
-
+	
 
 	<!-- Footer -->
 	<footer>
@@ -245,8 +257,10 @@ color: black;
 									culpa incidunt minus dignissimos deserunt repellat aperiam
 									quasi sunt officia expedita beatae cupiditate, maiores
 									repudiandae, nostrum, reiciendis facere nemo!</p>
-									<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-									<br><br><br><br><br><br><br><br><br><br><br>
+								<br> <br> <br> <br> <br> <br> <br>
+								<br> <br> <br> <br> <br> <br> <br>
+								<br> <br> <br> <br> <br> <br> <br>
+								<br> <br> <br> <br>
 								<ul class="list-inline">
 									<li>Date: January 2017</li>
 									<li>Client: Threads</li>
