@@ -78,6 +78,8 @@ public class TravelContentService {
 		return new ContentPageVO(contentList, startPage, endPage, page, totalPage);
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////
+	// 글 가져오기
 	public List<ContentDetailVO> read(int contentNumber) {
 		List<ContentDetailVO> contentDetail = dao.contentDetailSelect(contentNumber);
 		return contentDetail;
@@ -94,10 +96,14 @@ public class TravelContentService {
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
+	// 어떤 용도인지 써주세요ㅎㅎ
 	public ContentVO readWithoutReadCount(int contentNum) {
 		return dao.contentSelect(contentNum);
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
+	// 글 쓰기
 	public int write(ContentVO content, List<ContentDetailVO> detailList) {
 		int content_no = 0;
 		int result = 0;
@@ -124,6 +130,8 @@ public class TravelContentService {
 		return result;
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
+	// 댓글
 	public boolean commentSignUp(CommentVO comment) {
 		comment.setWrite_date(new Date());
 		if (dao.insertComment(comment) > 0) {
@@ -146,6 +154,8 @@ public class TravelContentService {
 		}
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////
+	// 업데이트
 	public boolean updateRead(ContentVO content, List<ContentDetailVO> detailList) {
 		content.setWrite_time(new Date());
 		int result = 0;
@@ -183,7 +193,15 @@ public class TravelContentService {
 	}
 
 	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOther) {
-
-		return false;
+		int result = 0;
+		for (int i = 0; i < detailListOther.size(); i++) {
+			ContentDetailVO detail = detailListOther.get(i);
+			result = dao.deleteDay(detail);
+			if (result == 0) {
+				return false;
+			}
+		}
+		return true;
 	}
+	//////////////////////////////////////////////////////////////////////////////////////////
 }
