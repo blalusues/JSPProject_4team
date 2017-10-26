@@ -241,7 +241,7 @@ public class TravelContentServlet extends HttpServlet {
 
 			String articleNumStr = request.getParameter("글 번호 변수");
 			int articleNum = Integer.parseInt(articleNumStr);
-			int contentNumber = service.caculateDLNum(articleNum);
+			int dayNumber = service.caculateDLNum(articleNum);
 			
 			content.setContent_no(articleNum);
 			content.setTitle(request.getParameter("title"));
@@ -255,15 +255,15 @@ public class TravelContentServlet extends HttpServlet {
 				day = Integer.parseInt(dayStr);
 			}
 
-			if (detailList.size() > contentNumber) {
-				for (int i = 1; i < contentNumber + 1; i++) {
+			if (detailList.size() > dayNumber) {
+				for (int i = 1; i < dayNumber + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
 
 					detailList.add(detail);
 				}
-				for (int i = contentNumber + 1; i < detailList.size() + 1; i++) {
+				for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
@@ -276,7 +276,7 @@ public class TravelContentServlet extends HttpServlet {
 				} else {
 					path = "update_fail.jsp";
 				}
-			} else if (detailList.size() == contentNumber) {
+			} else if (detailList.size() == dayNumber) {
 				for (int i = 1; i < detailList.size() + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
@@ -289,7 +289,7 @@ public class TravelContentServlet extends HttpServlet {
 				} else {
 					path = "update_fail.jsp";
 				}
-			} else if (detailList.size() < contentNumber) {
+			} else if (detailList.size() < dayNumber) {
 				for (int i = 1; i < detailList.size() + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
@@ -298,7 +298,7 @@ public class TravelContentServlet extends HttpServlet {
 					detailList.add(detail);
 				}
 
-				for (int i = detailList.size() + 1; i < contentNumber + 1; i++) {
+				for (int i = detailList.size() + 1; i < dayNumber + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
