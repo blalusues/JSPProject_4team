@@ -239,11 +239,11 @@ public class TravelContentServlet extends HttpServlet {
 			List<ContentDetailVO> detailListOhter = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
 
-			String articleNumStr = request.getParameter("글 번호 변수");
-			int articleNum = Integer.parseInt(articleNumStr);
-			int dayNumber = service.caculateDLNum(articleNum);
+			String contentNumStr = request.getParameter("글 번호 변수");
+			int contentNum = Integer.parseInt(contentNumStr);
+			int dayNumber = service.caculateDLNum(contentNum);
 			
-			content.setContent_no(articleNum);
+			content.setContent_no(contentNum);
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
@@ -271,7 +271,7 @@ public class TravelContentServlet extends HttpServlet {
 					detailListOhter.add(detail);
 				}
 
-				if (service.updateRead(content, detailList) && service.updateWrite(articleNum, detailListOhter)) {
+				if (service.updateRead(content, detailList) && service.insertDay(contentNum, detailListOhter)) {
 					path = "update_success.jsp";
 				} else {
 					path = "update_fail.jsp";
@@ -306,7 +306,7 @@ public class TravelContentServlet extends HttpServlet {
 					detailListOhter.add(detail);
 				}
 
-				if (service.updateRead(content, detailList) && service.updateDelete(articleNum, detailListOhter)) {
+				if (service.updateRead(content, detailList) && service.DeleteDay(contentNum, detailListOhter)) {
 					path = "update_success.jsp";
 				} else {
 					path = "update_fail.jsp";

@@ -166,4 +166,14 @@ public class TravelContentService {
 		
 		return result;
 	}
+
+	public boolean insertDay(int contentNum, List<ContentDetailVO> detailListOhter) {
+		
+		return false;
+	}
+
+	public boolean DeleteDay(int contentNum, List<ContentDetailVO> detailListOhter) {
+		
+		return false;
+	}
 }
