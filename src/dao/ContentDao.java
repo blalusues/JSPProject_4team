@@ -563,6 +563,26 @@ public class ContentDao {
 		
 		
 	}
-	
+	//day °³¼ö »Ì±â
+	public int selectDayNumber(int content_no) {
+		con = DBUtil.makeConnection();
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM CONTENTDETAIL WHERE CONTENT_NO=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, content_no);
+			rs = pstmt.executeQuery();
+			rs.next();
+			result = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeRs(rs);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
 
 }
