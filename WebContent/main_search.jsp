@@ -70,15 +70,15 @@ color: black;
 								aria-expanded="false"> 지역 선택 </a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=서울"> 서울 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대전"> 대전 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=대구"> 대구 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=부산"> 부산 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=인천"> 인천 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=강원도"> 강원도 </a> 
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=충청도"> 충청도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=전라도"> 전라도 </a>
-								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=category&location=제주도"> 제주도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=서울"> 서울 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=대전"> 대전 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=대구"> 대구 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=부산"> 부산 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=인천"> 인천 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=강원도"> 강원도 </a> 
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=충청도"> 충청도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=전라도"> 전라도 </a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/content?task=search&location=제주도"> 제주도 </a>
 							</div>
 						</div>
 					</li>
@@ -100,6 +100,7 @@ color: black;
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="search">
+								<input type="hidden" name="location" value="${location}">
 								<c:if test="${empty searchTitle}">
 									<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
 								</c:if>
@@ -107,9 +108,7 @@ color: black;
 									<input type="text" class="form-control" name="searchTitle" size="500" value="${searchTitle}"> 
 								</c:if>
 								<span class="input-group-btn">
-<%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
-										<input type="submit" class="btn btn-secondary" value="Go">
-<!-- 									</a> -->
+									<input type="submit" class="btn btn-secondary" value="Go">
 								</span>
 							</form>
 							</div>
