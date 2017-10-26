@@ -12,6 +12,10 @@
 	font-size: 40px;
 	color: black;
 }
+
+body {
+	background-image: url('../img/background.jpg');
+}
 </style>
 
 <meta charset="EUC-KR">
@@ -233,7 +237,7 @@
 			<img src="write.png" style="width: 70px; height: 70px">
 		</button>
 	</div>
-	
+
 	<!-- Footer -->
 	<footer>
 		<div class="container">

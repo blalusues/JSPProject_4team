@@ -173,7 +173,7 @@ public class TravelContentService {
 
 	public boolean updateRead(ContentVO content, List<ContentDetailVO> detailList) {
 		content.setWrite_time(new Date());
-		if((dao.updateContent(content)&&dao.updateContentDetail(detailList))==1) {
+		if((dao.updateContent(content)==1&&dao.updateContentDetail(detailList)==1)) {
 			return true;
 		}
 		return false;

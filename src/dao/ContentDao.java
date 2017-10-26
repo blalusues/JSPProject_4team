@@ -446,6 +446,50 @@ public class ContentDao {
 		}
 		return result;
 	}
+
+	public int updateContent(ContentVO content) {
+		con = DBUtil.makeConnection();
+		int result =0;
+		String sql = "UPDATE CONTENT SET TITLE=?, WRITE_TIME=?, MAIN_IMG=? WHERE CONTENT_NO=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, content.getTitle());
+			pstmt.setTimestamp(2, new Timestamp(content.getWrite_time().getTime()));
+			pstmt.setString(3, content.getMain_img());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("dao updateContent ¿¡·¯");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+
+	public int updateContentDetail(List<ContentDetailVO> detailList) {
+		con = DBUtil.makeConnection();
+		int result =0;
+		String sql = "UPDATE CONTENTDETAIL SET CONTENT=?, PATH=? WHERE CONTENT_NO=? AND DAY=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeRs(rs);
+			DBUtil.closeCon(con);
+		}
+		return result;
+		
+		
+	}
 	
 
 }
