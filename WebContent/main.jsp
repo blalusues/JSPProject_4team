@@ -100,8 +100,9 @@ color: black;
 							<div class="input-group">
 							<form action="<%=request.getContextPath()%>/content" method="post">
 								<input type="hidden" name="task" value="search">
+									 <span class="input-group-btn">
 								<input type="text" class="form-control" name="searchTitle" size="500" placeholder="Search..."> 
-								<span class="input-group-btn">
+							
 <%-- 									<a href="<%=request.getContextPath()%>/content?task=search"> --%>
 										<input type="submit" class="btn btn-secondary" value="Go">
 <!-- 									</a> -->
