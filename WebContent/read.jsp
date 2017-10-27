@@ -154,12 +154,9 @@ table{
 				<input type="hidden" name="task" value="commentCheck">
 				<table border="1">
 					<tr>
-						<!-- 아이디-->
-						<td width=15%>${sessionScope.loginId}</td>
 						<!-- 본문 작성-->
-						<td width=70%>
-							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard">
-							</textarea>
+						<td width=85%>
+							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard"></textarea>
 						</td>
 						<!-- 댓글 등록 버튼 -->
 						<td width=15%>
