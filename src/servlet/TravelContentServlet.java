@@ -233,8 +233,8 @@ public class TravelContentServlet extends HttpServlet {
 				day = Integer.parseInt(dayStr);
 			}
 
-			if (detailList.size() > dayNumber) {
-				for (int i = 1; i < dayNumber + 1; i++) {
+			if (detailList.size() > dayNumber) {//수정시 day가 추가 되었을 때
+				for (int i = 1; i < dayNumber + 1; i++) { 
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					detail.setPath(request.getParameter("path" + i));
@@ -254,7 +254,7 @@ public class TravelContentServlet extends HttpServlet {
 				} else {
 					path = "update_fail.jsp";
 				}
-			} else if (detailList.size() == dayNumber) {
+			} else if (detailList.size() == dayNumber) { //수정시 day가 같을 때
 				for (int i = 1; i < detailList.size() + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
@@ -267,7 +267,7 @@ public class TravelContentServlet extends HttpServlet {
 				} else {
 					path = "update_fail.jsp";
 				}
-			} else if (detailList.size() < dayNumber) {
+			} else if (detailList.size() < dayNumber) { //수정시 day가 삭제 되었을 때
 				for (int i = 1; i < detailList.size() + 1; i++) {
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
