@@ -164,8 +164,8 @@ table{
 						</td>
 					</tr>
 				</table>
-			</form>
-			</c:if>
+			 </form>
+			 </c:if>
 		</div>
 		<br>
 		<div>
