@@ -93,7 +93,7 @@ table{
 			<h2>${content.title}</h2>
 			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a>
 			<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button>수정</button></a>
-			<button>삭제</button>
+			<a href="<%=request.getContextPath()%>/content?task=deleteForm&contentNum=${content.content_no}"><button>삭제</button></a>
 			<nav id="navbar-example" class="navbar navbar-default navbar-static"
 				role="navigation">
 			<div class="container-fluid">
