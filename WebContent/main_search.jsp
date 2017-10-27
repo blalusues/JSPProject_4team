@@ -305,12 +305,12 @@
 			
 			//세션 체크해서 없을 경우 로그인 화면 있으면 글쓰기
 			//원래는 session에 token을 저장해서 유효성을 체크해야 하지만 자동 로그인이 없기 때문에
-			//사용자가 사이트에 접속할 때마다 로그인을 해야하므로 session에 있는 name만 불러온다.
-			//name ->  null 이면 로그인 x , null이 아니면 로그인o
-<%-- 			var session_name = "<%=(String)session.getAttribute("name")%>"; --%>
-			var session_name = "${sessionScope.name}";
+			//사용자가 사이트에 접속할 때마다 로그인을 해야하므로 session에 있는 access_token만 불러온다.
+			//access_token ->  null 이면 로그인 x , null이 아니면 로그인o
+<%-- 			var session_name = "<%=(String)session.getAttribute("access_token")%>"; --%>
+			var session_name = "${sessionScope.access_token}";
 			if (session_name != null && session_name.length > 0) {
-				
+				aa();
 			} else {
 				$("#login_ok").click(function(){
 	            	//로그인화면 띄우기
@@ -320,6 +320,10 @@
 			}
 		})
 	})
+	
+	function aa(){
+		location.href="write_form.jsp";
+	}
 </script>
 </body>
 </html>
