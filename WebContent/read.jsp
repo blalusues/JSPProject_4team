@@ -53,14 +53,19 @@
 }
 
 #div2 {
-	width: 830px;
+	width: 730px;
 	height: 700px;
 	overFlow: auto;
 	word-break: break-all;
 	white-space: normal;
 	text-overflow: clip;
-#div3 {
-	
+	}
+ #div3{
+	height: 900px;
+	overFlow: auto;
+	word-break: break-all;
+	white-space: normal;
+	text-overflow: clip;
 }
 }
 textarea{
@@ -76,9 +81,11 @@ table{
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}" />
 	<div class='row'>
-		<div id="div1" class="container col-sm-8">
+		<div id="div1" class="container col-sm-7">
 			<h2>${content.title}</h2>
-			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a><button>수정</button><button>삭제</button>
+			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a>
+			<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button>수정</button></a>
+			<button>삭제</button>
 			<nav id="navbar-example" class="navbar navbar-default navbar-static"
 				role="navigation">
 			<div class="container-fluid">
@@ -104,7 +111,29 @@ table{
 				data-offset="0" class="scrollspy-example">
 				<c:forEach var="contentDetail" items="${contentDetailList}">
 					<h4 id="day0${contentDetail.day}">@Day${contentDetail.day}</h4>
-				${contentDetail.content}
+					${contentDetail.content}
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
 				</c:forEach>
 			</div>
 		</div>

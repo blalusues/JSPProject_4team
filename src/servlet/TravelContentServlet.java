@@ -94,7 +94,7 @@ public class TravelContentServlet extends HttpServlet {
 
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
-			path = "update_form.jsp";
+			path = "update_Form.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
