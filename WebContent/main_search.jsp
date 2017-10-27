@@ -150,7 +150,7 @@
 						</a>
 						<div class="portfolio-caption">
 							<h4>${content.title}</h4>
-							<p class="text-muted">${content.read_count}</p>
+							<p class="text-muted">${content.read_count} VIEW</p>
 						</div>
 					</div>
 				</c:forEach>

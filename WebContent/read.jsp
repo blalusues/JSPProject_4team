@@ -53,32 +53,47 @@
 }
 
 #div2 {
-	width: 830px;
+	width: 730px;
 	height: 700px;
 	overFlow: auto;
 	word-break: break-all;
 	white-space: normal;
 	text-overflow: clip;
-#div3 {
-	
+	}
+ #div3{
+	height: 900px;
+	overFlow: auto;
+	word-break: break-all;
+	white-space: normal;
+	text-overflow: clip;
 }
+
+#div10{
+	width:65%;
+	margin:auto;
+	text-align: center;
+	background-color: #f8f8ff;
 }
 textarea{
 	resize: none;
 }
 table{
-		width:60%;
+	    
+		width:700px;
 		height:7%;
 		margin:auto;
 		text-align: center;
 	}
+	
 </style>
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}" />
 	<div class='row'>
-		<div id="div1" class="container col-sm-8">
+		<div id="div1" class="container col-sm-7">
 			<h2>${content.title}</h2>
-			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a><button>수정</button><button>삭제</button>
+			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>목록</button></a>
+			<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button>수정</button></a>
+			<a href="<%=request.getContextPath()%>/content?task=deleteForm&contentNum=${content.content_no}"><button>삭제</button></a>
 			<nav id="navbar-example" class="navbar navbar-default navbar-static"
 				role="navigation">
 			<div class="container-fluid">
@@ -104,7 +119,29 @@ table{
 				data-offset="0" class="scrollspy-example">
 				<c:forEach var="contentDetail" items="${contentDetailList}">
 					<h4 id="day0${contentDetail.day}">@Day${contentDetail.day}</h4>
-				${contentDetail.content}
+					${contentDetail.content}
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
+					<p>asdasdasdasdadasdasd</p>
 				</c:forEach>
 			</div>
 		</div>
@@ -116,34 +153,8 @@ table{
 		</div>
 	</div>
 	<br>
-	
-		<div>
-			<c:if test="${not empty sessionScope.loginId}">
-			<form action="${myContextPath}/content" method="post">
-				<input type="hidden" name="comment_board" value="${content.content_no}">
-				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
-				<input type="hidden" name="task" value="commentCheck">
-				<table border="1">
-					<tr>
-						<!-- 아이디-->
-						<td width=15%>${sessionScope.loginId}</td>
-						<!-- 본문 작성-->
-						<td width=70%>
-							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard">
-							</textarea>
-						</td>
-						<!-- 댓글 등록 버튼 -->
-						<td width=15%>
-							<input type="submit" value="등록"
-								style="width:100%; height:100%; font-size: 15pt;">
-						</td>
-					</tr>
-				</table>
-			</form>
-			</c:if>
-		</div>
-		<br>
-		<div>
+	<div id="div10">
+	<div>
 			<c:forEach var="comment" items="${comment}">
 				<table border="1">
 					<tr>
@@ -167,8 +178,32 @@ table{
 					</tr>
 				</table>
 			</c:forEach>
-			<button>ㅁㄴㅇ</button>
 		</div>
+		<br>
+		<div>
+			<c:if test="${not empty sessionScope.loginId}">
+			<form action="${myContextPath}/content" method="post">
+				<input type="hidden" name="comment_board" value="${content.content_no}">
+				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
+				<input type="hidden" name="task" value="commentCheck">
+				<table border="1">
+					<tr>
+						<!-- 본문 작성-->
+						<td width=85%>
+							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard"></textarea>
+						</td>
+						<!-- 댓글 등록 버튼 -->
+						<td width=15%>
+							<input type="submit" value="등록"
+								style="width:100%; height:100%; font-size: 15pt;">
+						</td>
+					</tr>
+				</table>
+			 </form>
+			 </c:if>
+		</div>
+		</div>
+		<button>ㅁㄴㅇ</button>
 		<br>
 </body>
 </html>
