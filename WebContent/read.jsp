@@ -67,16 +67,24 @@
 	white-space: normal;
 	text-overflow: clip;
 }
+
+#div10{
+	width:65%;
+	margin:auto;
+	text-align: center;
+	background-color: #f8f8ff;
 }
 textarea{
 	resize: none;
 }
 table{
-		width:60%;
+	    
+		width:700px;
 		height:7%;
 		margin:auto;
 		text-align: center;
 	}
+	
 </style>
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}" />
@@ -145,30 +153,8 @@ table{
 		</div>
 	</div>
 	<br>
-		<div>
-			<c:if test="${not empty sessionScope.loginId}">
-			<form action="${myContextPath}/content" method="post">
-				<input type="hidden" name="comment_board" value="${content.content_no}">
-				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
-				<input type="hidden" name="task" value="commentCheck">
-				<table border="1">
-					<tr>
-						<!-- 본문 작성-->
-						<td width=85%>
-							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard"></textarea>
-						</td>
-						<!-- 댓글 등록 버튼 -->
-						<td width=15%>
-							<input type="submit" value="등록"
-								style="width:100%; height:100%; font-size: 15pt;">
-						</td>
-					</tr>
-				</table>
-			 </form>
-			 </c:if>
-		</div>
-		<br>
-		<div>
+	<div id="div10">
+	<div>
 			<c:forEach var="comment" items="${comment}">
 				<table border="1">
 					<tr>
@@ -192,8 +178,32 @@ table{
 					</tr>
 				</table>
 			</c:forEach>
-			<button>ㅁㄴㅇ</button>
 		</div>
+		<br>
+		<div>
+			<c:if test="${not empty sessionScope.loginId}">
+			<form action="${myContextPath}/content" method="post">
+				<input type="hidden" name="comment_board" value="${content.content_no}">
+				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
+				<input type="hidden" name="task" value="commentCheck">
+				<table border="1">
+					<tr>
+						<!-- 본문 작성-->
+						<td width=85%>
+							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="여기에 내용을 입력하세요." wrap="hard"></textarea>
+						</td>
+						<!-- 댓글 등록 버튼 -->
+						<td width=15%>
+							<input type="submit" value="등록"
+								style="width:100%; height:100%; font-size: 15pt;">
+						</td>
+					</tr>
+				</table>
+			 </form>
+			 </c:if>
+		</div>
+		</div>
+		<button>ㅁㄴㅇ</button>
 		<br>
 </body>
 </html>
