@@ -9,17 +9,15 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/JSPProject_4team/daumeditor/css/editor.css" type="text/css" charset="utf-8" />
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/result-light.css">
 
 <!-- 다음 에디터 사용 -->
-<link rel="stylesheet" href="/JSPProject_4team/daumeditor/css/editor.css"
-	type="text/css" charset="utf-8" />
 <script src="/JSPProject_4team/daumeditor/js/editor_loader.js"
 	type="text/javascript" charset="utf-8"></script>
 
@@ -136,12 +134,12 @@ input {
 			ctx.font = font;
 			ctx.fillText(txt, x - 4, y - 4);
 		}
-
-		///////////////////////////////////////
-		//daum Editor (다음 에디터)
-		$(function() {
+	}
+	///////////////////////////////////////
+	//daum Editor (다음 에디터)
+$(function() {
 		$.ajax({
-			url : "/JSPProject_4team/daumeditor/editor_frame.html",
+			url : "/WebTest/daumeditor/editor_frame.html",
 			success : function(data) {
 				$("#editor_frame").html(data);
 				// 에디터UI load
@@ -206,7 +204,25 @@ input {
 			//다음에디터가 포함된 form submit
 			Editor.save();
 		})
+	})
 
+	//Editor.save() 호출 한 다음에 validation 검증을 위한 함수
+	//validation 체크해줄 입력폼들을 이 함수에 추가 지정해줍니다.
+	function validForm(editor) {
+		var validator = new Trex.Validator();
+		var content = editor.getContent();
+		if (!validator.exists(content)) {
+			alert('내용을 입력하세요');
+			return false;
+		}
+		return true;
+	}
+
+	//validForm 함수까지 true값을 받으면 이어서 form submit을 시켜주는  setForm함수
+	function setForm(editor) {
+		var content = editor.getContent();
+		$("#daumeditor").val(content)
+		return true;
 	}
 </script>
 </head>
