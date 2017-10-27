@@ -145,7 +145,6 @@ table{
 		</div>
 	</div>
 	<br>
-	
 		<div>
 			<c:if test="${not empty sessionScope.loginId}">
 			<form action="${myContextPath}/content" method="post">

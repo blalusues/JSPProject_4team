@@ -215,7 +215,7 @@ input {
 
                <tr>
                   <td>내용</td>
-                  <td id="editorTd" ></td>
+                  <td id="editorTd"><input type="text" value="d"></td>
                </tr>
                <tr>
                   <td colspan="2"><input type="submit" value="작성" /> <input
