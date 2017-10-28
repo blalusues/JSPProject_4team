@@ -36,7 +36,7 @@ public class TravelContentServlet extends HttpServlet {
 			session.setAttribute("loginId", "123");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
-			System.out.println(contentNumber);
+			
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
 			ContentVO content = service.read("아이디수정하세염", contentNumber);
 			List<CommentVO> comment = service.commentSelect(content.getContent_no());
