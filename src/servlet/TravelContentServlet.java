@@ -94,7 +94,7 @@ public class TravelContentServlet extends HttpServlet {
 
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
-			path = "update_Form.jsp";
+			path = "update_form.jsp";
 		} else if(task.equals("deleteForm")) {
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
