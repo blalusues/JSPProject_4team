@@ -12,10 +12,13 @@ public class ContentVO {
 	Date write_time;
 	String main_img;
 	String location;
+	Date start_date;
+	Date end_date;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	public ContentVO(int content_no, String title, int read_count, String writer, Date write_time, String main_img,
-			String location) {
+			String location, Date start_date, Date end_date) {
+		super();
 		this.content_no = content_no;
 		this.title = title;
 		this.read_count = read_count;
@@ -23,11 +26,13 @@ public class ContentVO {
 		this.write_time = write_time;
 		this.main_img = main_img;
 		this.location = location;
+		this.start_date = start_date;
+		this.end_date = end_date;
 	}
+
 
 	public ContentVO() {
 	}
-
 	///////////////////////////////////////////////////////////////////////////////////////////
 	public int getContent_no() {
 		return content_no;
@@ -86,9 +91,31 @@ public class ContentVO {
 		this.location = location;
 	}
 
+	public Date getStart_date() {
+		return start_date;
+	}
+
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+
+	public Date getEnd_date() {
+		return end_date;
+	}
+
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
+	}
+
 	@Override
 	public String toString() {
 		return "ContentVO [content_no=" + content_no + ", title=" + title + ", read_count=" + read_count + ", writer="
-				+ writer + ", write_time=" + write_time + ", main_img=" + main_img + ", location=" + location + "]";
+				+ writer + ", write_time=" + write_time + ", main_img=" + main_img + ", location=" + location
+				+ ", start_date=" + start_date + ", end_date=" + end_date + "]";
 	}
+
+	
 }

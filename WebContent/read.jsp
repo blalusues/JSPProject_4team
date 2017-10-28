@@ -1,209 +1,134 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<script src="//code.jquery.com/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Swiper demo</title>
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="./dist/css/swiper.min.css">
 
-
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<title>±€ ªÛºº≥ªøÎ</title>
+  <!-- Demo styles -->
+ <style>
+    html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 500px;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      height: 500px;
+      /* Center slide text vertically */
+    }
+  </style>
 </head>
-
-<style>
-.scrollspy-example {
-	position: relative;
-	height: 200px;
-	margin-top: 10px;
-	overflow: auto;
-}
-
-.body {
-	position: relative;
-}
-
-.row>div {
-	text-align: Center;
-	border: 1px solid black;
-}
-
-.row>div:nth-child(odd) {
-	background: white;
-	height: 900px;
-}
-
-.row>div:nth-child(even) {
-	background: white;
-}
-
-#div1 {
-	height: 900px;
-}
-
-#div2 {
-	width: 730px;
-	height: 700px;
-	overFlow: auto;
-	word-break: break-all;
-	white-space: normal;
-	text-overflow: clip;
-	}
- #div3{
-	height: 900px;
-	overFlow: auto;
-	word-break: break-all;
-	white-space: normal;
-	text-overflow: clip;
-}
-
-#div10{
-	width:65%;
-	margin:auto;
-	text-align: center;
-	background-color: #f8f8ff;
-}
-textarea{
-	resize: none;
-}
-table{
-	    
-		width:700px;
-		height:7%;
-		margin:auto;
-		text-align: center;
-	}
-	
-</style>
 <body>
-<c:set var="myContextPath" value="${pageContext.request.contextPath}" />
-	<div class='row'>
-		<div id="div1" class="container col-sm-7">
-			<h2>${content.title}</h2>
-			<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button>∏Ò∑œ</button></a>
-			<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button>ºˆ¡§</button></a>
-			<a href="<%=request.getContextPath()%>/content?task=deleteForm&contentNum=${content.content_no}"><button>ªË¡¶</button></a>
-			<nav id="navbar-example" class="navbar navbar-default navbar-static"
-				role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button class="navbar-toggle collapsed" type="button"
-						data-toggle="collapse" data-target=".navbar-scrollspy">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">ø©«‡¿œ¬˜</a>
-				</div>
-				<div class="collapse navbar-collapse navbar-scrollspy">
-					<ul class="nav navbar-nav">
-						<c:forEach var="contentDetail" items="${contentDetailList}">
-							<li class="active"><a href="#day0${contentDetail.day}">@day0${contentDetail.day}</a></li>
-						</c:forEach>
-					</ul>
-				</div>
-			</div>
-			</nav>
-			<div id="div2" data-spy="scroll" data-target="#navbar-example"
-				data-offset="0" class="scrollspy-example">
-				<c:forEach var="contentDetail" items="${contentDetailList}">
-					<h4 id="day0${contentDetail.day}">@Day${contentDetail.day}</h4>
+  
+  <div>
+  	<table cellspacing="0" border="1">
+		<tr>
+			<td>Í∏ÄÎ≤àÌò∏:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Ï†úÎ™©:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ÏûëÏÑ±Ïûê:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ÏûëÏÑ±Ïùº:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Ï°∞ÌöåÏàò:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ÎÇ¥Ïö©:</td>
+			<td></td>
+		</tr>
+	</table>
+  </div>
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+    	<c:forEach var="contentDetail" items="${contentDetailList}">
+      <div class="swiper-slide" style="overflow-y: scroll;"><h4 id="day0${contentDetail.day}">@Day${contentDetail.day}</h4>
 					${contentDetail.content}
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-					<p>asdasdasdasdadasdasd</p>
-				</c:forEach>
-			</div>
-		</div>
-		<div id = "div3" class='col-sm-4'>
-			<h3>ø‰æ‡</h3>
-			<c:forEach var="contentDetail" items="${contentDetailList}">
-			<img src="${contentDetail.path}">
-			</c:forEach>
-		</div>
-	</div>
-	<br>
-	<div id="div10">
-	<div>
-			<c:forEach var="comment" items="${comment}">
-				<table border="1">
-					<tr>
-						<td width=15%>${comment.writer}</td>
-						<td width=70%>${comment.content}</td>
-						<td width=15%>
-							<c:if test="${sessionScope.loginId == comment.writer}">
-							<form action="${myContextPath}/content" method="post">
-								<input type="hidden" name="comment_board" value="${content.content_no}">
-								<input type="hidden" name="comment_num" value="${comment.commentNum}">
-								<input type="hidden" name="task" value="commentDelete">
-								${comment.write_date}
-								<input type="submit" value="ªË¡¶"
-								style="width:100%; height:100%; font-size: 15pt;">
-							</form>
-							</c:if>
-							<c:if test="${sessionScope.loginId != comment.writer}">
-								${comment.write_date}
-							</c:if>
-						</td>
-					</tr>
-				</table>
-			</c:forEach>
-		</div>
-		<br>
-		<div>
-			<c:if test="${not empty sessionScope.loginId}">
-			<form action="${myContextPath}/content" method="post">
-				<input type="hidden" name="comment_board" value="${content.content_no}">
-				<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
-				<input type="hidden" name="task" value="commentCheck">
-				<table border="1">
-					<tr>
-						<!-- ∫ªπÆ ¿€º∫-->
-						<td width=85%>
-							<textarea name="comment_content" style="width: 100%; height: 100%;" placeholder="ø©±‚ø° ≥ªøÎ¿ª ¿‘∑¬«œººø‰." wrap="hard"></textarea>
-						</td>
-						<!-- ¥Ò±€ µÓ∑œ πˆ∆∞ -->
-						<td width=15%>
-							<input type="submit" value="µÓ∑œ"
-								style="width:100%; height:100%; font-size: 15pt;">
-						</td>
-					</tr>
-				</table>
-			 </form>
-			 </c:if>
-		</div>
-		</div>
-		<button>§±§§§∑</button>
-		<br>
+					<p>„ÖÅ„Ñ¥„Öá„ÖÅ„Ñ¥„Öá„ÖÅ„Ñ¥„Öá„ÖÅ„Öásdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>ÌïòÌïòÌïòÌò∏Ìò∏Ìò∏dfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>Î∞∞Î∞∞Î∞∞„Öêpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					<p>sdfjsofjsodfjpsdfospfjsdfjpsfpsdf</p><br>
+					</div>
+      </c:forEach>
+   
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="./dist/js/swiper.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'progressbar',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
 </body>
 </html>

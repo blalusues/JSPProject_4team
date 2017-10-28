@@ -418,7 +418,8 @@ public class ContentDao {
 	// contentDetail 테이블에 추가 (작성에 Day마다 실행) 
 	public int insertDetail(ContentDetailVO detail) {
 		con = DBUtil.makeConnection();
-		String sql = "	";
+		String sql = "INSERT INTO CONTENTDETAIL(CONTENT_NO,DAY,CONTENT,PATH) "
+				       + "VALUES(?,?,?,?)";
 		int result = 0;
 		
 		try {
