@@ -86,7 +86,8 @@ public class TravelContentServlet extends HttpServlet {
 			request.setAttribute("search", search);
 		} else if (task.equals("wirteForm")) {
 			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
-			path = "write_form_newest.jsp";
+//			path = "write_form_newest.jsp";
+			path = "write_form.jsp";
 		} else if (task.equals("updateForm")) {
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("loginId");
@@ -119,6 +120,7 @@ public class TravelContentServlet extends HttpServlet {
 		String task = request.getParameter("task");
 		String path = "";
 		
+		System.out.println("된다");
 		Enumeration<String> params = request.getParameterNames();
 		while(params.hasMoreElements()) {
 			System.out.println("--"+params.nextElement());
@@ -145,6 +147,7 @@ public class TravelContentServlet extends HttpServlet {
 //			}
 			content.setStart_date(request.getParameter("start_date"));
 			content.setEnd_date(request.getParameter("end_date"));
+			System.out.println(content.toString());
 //			content.setWrite_time(new Date(System.currentTimeMillis()));
 			// day 개수 (Day02까지 썼으면 day=2)
 			String dayStr = request.getParameter("day");
