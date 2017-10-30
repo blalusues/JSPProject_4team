@@ -14,10 +14,11 @@ public class ContentVO {
 	String location;
 	String start_date;
 	String end_date;
+	String email;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	public ContentVO(int content_no, String title, int read_count, String writer, Date write_time, String main_img,
-			String location, String start_date, String end_date) {
+			String location, String start_date, String end_date, String email) {
 		super();
 		this.content_no = content_no;
 		this.title = title;
@@ -28,9 +29,9 @@ public class ContentVO {
 		this.location = location;
 		this.start_date = start_date;
 		this.end_date = end_date;
+		this.email = email;
 	}
-
-
+	
 	public ContentVO() {
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -110,12 +111,18 @@ public class ContentVO {
 		this.end_date = end_date;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "ContentVO [content_no=" + content_no + ", title=" + title + ", read_count=" + read_count + ", writer="
 				+ writer + ", write_time=" + write_time + ", main_img=" + main_img + ", location=" + location
-				+ ", start_date=" + start_date + ", end_date=" + end_date + "]";
+				+ ", start_date=" + start_date + ", end_date=" + end_date + ", email=" + email + "]";
 	}
-
-	
 }
