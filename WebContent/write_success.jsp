@@ -8,5 +8,6 @@
 </head>
 <body>
 wirte ¼º°ø
+<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" ><button></button></a>
 </body>
 </html>
