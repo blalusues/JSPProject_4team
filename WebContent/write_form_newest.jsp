@@ -26,7 +26,8 @@
 
 <style type="text/css">
 .bs-wizard {
-/* 	margin-top: 40px; */
+	/* 	margin-top: 40px; */
+	
 }
 
 /*Form Wizard*/
@@ -152,22 +153,26 @@
 		count[day] = 1;
 		var newRoute;
 		// 경로 추가 버튼 클릭
-		$(document).on('click', '#addBtn' + day, function() {
-			newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
-						+ "<div class='text-center bs-wizard-stepnum'>"
-						+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
-						+ "<div class='progress'><div class='progress-bar'></div></div>"
-						+ "<a href='#' class='bs-wizard-dot'></a>"
-						+ "<div class='bs-wizard-info text-center'>"
-						+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
-						+ "</textarea></div></div>";
-			$('#route' + day).append(newRoute);
-							
-			var width = "width:" + (100 / count[day]) + "%";
-			$('#route'+ day +'> *').attr("style", width);
-							
-			count[day]++;
-		})
+		$(document)
+				.on(
+						'click',
+						'#addBtn' + day,
+						function() {
+							newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
+									+ "<div class='text-center bs-wizard-stepnum'>"
+									+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
+									+ "<div class='progress'><div class='progress-bar'></div></div>"
+									+ "<a href='#' class='bs-wizard-dot'></a>"
+									+ "<div class='bs-wizard-info text-center'>"
+									+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
+									+ "</textarea></div></div>";
+							$('#route' + day).append(newRoute);
+
+							var width = "width:" + (100 / count[day]) + "%";
+							$('#route' + day + '> *').attr("style", width);
+
+							count[day]++;
+						})
 	}
 	$(func_add_day);
 
@@ -184,28 +189,35 @@
 			},
 		});
 		// Day 추가 버튼 클릭
-		document.querySelector('.append-slide').addEventListener('click', function(e) {
-			e.preventDefault();
-			day++;
-			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
-								+ "<legend class='text-center'>Day " + day + "</legend>"
-								+ "<div class='form-group'>"
-								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
-								+ "<div class='col-md-9'>"
-								+ "<textarea name='content" + day + "' id='summernote' value=''></textarea>"
-								+ "<input type='hidden' name='contents' value='' id='contents'>"
-								+ "</div></div>"
-								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+		document
+				.querySelector('.append-slide')
+				.addEventListener(
+						'click',
+						function(e) {
+							e.preventDefault();
+							day++;
+							swiper
+									.appendSlide("<div class='swiper-slide'><fieldset>"
+											+ "<legend class='text-center'>Day "
+											+ day
+											+ "</legend>"
+											+ "<div class='form-group'>"
+											+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
+											+ "<div class='col-md-9'>"
+											+ "<textarea name='content" + day + "' id='summernote' value=''></textarea>"
+											+ "<input type='hidden' name='contents' value='' id='contents'>"
+											+ "</div></div>"
+											+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
-								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
-								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
-								+ "경로 추가</button></p></div></fieldset></div>");
-			
-			// Day 추가 될 때마다 click event 추가
-			func_add_day();
-			// 이벤트 버블링 방지
-			return false;
-		});
+											+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
+											+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+											+ "경로 추가</button></p></div></fieldset></div>");
+
+							// Day 추가 될 때마다 click event 추가
+							func_add_day();
+							// 이벤트 버블링 방지
+							return false;
+						});
 		$(document).on('click', '#submitBtn', function() {
 			var form = document.getElementById("form");
 
@@ -236,17 +248,18 @@
 			focus : true
 		// set focus to editable area after initializing summernote
 		});
-// 		$(document).ready(function() {
-// 			$('#save_button').click(function() {
-// 				var markupStr = 'hello world';
-// 				$('#summernote').summernote('code', markupStr);
-// 				$('#contents').val(markupStr);
-// 			});
+		// 		$(document).ready(function() {
+		// 			$('#save_button').click(function() {
+		// 				var markupStr = 'hello world';
+		// 				$('#summernote').summernote('code', markupStr);
+		// 				$('#contents').val(markupStr);
+		// 			});
 
-// 		})
+		// 		})
 
 	});
-</script><script src="lang/summernote-ko-KR.js"></script>
+</script>
+<script src="lang/summernote-ko-KR.js"></script>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -273,7 +286,7 @@ body {
 .swiper-container {
 	width: 100%;
 	height: 700px;
- 	margin: 20px auto; 
+	margin: 20px auto;
 }
 
 .swiper-slide {
@@ -377,8 +390,10 @@ body {
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="source_tags">내용</label>
 								<div class="col-md-9">
-									<textarea name="content1" id="summernote" value=""></textarea>
-									<input type="hidden" name="contents" value="" id="contents">
+									<div class="summernote">
+										<textarea name="content" id="summernote" value=""></textarea>
+										<input type="hidden" name="contents" value="" id="contents">
+									</div>
 								</div>
 							</div>
 							<!----------------------- 경로 부분 ---------------------->
@@ -386,7 +401,7 @@ body {
 								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
 								<p align="center">
 									<button id="addBtn1" type="button"
-										class="btn btn-default btn-lg" style="font-size:12px">
+										class="btn btn-default btn-lg" style="font-size: 12px">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 										경로 추가
 									</button>
