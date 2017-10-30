@@ -255,9 +255,8 @@
 				maxPath[i].setAttribute("value", count[i + 1] - 1); // value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
-			var markupStr = 'hello world';
-			$('#summernote').summernote('code', markupStr);
-			$('#contents').val(markupStr);
+			var html = $('#summernote').summernote('code');
+			$('#contents').val(html);
 			form.submit();
 		})
 		$('#summernote').summernote({
