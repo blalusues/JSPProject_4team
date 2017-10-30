@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Swiper demo</title>
+  <title>상세후기</title>
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="./dist/css/swiper.min.css">
 
@@ -115,7 +115,7 @@
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
     <!-- Add Arrows -->
-    <div class="swiper-button-next"></div>
+    <div id="button" class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
 
@@ -124,19 +124,22 @@
 
   <!-- Initialize Swiper -->
   <script>
-    var swiper = new Swiper('.swiper-container', {
+    var mySwiper = new Swiper('.swiper-container', {
       pagination: {
         el: '.swiper-pagination',
         type: 'progressbar',
       },
       navigation: {
-        nextEl: '.swiper-button-next'	,
+        nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      onSlideNextStart: function(swiper){
-          alert("asdsd");
-        }
+      onSlideNextStart: function(){
+          alert('asdasd');
+      }
+      
     });
+    
+  
   </script>
 </body>
 </html>
