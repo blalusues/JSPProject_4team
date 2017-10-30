@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <head>
 <title>글작성</title>
 
@@ -12,11 +13,17 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+<!-- include summernote css/js-->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
+	rel="stylesheet">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="lang/summernote-ko-KR.js"></script>
 <style type="text/css">
 .bs-wizard {
 	margin-top: 40px;
@@ -131,54 +138,65 @@
 }
 /*END Form Wizard*/
 </style>
-	
+
 <!-- Swiper JS -->
 <script src="./dist/js/swiper.min.js"></script>
 
 <script type="text/javascript">
-	var day=1;
+	var day = 1;
 	var count = new Array();
-	
+
 	// 전에 꺼 버튼은 눌리는데 다음 꺼에 그리네????????ㅋㅋㅋㅋ
-	
+
 	function func_add_day() {
-		count[day]=1;
+		count[day] = 1;
 		var newRoute;
 		// 경로 추가 버튼 클릭
-		$(document).on('click',	'#addBtn' + day, function() {
-			newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
-						+ "<div class='text-center bs-wizard-stepnum'>"
-						+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
-						+ "<div class='progress'><div class='progress-bar'></div></div>"
-						+ "<a href='#' class='bs-wizard-dot'></a>"
-						+ "<div class='hide bs-wizard-info text-center'>"
-						+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
-						+ "</textarea></div></div>";
-			$('#route'+day).append(newRoute);
-			if (count[day] == '1') {
-				alert('style1')
-				$('#day' + day).attr("style", "width: 50%");
-			} else {
-				alert('style2')
-				$('#day' + day).attr("style", "width:" + (100 / count[day]) + "%");
-			}
-			count[day]++;
+		$(document)
+				.on(
+						'click',
+						'#addBtn' + day,
+						function() {
+							newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
+									+ "<div class='text-center bs-wizard-stepnum'>"
+									+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
+									+ "<div class='progress'><div class='progress-bar'></div></div>"
+									+ "<a href='#' class='bs-wizard-dot'></a>"
+									+ "<div class='hide bs-wizard-info text-center'>"
+									+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
+									+ "</textarea></div></div>";
+							$('#route' + day).append(newRoute);
+							if (count[day] == '1') {
+								alert('style1')
+								$('#day' + day).attr("style", "width: 50%");
+							} else {
+								alert('style2')
+								$('#day' + day).attr("style",
+										"width:" + (100 / count[day]) + "%");
+							}
+							count[day]++;
 
-			// 이벤트 동적할당
-			$(document).on('mouseover', '.bs-wizard-dot', function() {
-				$(this).popover({
-					placement : 'bottom',
-					title : 'SUMMARY',
-					html : true,
-					content : $('.bs-wizard-info').html()
-				})
-			})
-		})
+							// 이벤트 동적할당
+							$(document).on(
+									'mouseover',
+									'.bs-wizard-dot',
+									function() {
+										$(this).popover(
+												{
+													placement : 'bottom',
+													title : 'SUMMARY',
+													html : true,
+													content : $(
+															'.bs-wizard-info')
+															.html()
+												})
+									})
+						})
 	}
 	$(func_add_day);
 
 	// Initialize Swiper
-	$(function(){
+	$(function() {
 		var swiper = new Swiper('.swiper-container', {
 			pagination : {
 				el : '.swiper-pagination',
@@ -190,47 +208,75 @@
 			},
 		});
 		// Day 추가 버튼 클릭
-		document.querySelector('.append-slide').addEventListener('click', function(e) {
-			e.preventDefault();
-			day++;
-			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
-								+ "<legend class='text-center'>Day " + day + "</legend>"
-								+ "<div class='form-group'>"
-								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
-								+ "<div class='col-md-9'><div><textarea rows='8' cols='100' id='content" + day + "'>"
-								+ "</textarea></div></div></div>"
-								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+		document
+				.querySelector('.append-slide')
+				.addEventListener(
+						'click',
+						function(e) {
+							e.preventDefault();
+							day++;
+							swiper
+									.appendSlide("<div class='swiper-slide'><fieldset>"
+											+ "<legend class='text-center'>Day "
+											+ day
+											+ "</legend>"
+											+ "<div class='form-group'>"
+											+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
+											+ "<div class='col-md-9'><div><textarea rows='8' cols='100' id='content" + day + "'>"
+											+ "</textarea></div></div></div>"
+											+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
-								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
-								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
-								+ "경로 추가</button></p></div></fieldset></div>");
-			// Day 추가 될 때마다 click event 추가
-			func_add_day();
-			// maxPath 보내기 위한 hidden input 생성
-			
-			// 이벤트 버블링 방지
-			return false;
-		});
-		$(document).on('click',	'#submitBtn', function() {
+											+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
+											+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+											+ "경로 추가</button></p></div></fieldset></div>");
+							// Day 추가 될 때마다 click event 추가
+							func_add_day();
+							// maxPath 보내기 위한 hidden input 생성
+
+							// 이벤트 버블링 방지
+							return false;
+						});
+		$(document).on('click', '#submitBtn', function() {
 			var form = document.getElementById("form");
-			
+
 			// day 보내기
-			var allDay = document.createElement("input");   // input 엘리멘트 생성
-			allDay.setAttribute("type","hidden");           // type 속성을 hidden으로 설정
-			allDay.setAttribute("name","day");               // name 속성을 day로 설정
-			allDay.setAttribute("value",day);             // value 속성을 삽입
-			form.appendChild(allDay);						// form 엘리멘트에 input 엘리멘트 추가
+			var allDay = document.createElement("input"); // input 엘리멘트 생성
+			allDay.setAttribute("type", "hidden"); // type 속성을 hidden으로 설정
+			allDay.setAttribute("name", "day"); // name 속성을 day로 설정
+			allDay.setAttribute("value", day); // value 속성을 삽입
+			form.appendChild(allDay); // form 엘리멘트에 input 엘리멘트 추가
 
 			// count 배열 보내기
 			var maxPath = new Array();
-			for(var i=0; i<count.length; i++){
-				maxPath[i] = document.createElement("input");   // input 엘리멘트 생성
-				maxPath[i].setAttribute("type","hidden");           // type 속성을 hidden으로 설정
-				maxPath[i].setAttribute("name","maxPath"+(i+1));       // name 속성을 maxPath로 설정
-				maxPath[i].setAttribute("value",count[i+1]-1);             // value 속성을 삽입
+			for (var i = 0; i < count.length; i++) {
+				maxPath[i] = document.createElement("input"); // input 엘리멘트 생성
+				maxPath[i].setAttribute("type", "hidden"); // type 속성을 hidden으로 설정
+				maxPath[i].setAttribute("name", "maxPath" + (i + 1)); // name 속성을 maxPath로 설정
+				maxPath[i].setAttribute("value", count[i + 1] - 1); // value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
-			form.submit();	
+			form.submit();
+		})
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				height : 300, // set editor height
+				minHeight : null, // set minimum height of editor
+				maxHeight : null, // set maximum height of editor
+				focus : true
+			// set focus to editable area after initializing summernote
+			});
+		});
+		$(document).ready(function() {
+			$('#summernote').summernote();
+		});
+		$(document).ready(function() {
+			$('#save_button').click(function() {
+				var html = $('#summernote').summernote('code');
+				// 			alert(html);
+				$('#contents').val(html);
+				$('#form-submit').submit();
+				return false;
+			});
 		})
 	});
 </script>
@@ -300,8 +346,9 @@ body {
 </style>
 </head>
 <body>
-	<form id="form" class="form-horizontal" action="<%=request.getContextPath()%>/content" method="post">
-		<input type="hidden" name="task" value="write"/>
+	<form id="form" class="form-horizontal"
+		action="<%=request.getContextPath()%>/content" method="post">
+		<input type="hidden" name="task" value="write" />
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->
@@ -329,20 +376,31 @@ body {
 					</select>
 				</div>
 			</div>
-			<!-- Text input-->
+			<!-- start date-->
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="article_date">날짜</label>
-				<div class="col-md-9">
-					<input id="article_date" name="article_date" type="text"
-						placeholder="article date of publication "
-						class="form-control input-md">
+				<label class="col-md-2 control-label" for="start_date">출발 일</label>
+				<div class="col-md-3">
+					<input id="start_date" name="start_date" type="text"
+						placeholder="ex) 2017-01-01" class="form-control input-md">
+
+				</div>
+			</div>
+
+			<!-- end date-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="end_date">마지막 일</label>
+				<div class="col-md-3">
+					<input id="end_date" name="end_date" type="text"
+						placeholder="ex) 2017-01-03" class="form-control input-md">
+
 				</div>
 			</div>
 			<!-- File Button -->
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="source_image">대표사진</label>
 				<div class="col-md-9">
-					<input id="main_image" name="main_image" class="input-file" type="file">
+					<input id="main_image" name="main_image" class="input-file"
+						type="file">
 				</div>
 			</div>
 			<!----------------------------------- Swiper --------------------------------------->
@@ -356,16 +414,16 @@ body {
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="source_tags">내용</label>
 								<div class="col-md-9">
-									<div>
-										<textarea rows="8" cols="100" id="content"></textarea>
-									</div>	
+									<textarea name="content" id="summernote" value=""></textarea>
+									<input type="hidden" name="contents" value="" id="contents">
 								</div>
 							</div>
 							<!----------------------- 경로 부분 ---------------------->
 							<div class="container">
 								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
 								<p align="center">
-									<button id="addBtn1" type="button" class="btn btn-default btn-lg">
+									<button id="addBtn1" type="button"
+										class="btn btn-default btn-lg">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 										경로 추가
 									</button>
