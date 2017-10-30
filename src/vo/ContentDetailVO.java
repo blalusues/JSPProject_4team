@@ -3,11 +3,11 @@ package vo;
 //10/23 »ý¼º
 
 public class ContentDetailVO {
-	int content_no;
-	int day;
-	String content;
-	String path;
-
+	private int content_no;
+	private int day;
+	private String content;
+	private String path;
+	private String[] dividePath;
 	//////////////////////////////////////////////////////////////////////////////////
 	public ContentDetailVO(int content_no, int day, String content, String path) {
 		super();
@@ -51,6 +51,14 @@ public class ContentDetailVO {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+	
+	public String[] getDividePath() {
+		return dividePath;
+	}
+
+	public void setDividePath(String[] dividePath) {
+		this.dividePath = dividePath;
 	}
 
 	@Override
