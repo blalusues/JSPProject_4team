@@ -1,5 +1,5 @@
 package servlet;
-
+ 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
+ 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +15,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+ 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+ 
+import naver.APIExamMemberProfile;
+ 
 @WebServlet("/callback")
 public class NaverLoginCallbackServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+ 
 		String clientId = "TZblhGxHqxzRPDaQz4FJ";// 애플리케이션 클라이언트 아이디값";
 		String clientSecret = "A3UVaH6P0N";// 애플리케이션 클라이언트 시크릿값";
 		String code = request.getParameter("code");
@@ -60,12 +62,15 @@ public class NaverLoginCallbackServlet extends HttpServlet {
 				System.out.println(res.toString());
 				// JSON Parser 객체 생성
 				JSONParser parser = new JSONParser();
-
+ 
 				// 넘어온 문자열을 JSON 객체로 변환
 				JSONObject jsonObj = (JSONObject) parser.parse(res.toString());
 				access_token = jsonObj.get("access_token").toString();
 				HttpSession session = request.getSession();
 				session.setAttribute("access_token", access_token);
+				APIExamMemberProfile getMember = new APIExamMemberProfile(access_token);
+				session.setAttribute("name", getMember.getName());
+				session.setAttribute("email", getMember.getEmail());
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -78,9 +83,9 @@ public class NaverLoginCallbackServlet extends HttpServlet {
 		str.append("</script>");
 		out.print(str);
 	}
-
+ 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-
+ 
 	}
 }
