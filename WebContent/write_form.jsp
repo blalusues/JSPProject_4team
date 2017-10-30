@@ -22,7 +22,6 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
 
 <style type="text/css">
 input {
@@ -33,27 +32,24 @@ input {
 <title>후기 작성</title>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#summernote').summernote({
-			height : 300, // set editor height
-			minHeight : null, // set minimum height of editor
-			maxHeight : null, // set maximum height of editor
-			focus : true
-		// set focus to editable area after initializing summernote
-		});
+$(document).ready(function() {
+	$('#summernote').summernote({
+		height : 300, // set editor height
+		minHeight : null, // set minimum height of editor
+		maxHeight : null, // set maximum height of editor
+		focus : true
+	// set focus to editable area after initializing summernote
 	});
-	$(document).ready(function() {
-		$('#summernote').summernote();
+});
+$(document).ready(function() {
+	$('#save_button').click(function() {
+		var markupStr = $('#summernote').summernote('code');
+		$('#summernote').summernote('code', markupStr);
+		alert(markupStr);
+		$('#form-submit').submit();
+		return false;
 	});
-	$(document).ready(function() {
-		$('#save_button').click(function() {
-			var html = $('#summernote').summernote('code');
-// 			alert(html);
-			$('#contents').val(html);
-			$('#form-submit').submit();
-			return false;
-		});
-	})
+})
 </script>
 </head>
 <body>
