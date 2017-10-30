@@ -3,9 +3,6 @@
 <head>
 <title>글작성</title>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -13,13 +10,16 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- include summernote css/js-->
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
 	rel="stylesheet">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <!-- include summernote-ko-KR -->
@@ -255,29 +255,27 @@
 				maxPath[i].setAttribute("value", count[i + 1] - 1); // value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
+			var markupStr = 'hello world';
+			$('#summernote').summernote('code', markupStr);
+			$('#contents').val(markupStr);
 			form.submit();
 		})
-		$(document).ready(function() {
-			$('#summernote').summernote({
-				height : 300, // set editor height
-				minHeight : null, // set minimum height of editor
-				maxHeight : null, // set maximum height of editor
-				focus : true
-			// set focus to editable area after initializing summernote
-			});
+		$('#summernote').summernote({
+			height : 300, // set editor height
+			minHeight : null, // set minimum height of editor
+			maxHeight : null, // set maximum height of editor
+			focus : true
+		// set focus to editable area after initializing summernote
 		});
-		$(document).ready(function() {
-			$('#summernote').summernote();
-		});
-		$(document).ready(function() {
-			$('#save_button').click(function() {
-				var html = $('#summernote').summernote('code');
-				// 			alert(html);
-				$('#contents').val(html);
-				$('#form-submit').submit();
-				return false;
-			});
-		})
+// 		$(document).ready(function() {
+// 			$('#save_button').click(function() {
+// 				var markupStr = 'hello world';
+// 				$('#summernote').summernote('code', markupStr);
+// 				$('#contents').val(markupStr);
+// 			});
+
+// 		})
+
 	});
 </script>
 
