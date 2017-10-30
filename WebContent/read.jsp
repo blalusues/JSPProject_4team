@@ -135,7 +135,7 @@ table {
 </style>
 </head>
 <body>
-
+	<c:set var="myContextPath" value="${pageContext.request.contextPath}" />	
 	<div class="swiper-container gallery-top">
 		<div class="swiper-wrapper">
 			<c:forEach var="contentDetail" items="${contentDetailList}">
