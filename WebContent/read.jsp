@@ -222,7 +222,7 @@ table {
 									wrap="hard"></textarea></td>
 							<!-- 댓글 등록 버튼 -->
 						<td><input type="submit" value="등록"
-							style="width: 100px; height: 50px; font-size: 15pt; margin-bottom: 5px;"></td>
+							style="width: 100px; height: 50px; font-size: 15pt; margin-bottom: 5px; background-color: white; cursor: pointer;"></td>
 						</tr>
 					</table>
 				</form>
