@@ -12,12 +12,12 @@ public class ContentVO {
 	Date write_time;
 	String main_img;
 	String location;
-	Date start_date;
-	Date end_date;
+	String start_date;
+	String end_date;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	public ContentVO(int content_no, String title, int read_count, String writer, Date write_time, String main_img,
-			String location, Date start_date, Date end_date) {
+			String location, String start_date, String end_date) {
 		super();
 		this.content_no = content_no;
 		this.title = title;
@@ -91,22 +91,22 @@ public class ContentVO {
 		this.location = location;
 	}
 
-	public Date getStart_date() {
+	public String getStart_date() {
 		return start_date;
 	}
 
 
-	public void setStart_date(Date start_date) {
+	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
 
 
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
 
 
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 
