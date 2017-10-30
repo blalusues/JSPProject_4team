@@ -152,46 +152,22 @@
 		count[day] = 1;
 		var newRoute;
 		// 경로 추가 버튼 클릭
-		$(document)
-				.on(
-						'click',
-						'#addBtn' + day,
-						function() {
-							newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
-									+ "<div class='text-center bs-wizard-stepnum'>"
-									+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
-									+ "<div class='progress'><div class='progress-bar'></div></div>"
-									+ "<a href='#' class='bs-wizard-dot'></a>"
-									+ "<div class='hide bs-wizard-info text-center'>"
-									+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
-									+ "</textarea></div></div>";
-							$('#route' + day).append(newRoute);
-							if (count[day] == '1') {
-								alert('style1')
-								$('#day' + day).attr("style", "width: 50%");
-							} else {
-								alert('style2')
-								$('#day' + day).attr("style",
-										"width:" + (100 / count[day]) + "%");
-							}
-							count[day]++;
-
-							// 이벤트 동적할당
-							$(document).on(
-									'mouseover',
-									'.bs-wizard-dot',
-									function() {
-										$(this).popover(
-												{
-													placement : 'bottom',
-													title : 'SUMMARY',
-													html : true,
-													content : $(
-															'.bs-wizard-info')
-															.html()
-												})
-									})
-						})
+		$(document).on('click', '#addBtn' + day, function() {
+			newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
+						+ "<div class='text-center bs-wizard-stepnum'>"
+						+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
+						+ "<div class='progress'><div class='progress-bar'></div></div>"
+						+ "<a href='#' class='bs-wizard-dot'></a>"
+						+ "<div class='bs-wizard-info text-center'>"
+						+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
+						+ "</textarea></div></div>";
+			$('#route' + day).append(newRoute);
+							
+			var width = "width:" + (100 / count[day]) + "%";
+			$('#route'+ day +'> *').attr("style", width);
+							
+			count[day]++;
+		})
 	}
 	$(func_add_day);
 
@@ -208,34 +184,25 @@
 			},
 		});
 		// Day 추가 버튼 클릭
-		document
-				.querySelector('.append-slide')
-				.addEventListener(
-						'click',
-						function(e) {
-							e.preventDefault();
-							day++;
-							swiper
-									.appendSlide("<div class='swiper-slide'><fieldset>"
-											+ "<legend class='text-center'>Day "
-											+ day
-											+ "</legend>"
-											+ "<div class='form-group'>"
-											+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
-											+ "<div class='col-md-9'><div><textarea rows='8' cols='100' id='content" + day + "'>"
-											+ "</textarea></div></div></div>"
-											+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+		document.querySelector('.append-slide').addEventListener('click', function(e) {
+			e.preventDefault();
+			day++;
+			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
+								+ "<legend class='text-center'>Day " + day + "</legend>"
+								+ "<div class='form-group'>"
+								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
+								+ "<div class='col-md-9'><div><textarea rows='8' cols='100' id='content" + day + "'>"
+								+ "</textarea></div></div></div>"
+								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
-											+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
-											+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
-											+ "경로 추가</button></p></div></fieldset></div>");
-							// Day 추가 될 때마다 click event 추가
-							func_add_day();
-							// maxPath 보내기 위한 hidden input 생성
-
-							// 이벤트 버블링 방지
-							return false;
-						});
+								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
+								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+								+ "경로 추가</button></p></div></fieldset></div>");
+			// Day 추가 될 때마다 click event 추가
+			func_add_day();
+			// 이벤트 버블링 방지
+			return false;
+		});
 		$(document).on('click', '#submitBtn', function() {
 			var form = document.getElementById("form");
 
