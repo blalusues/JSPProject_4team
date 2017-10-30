@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import service.TravelContentService;
 import vo.CommentVO;
@@ -116,7 +117,6 @@ public class TravelContentServlet extends HttpServlet {
 		String task = request.getParameter("task");
 		String path = "";
 		
-		System.out.println("된다");
 		Enumeration<String> params = request.getParameterNames();
 		while(params.hasMoreElements()) {
 			System.out.println("--"+params.nextElement());
@@ -124,13 +124,18 @@ public class TravelContentServlet extends HttpServlet {
 		
 		// 글 작성 완료 후 submit 버튼 눌렀을 때
 		if (task.equals("write")) {
+			HttpSession session = request.getSession();
+			session.getAttribute("name");
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(String.valueOf(request.getSession().getAttribute("name")));
 			content.setLocation(request.getParameter("location"));
-			content.setMain_img(request.getParameter("main_img"));
-			
+			content.setMain_img(request.getParameter("main_image"));
+			content.setStart_date(request.getParameter("start_date"));
+			content.setEnd_date(request.getParameter("end_date"));
+			System.out.println(content);
+		
 //			Date start_date = null, end_date= null;
 //			try {
 //				start_date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date"));
@@ -141,7 +146,6 @@ public class TravelContentServlet extends HttpServlet {
 //			}
 			content.setStart_date(request.getParameter("start_date"));
 			content.setEnd_date(request.getParameter("end_date"));
-			System.out.println(content.toString());
 //			content.setWrite_time(new Date(System.currentTimeMillis()));
 			// day 개수 (Day02까지 썼으면 day=2)
 			String dayStr = request.getParameter("day");
@@ -164,12 +168,14 @@ public class TravelContentServlet extends HttpServlet {
 				ContentDetailVO detail = new ContentDetailVO();
 
 				detail.setDay(i);
-				detail.setContent(request.getParameter("content" + i));
+//				detail.setContent(request.getParameter("contents"));
+				detail.setContent(request.getParameter("content"));
 				for (int x = 1; x < maxPath[i] + 1; x++) {
 					plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
-				}
+				}	
 				detail.setPath(plusPath);
 				detailList.add(detail);
+				System.out.println(detail);
 			}
 
 			if (service.write(content, detailList) == 1) {
