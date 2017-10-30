@@ -330,7 +330,7 @@
 	
 	function aa(){
 // 		location.href="write_form.jsp";
-		location.href="/writeForm"
+		location.href="/JSPProject_4team/content?task=wirteForm"
 	}
 </script>
 </body>
