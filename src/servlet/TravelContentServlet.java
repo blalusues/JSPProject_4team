@@ -141,7 +141,7 @@ public class TravelContentServlet extends HttpServlet {
 			// (Day02의 content, path의 parameter이름은 content2, path2)
 			for (int i = 1; i < day + 1; i++) {
 
-				String plusPath = null;
+				String plusPath = "";
 
 				ContentDetailVO detail = new ContentDetailVO();
 
@@ -249,19 +249,35 @@ public class TravelContentServlet extends HttpServlet {
 			if (dayStr != null && dayStr.length() > 0) {
 				day = Integer.parseInt(dayStr);
 			}
-
+			
+			int[] maxPath = new int[5];
+			for (int y = 1; y < day + 1; y++) {
+				String pathStr = request.getParameter("maxPath" + y);
+				maxPath[y] = Integer.parseInt(pathStr);
+			}
+			
 			if (day > dayNumber) {// 수정시 day가 추가 되었을 때
 				for (int i = 1; i < dayNumber + 1; i++) {
+					String plusPath="";
+					
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
-					detail.setPath(request.getParameter("path" + i));
+					for (int x = 1; x < maxPath[i] + 1; x++) {
+						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					}
+					detail.setPath(plusPath);
 
 					detailList.add(detail);
 				}
 				for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
+					String plusPath="";
+					
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
-					detail.setPath(request.getParameter("path" + i));
+					for (int x = 1; x < maxPath[i] + 1; x++) {
+						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					}
+					detail.setPath(plusPath);
 
 					detailListOther.add(detail);
 				}
@@ -273,9 +289,14 @@ public class TravelContentServlet extends HttpServlet {
 				}
 			} else if (day == dayNumber) { // 수정시 day가 같을 때
 				for (int i = 1; i < detailList.size() + 1; i++) {
+					String plusPath="";
+					
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
-					detail.setPath(request.getParameter("path" + i));
+					for (int x = 1; x < maxPath[i] + 1; x++) {
+						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					}
+					detail.setPath(plusPath);
 
 					detailList.add(detail);
 				}
@@ -286,17 +307,27 @@ public class TravelContentServlet extends HttpServlet {
 				}
 			} else if (day < dayNumber) { // 수정시 day가 삭제 되었을 때
 				for (int i = 1; i < detailList.size() + 1; i++) {
+					String plusPath="";
+					
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
-					detail.setPath(request.getParameter("path" + i));
+					for (int x = 1; x < maxPath[i] + 1; x++) {
+						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					}
+					detail.setPath(plusPath);
 
 					detailList.add(detail);
 				}
 
 				for (int i = detailList.size() + 1; i < dayNumber + 1; i++) {
+					String plusPath="";
+					
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
-					detail.setPath(request.getParameter("path" + i));
+					for (int x = 1; x < maxPath[i] + 1; x++) {
+						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					}
+					detail.setPath(plusPath);
 
 					detailListOther.add(detail);
 				}
