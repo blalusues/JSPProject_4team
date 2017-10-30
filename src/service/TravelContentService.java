@@ -118,7 +118,7 @@ public class TravelContentService {
 
 		content.setRead_count(0);
 		content.setWrite_time(new Date());
-
+		
 		if (dao.insertContent(content) > 0) {
 			content_no = dao.selectMaxContentNo();
 		}
