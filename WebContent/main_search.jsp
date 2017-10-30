@@ -329,7 +329,8 @@
 	})
 	
 	function aa(){
-		location.href="write_form.jsp";
+// 		location.href="write_form.jsp";
+		location.href="/writeForm"
 	}
 </script>
 </body>
