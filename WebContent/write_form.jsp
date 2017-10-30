@@ -48,13 +48,18 @@ input {
 	$(document).ready(function() {
 		$('#save_button').click(function() {
 			var html = $('#summernote').summernote('code');
-			alert(html);
+// 			alert(html);
+			$('#contents').val(html);
+			$('#form-submit').submit();
+			return false;
 		});
 	})
 </script>
 </head>
 <body>
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="form-submit" action="<%=request.getContextPath() %>/content"
+		method="post">
+		<input name="task" value="write" type="hidden">
 		<fieldset>
 			<!-- Form Name -->
 			<legend class="text-center">Day 1</legend>
@@ -87,13 +92,22 @@ input {
 				</div>
 			</div>
 
-			<!-- Text input-->
+			<!-- start date-->
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="article_date">날짜</label>
-				<div class="col-md-9">
-					<input id="article_date" name="article_date" type="text"
-						placeholder="article date of publication "
-						class="form-control input-md">
+				<label class="col-md-2 control-label" for="start_date">출발 일</label>
+				<div class="col-md-3">
+					<input id="start_date" name="start_date" type="text"
+						placeholder="ex) 2017-01-01" class="form-control input-md">
+
+				</div>
+			</div>
+
+			<!-- end date-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="end_date">마지막 일</label>
+				<div class="col-md-3">
+					<input id="end_date" name="end_date" type="text"
+						placeholder="ex) 2017-01-03" class="form-control input-md">
 
 				</div>
 			</div>
@@ -112,6 +126,7 @@ input {
 				<div class="col-md-9">
 					<textarea name="content" id="summernote" value=""></textarea>
 					<button type="button" id="save_button">Click Me!</button>
+					<input type="hidden" name="contents" value="" id="contents">
 				</div>
 			</div>
 		</fieldset>
