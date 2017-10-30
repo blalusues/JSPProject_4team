@@ -86,7 +86,7 @@ public class TravelContentServlet extends HttpServlet {
 			request.setAttribute("search", search);
 		} else if (task.equals("wirteForm")) {
 			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
-			path = "write_form.jsp";
+			path = "write_form_newest.jsp";
 		} else if (task.equals("updateForm")) {
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("loginId");
