@@ -547,7 +547,7 @@ public class ContentDao {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, content.getContent());
-			pstmt.setString(2, content.getContent());
+			pstmt.setString(2, content.getPath());
 			pstmt.setInt(3, content.getContent_no());
 			pstmt.setInt(4, content.getDay());
 			

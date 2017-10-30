@@ -7,6 +7,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<!-- 공유하기 -->
+
+<meta property="og:title" content="Travel">
+<meta property="og:url" content="http://127.0.0.1">
+<meta property="og:description" content="내용">
+
+
 <style type="text/css">
 	#line{ 
 		font-size: 40px;
@@ -241,10 +248,10 @@
 				</div>
 				<div class="col-md-4">
 					<ul class="list-inline social-buttons">
-						<li class="list-inline-item"><a href="#"> <i
+						<li class="list-inline-item"><a href="https://twitter.com/intent/tweet?text=TEXT&url=http://127.0.0.1" target="_blank"> <i
 								class="fa fa-twitter"></i>
 						</a></li>
-						<li class="list-inline-item"><a href="#"> <i
+						<li class="list-inline-item"><a href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1" target="_blank"> <i
 								class="fa fa-facebook"></i>
 						</a></li>
 						<li class="list-inline-item"><a href="#"> <i
@@ -322,7 +329,8 @@
 	})
 	
 	function aa(){
-		location.href="write_form.jsp";
+// 		location.href="write_form.jsp";
+		location.href="/writeForm"
 	}
 </script>
 </body>
