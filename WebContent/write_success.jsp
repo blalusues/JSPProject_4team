@@ -8,6 +8,6 @@
 </head>
 <body>
 wirte 성공
-<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" ><button></button></a>
+<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" ><button>메인화면으로</button></a>
 </body>
 </html>
