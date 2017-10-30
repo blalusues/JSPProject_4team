@@ -236,7 +236,7 @@ body {
 </head>
 <body>
 	<form class="form-horizontal"
-		action="<%=request.getContextPath()%>/servlet" method="post">
+		action="<%=request.getContextPath()%>/content" method="post">
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->
