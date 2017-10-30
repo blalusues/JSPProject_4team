@@ -51,7 +51,7 @@ public class ContentDao {
 	public List<ContentVO> selectContentList(int startRow, int count){
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-			     + "FROM CONTENT ORDER BY READ_COUNT DESC LIMIT ?,?";
+			     + "START_DATE,END_DATE,EMAIL FROM CONTENT ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
 		
@@ -71,6 +71,9 @@ public class ContentDao {
 				content.setWrite_time(rs.getDate(5));
 				content.setMain_img(rs.getString(6));
 				content.setLocation(rs.getString(7));
+				content.setStart_date(rs.getString(8));
+				content.setEnd_date(rs.getString(9));
+				content.setEmail(rs.getString(10));
 				
 				contentList.add(content);
 			}
@@ -112,7 +115,7 @@ public class ContentDao {
 	public List<ContentVO> selectSearchList(String search, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') "
+				+ "START_DATE,END_DATE,EMAIL FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') "
 				+ "ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
@@ -134,6 +137,9 @@ public class ContentDao {
 				content.setWrite_time(rs.getDate(5));
 				content.setMain_img(rs.getString(6));
 				content.setLocation(rs.getString(7));
+				content.setStart_date(rs.getString(8));
+				content.setEnd_date(rs.getString(9));
+				content.setEmail(rs.getString(10));
 				
 				contentList.add(content);
 			}
@@ -175,7 +181,7 @@ public class ContentDao {
 	public List<ContentVO> selectCategoryList(String category, int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				+ "FROM CONTENT WHERE LOCATION=? ORDER BY READ_COUNT DESC LIMIT ?,?";
+				+ "START_DATE,END_DATE,EMAIL FROM CONTENT WHERE LOCATION=? ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
 		
@@ -196,6 +202,9 @@ public class ContentDao {
 				content.setWrite_time(rs.getDate(5));
 				content.setMain_img(rs.getString(6));
 				content.setLocation(rs.getString(7));
+				content.setStart_date(rs.getString(8));
+				content.setEnd_date(rs.getString(9));
+				content.setEmail(rs.getString(10));
 				
 				contentList.add(content);
 			}
@@ -240,7 +249,7 @@ public class ContentDao {
 			int count) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				+ "FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') AND LOCATION=? "
+				+ "START_DATE,END_DATE,EMAIL FROM CONTENT WHERE TITLE LIKE concat ('%', ?, '%') AND LOCATION=? "
 				+ "ORDER BY READ_COUNT DESC LIMIT ?,?";
 		
 		List<ContentVO> contentList = new ArrayList<>();
@@ -263,6 +272,9 @@ public class ContentDao {
 				content.setWrite_time(rs.getDate(5));
 				content.setMain_img(rs.getString(6));
 				content.setLocation(rs.getString(7));
+				content.setStart_date(rs.getString(8));
+				content.setEnd_date(rs.getString(9));
+				content.setEmail(rs.getString(10));
 				
 				contentList.add(content);
 			}
@@ -314,7 +326,7 @@ public class ContentDao {
 	public ContentVO contentSelect(int contentNumber) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
-				     + "FROM CONTENT WHERE CONTENT_NO=?";
+				+ "START_DATE,END_DATE,EMAIL FROM CONTENT WHERE CONTENT_NO=?";
 		ContentVO content = null;
 		
 		try {
@@ -331,6 +343,9 @@ public class ContentDao {
 				content.setWrite_time(rs.getTimestamp(5));
 				content.setMain_img(rs.getString(6));
 				content.setLocation(rs.getString(7));
+				content.setStart_date(rs.getString(8));
+				content.setEnd_date(rs.getString(9));
+				content.setEmail(rs.getString(10));
 			}
 		} catch (SQLException e) {
 			System.out.println("ContentDao contentSelect 에러");
@@ -368,7 +383,7 @@ public class ContentDao {
 	public int insertContent(ContentVO content) {
 		con = DBUtil.makeConnection();
 		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRITE_TIME, MAIN_IMG, READ_COUNT, "
-				+ "LOCATION) VALUES(?,?,?,?,?,?)";
+				+ "LOCATION + START_DATE + END_DATE + EMAIL) VALUES(?,?,?,?,?,?,?,?,?)";
 		int result = 0;
 		
 		try {
@@ -379,6 +394,9 @@ public class ContentDao {
 			pstmt.setString(4, content.getMain_img());
 			pstmt.setInt(5, content.getRead_count());
 			pstmt.setString(6, content.getLocation());
+			pstmt.setString(7, content.getStart_date());
+			pstmt.setString(8, content.getEnd_date());
+			pstmt.setString(9, content.getEmail());
 			
 			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {
