@@ -80,7 +80,17 @@ public class TravelContentService {
 	// 글 가져오기
 	public List<ContentDetailVO> read(int contentNumber) {
 		List<ContentDetailVO> contentDetail = dao.contentDetailSelect(contentNumber);
+		for(int x=0; x<contentDetail.size();x++) {
+			contentDetail.get(x).setDividePath(dividePath(contentDetail.get(x)));
+		}
 		return contentDetail;
+	}
+	
+	//경로 나눠서 다시 contentDetailVO 리스트에 추가
+	public String[] dividePath(ContentDetailVO contentDetail) {
+		String[] path;
+			path = contentDetail.getPath().split("%");
+		return path;
 	}
 
 	public ContentVO read(String id, int contentNumber) {
