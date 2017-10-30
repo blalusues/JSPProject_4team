@@ -128,7 +128,8 @@ public class TravelContentServlet extends HttpServlet {
 		if (task.equals("write")) {
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-			
+			System.out.println(request.getParameter("day"));
+			System.out.println(request.getParameter("maxPath1"));
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(String.valueOf(request.getSession().getAttribute("name")));
 			content.setLocation(request.getParameter("location"));
