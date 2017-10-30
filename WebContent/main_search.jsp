@@ -3,36 +3,43 @@
 <%@ page import="java.security.SecureRandom"%>
 <%@ page import="java.math.BigInteger"%>
 <%@ page import="java.net.URLEncoder"%>
- 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<!-- 공유하기 -->
+
+<meta property="og:title" content="Travel">
+<meta property="og:url" content="http://127.0.0.1">
+<meta property="og:description" content="내용">
+
+
 <style type="text/css">
 	#line{ 
 		font-size: 40px;
 		color: black;
 	}
- 
+
 	body{
 		background-image:url('../img/background.jpg');
 	}
 </style>
- 
+
 <!------------- 로그인 알림창 ---------------->
 <!--------------------------------------->
- 
+
 <meta charset="EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
- 
+
 <title>Share Your Story</title>
- 
+
 <!-- Bootstrap core CSS -->
 <link href="./Bootstrap/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
- 
+
 <!-- Custom fonts for this template -->
 <link href="./Bootstrap/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
@@ -48,14 +55,14 @@
 <link
 	href='https://fonts.googleapis.com/Bootstrap/css?family=Roboto+Slab:400,100,300,700'
 	rel='stylesheet' type='text/css'>
- 
+
 <!-- Custom styles for this template -->
 <link href="./Bootstrap/css/agency.min.css" rel="stylesheet">
- 
+
 </head>
- 
+
 <body id="page-top">
- 
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
@@ -69,17 +76,17 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
- 
+
 					<li class="nav-item"></li>
- 
+
 					<li class="nav-item">
- 
+
 						<div class="dropdown show">
 							<a class="btn btn-secondary dropdown-toggle"
 								href="https://example.com" id="dropdownMenuLink"
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 지역 선택 </a>
- 
+
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
@@ -122,7 +129,7 @@
 								<input type="hidden" name="category" value="${category}">
 								<span class="input-group-btn">
 								<c:if test="${empty search}">
-									<input type="text" class="form-control" name="search" size="500" placeholder="Search...š”"> 
+									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
 								</c:if>
 								<c:if test="${not empty search}">
 									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
@@ -204,9 +211,9 @@
 			</div>
 		</div>
 	</section>
- 
+
 	<!-- Contact -->
- 
+
 	<!-------------------------------글 쓰기 버튼 ------------------------->
 	<div style="position: fixed; bottom: 60px; right: 20px;">
 		<%
@@ -229,9 +236,9 @@
 		</button>
 		<input type="hidden" id="apiURL" value="<%=apiURL%>">
 		<!-- Modal -->
- 
+
 	</div>
- 
+
 	<!-- Footer -->
 	<footer>
 		<div class="container">
@@ -241,10 +248,10 @@
 				</div>
 				<div class="col-md-4">
 					<ul class="list-inline social-buttons">
-						<li class="list-inline-item"><a href="#"> <i
+						<li class="list-inline-item"><a href="https://twitter.com/intent/tweet?text=TEXT&url=http://127.0.0.1" target="_blank"> <i
 								class="fa fa-twitter"></i>
 						</a></li>
-						<li class="list-inline-item"><a href="#"> <i
+						<li class="list-inline-item"><a href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1" target="_blank"> <i
 								class="fa fa-facebook"></i>
 						</a></li>
 						<li class="list-inline-item"><a href="#"> <i
@@ -286,19 +293,19 @@
 	<!-- Bootstrap core JavaScript -->
 	<script src="./Bootstrap/vendor/jquery/jquery.min.js"></script>
 	<script src="./Bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
- 
+
 	<!-- Plugin JavaScript -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="./Bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
- 
+
 	<!-- Contact form JavaScript -->
 	<script src="./Bootstrap/js/jqBootstrapValidation.js"></script>
 	<script src="./Bootstrap/js/contact_me.js"></script>
- 
+
 	<!-- Custom scripts for this template -->
 	<script src="./Bootstrap/js/agency.min.js"></script>
- 
+
 	<script type="text/javascript">
 	$(function(){
 		$("#write").click(function(){
