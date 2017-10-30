@@ -97,7 +97,7 @@ body {
 	font-family: '돋움', dotum, Helvetica, sans-serif;
 }
 
-li {
+.li1{
 	margin-top: 2px;
 	margin-bottom: 5px;
 	border-color: #222;
@@ -206,7 +206,7 @@ table {
 						<td>${comment.content}</td>
 					</tr>
 				</table>
-				<li></li>
+				<li class="li1"></li>
 			</c:forEach>
 			<br>
 			<c:if test="${not empty sessionScope.loginId}">
@@ -222,7 +222,7 @@ table {
 									wrap="hard"></textarea></td>
 							<!-- 댓글 등록 버튼 -->
 						<td><input type="submit" value="등록"
-							style="width: 100px; height: 50px; font-size: 15pt;"></td>
+							style="width: 100px; height: 50px; font-size: 15pt; margin-bottom: 5px;"></td>
 						</tr>
 					</table>
 				</form>
