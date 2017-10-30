@@ -23,10 +23,10 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
+
 <style type="text/css">
 .bs-wizard {
-	margin-top: 40px;
+/* 	margin-top: 40px; */
 }
 
 /*Form Wizard*/
@@ -191,13 +191,16 @@
 								+ "<legend class='text-center'>Day " + day + "</legend>"
 								+ "<div class='form-group'>"
 								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
-								+ "<div class='col-md-9'><div><textarea rows='8' cols='100' id='content" + day + "'>"
-								+ "</textarea></div></div></div>"
+								+ "<div class='col-md-9'>"
+								+ "<textarea name='content" + day + "' id='summernote' value=''></textarea>"
+								+ "<input type='hidden' name='contents' value='' id='contents'>"
+								+ "</div></div>"
 								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
 								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
 								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
 								+ "경로 추가</button></p></div></fieldset></div>");
+			
 			// Day 추가 될 때마다 click event 추가
 			func_add_day();
 			// 이벤트 버블링 방지
@@ -243,7 +246,7 @@
 // 		})
 
 	});
-</script>
+</script><script src="lang/summernote-ko-KR.js"></script>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -269,8 +272,8 @@ body {
 
 .swiper-container {
 	width: 100%;
-	height: 600px;
-	margin: 20px auto;
+	height: 700px;
+ 	margin: 20px auto; 
 }
 
 .swiper-slide {
@@ -346,19 +349,15 @@ body {
 				<div class="col-md-3">
 					<input id="start_date" name="start_date" type="text"
 						placeholder="ex) 2017-01-01" class="form-control input-md">
-
 				</div>
-			</div>
-
-			<!-- end date-->
-			<div class="form-group">
 				<label class="col-md-2 control-label" for="end_date">마지막 일</label>
 				<div class="col-md-3">
 					<input id="end_date" name="end_date" type="text"
 						placeholder="ex) 2017-01-03" class="form-control input-md">
-
 				</div>
 			</div>
+
+			<!-- end date-->
 			<!-- File Button -->
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="source_image">대표사진</label>
@@ -378,7 +377,7 @@ body {
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="source_tags">내용</label>
 								<div class="col-md-9">
-									<textarea name="content" id="summernote" value=""></textarea>
+									<textarea name="content1" id="summernote" value=""></textarea>
 									<input type="hidden" name="contents" value="" id="contents">
 								</div>
 							</div>
@@ -387,7 +386,7 @@ body {
 								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
 								<p align="center">
 									<button id="addBtn1" type="button"
-										class="btn btn-default btn-lg">
+										class="btn btn-default btn-lg" style="font-size:12px">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 										경로 추가
 									</button>
