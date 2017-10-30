@@ -118,12 +118,11 @@
     <div id="button" class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
-
-  <!-- Swiper JS -->
+      <!-- Swiper JS -->
   <script src="./dist/js/swiper.min.js"></script>
 
   <!-- Initialize Swiper -->
-  <script>
+  <script language="javascript">
     var mySwiper = new Swiper('.swiper-container', {
       pagination: {
         el: '.swiper-pagination',
@@ -133,13 +132,10 @@
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      onSlideNextStart: function(){
+      onSlideNextStart:function(){
           alert('asdasd');
-      }
-      
-    });
-    
-  
+      }    
+    }); 
   </script>
 </body>
 </html>
