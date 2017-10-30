@@ -127,6 +127,7 @@ public class TravelContentServlet extends HttpServlet {
 			session.getAttribute("name");
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
+			
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(String.valueOf(request.getSession().getAttribute("name")));
 			content.setLocation(request.getParameter("location"));
@@ -161,16 +162,15 @@ public class TravelContentServlet extends HttpServlet {
 			// day 개수만큼 detailList 만들기
 			// (Day02의 content, path의 parameter이름은 content2, path2)
 			for (int i = 1; i < day + 1; i++) {
-
 				String plusPath = "";
 
 				ContentDetailVO detail = new ContentDetailVO();
 
 				detail.setDay(i);
-//				detail.setContent(request.getParameter("contents"));
-				detail.setContent(request.getParameter("content"));
+				detail.setContent(request.getParameter("content"+i));
 				for (int x = 1; x < maxPath[i] + 1; x++) {
-					plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+					plusPath = plusPath + request.getParameter("loc" + i + "_" + x) + "%" + 
+								request.getParameter("sum" + i + "_" +x) + "%";
 				}	
 				detail.setPath(plusPath);
 				detailList.add(detail);

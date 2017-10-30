@@ -68,9 +68,9 @@ public class NaverLoginCallbackServlet extends HttpServlet {
 				access_token = jsonObj.get("access_token").toString();
 				HttpSession session = request.getSession();
 				session.setAttribute("access_token", access_token);
-				APIExamMemberProfile getMember = new APIExamMemberProfile(access_token);
-				session.setAttribute("name", getMember.getName());
-				session.setAttribute("email", getMember.getEmail());
+				APIExamMemberProfile.getInfo(access_token);
+				session.setAttribute("name", APIExamMemberProfile.name);
+				session.setAttribute("email", APIExamMemberProfile.email);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
