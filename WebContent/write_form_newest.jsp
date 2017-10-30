@@ -363,7 +363,7 @@ body {
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="place">장소</label>
 				<div class="col-md-3">
-					<select id="place" name="place" class="form-control">
+					<select id="place" name="locations" class="form-control">
 						<option value="1">서울</option>
 						<option value="2">대전</option>
 						<option value="3">대구</option>
