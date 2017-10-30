@@ -119,12 +119,13 @@ public class TravelContentServlet extends HttpServlet {
 		if (task.equals("write")) {
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
-
+			System.out.println(request.getParameter("day"));
+			System.out.println(request.getParameter("maxPath1"));
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
 			content.setLocation(request.getParameter("location"));
 			content.setMain_img(request.getParameter("main_img"));
-
+			
 			// day 개수 (Day02까지 썼으면 day=2)
 			String dayStr = request.getParameter("day");
 			int day = 0;

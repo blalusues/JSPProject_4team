@@ -133,7 +133,7 @@
 </style>
 	
 <!-- Swiper JS -->
-<script src="./js/swiper.min.js"></script>
+<script src="./dist/js/swiper.min.js"></script>
 
 <script type="text/javascript">
 	var day=1;
@@ -239,7 +239,7 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
 <!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="./css/swiper.min.css">
+<link rel="stylesheet" href="./dist/css/swiper.min.css">
 
 <!-- Swiper styles -->
 <style>
@@ -300,7 +300,8 @@ body {
 </style>
 </head>
 <body>
-	<form id="form" class="form-horizontal" action="<%=request.getContextPath()%>/servlet" method="post">
+	<form id="form" class="form-horizontal" action="<%=request.getContextPath()%>/content" method="post">
+		<input type="hidden" name="task" value="write"/>
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->
