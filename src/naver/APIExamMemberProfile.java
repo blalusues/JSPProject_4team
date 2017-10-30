@@ -10,23 +10,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
  
 public class APIExamMemberProfile {
-	private static String token;
-	private static String name;
-	private static String email;
+	public static String name;
+	public static String email;
  
-	public APIExamMemberProfile(String token) {
-		this.token = token;
-	}
- 
-	public String getName() {
-		return name;
-	}
- 
-	public String getEmail() {
-		return email;
-	}
- 
-	public static void main(String[] args) {
+	public static void getInfo (String token) {
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가
 		try {
 			String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -47,15 +34,17 @@ public class APIExamMemberProfile {
 				response.append(inputLine);
 			}
 			br.close();
-			System.out.println(response.toString());
 			JSONParser parser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) parser.parse(response.toString());
-			JSONObject responObj = (JSONObject) parser.parse((String) jsonObject.get("response"));
-			name = (String) responObj.get("name");
-			email = (String) responObj.get("email");
- 
+			JSONObject reJsonObject = (JSONObject)jsonObject.get("response"); 
+			name = (String) reJsonObject.get("name");
+			email = (String) reJsonObject.get("id");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+ 
+	public static void main(String[] args) {
+		
 	}
 }
