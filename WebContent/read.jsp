@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html lang="en">
 <head>
@@ -16,6 +17,140 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<!-- 경로 style -->
+<style type="text/css">
+.bs-wizard {
+	margin-top: 40px;
+}
+
+/*Form Wizard*/
+.bs-wizard {
+	border-bottom: solid 1px #e0e0e0;
+	padding: 0 0 10px 0;
+}
+
+.bs-wizard>.bs-wizard-step {
+	padding: 0px;
+	position: relative;
+	width:30%; 
+	display:inline-block;
+	margin:0px;
+}
+
+.bs-wizard>.bs-wizard-step+.bs-wizard-step {
+}
+
+/* Step 글씨 */
+.bs-wizard>.bs-wizard-step .bs-wizard-stepnum {
+	color: #595959;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+/* 요약 글씨 */
+.bs-wizard>.bs-wizard-step .bs-wizard-info {
+	color: #999;
+	font-size: 14px;
+}
+
+/* 큰 원 */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	display: block;
+	background: #fbe8aa;
+	top: 45px;
+	left: 50%;
+	margin-top: -15px;
+	margin-left: -15px;
+	border-radius: 50%;
+}
+
+/* 작은 원 */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot:after {
+	content: ' ';
+	width: 14px;
+	height: 14px;
+	background: #fbbd19;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+/* 진행바(막대기) */
+.bs-wizard>.bs-wizard-step>.progress {
+	position: relative;
+	border-radius: 0px;
+	height: 8px;
+	box-shadow: none;
+	margin: 15px 0;
+}
+
+.bs-wizard>.bs-wizard-step>.progress>.progress-bar {
+	width: 0px;
+	box-shadow: none;
+	background: #fbe8aa;
+}
+
+.bs-wizard>.bs-wizard-step.complete>.progress>.progress-bar {
+	width: 100%;
+}
+
+.bs-wizard>.bs-wizard-step.active>.progress>.progress-bar {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:first-child.active>.progress>.progress-bar {
+	width: 0%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child.active>.progress>.progress-bar {
+	width: 100%;
+}
+
+/* 진행 안 된 원 */
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot {
+	background-color: #f5f5f5;
+}
+
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot:after {
+	opacity: 0;
+}
+
+.bs-wizard>.bs-wizard-step:first-child>.progress {
+	left: 50%;
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child>.progress {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step.disabled a.bs-wizard-dot {
+	pointer-events: none;
+}
+/*END Form Wizard*/
+</style>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.bs-wizard-dot').popover({
+        placement: 'bottom',
+        title: 'SUMMARY',
+        html: true,
+        content: $('.bs-wizard-info').html()
+  })
+})
+</script>
+
 <style>
 html, body {
 	position: relative;
@@ -189,7 +324,24 @@ table {
 		<div class="swiper-wrapper">
 			<c:forEach var="contentDetail" items="${contentDetailList}">
 				<div class="swiper-slide">
-					<img src="${contentDetail.path}">
+					<div class="container">
+						<div class="bs-wizard" style="border-bottom: 0;">
+						<c:forEach var="i" begin="0" end="${fn:length(contentDetail.dividePath)-1}" step="2">
+							<div class="bs-wizard-step complete">
+								<div class="text-center bs-wizard-stepnum">
+									${contentDetail.dividePath[i]}
+								</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+	 							<a href="#" class="bs-wizard-dot"></a>
+								<div class="hide bs-wizard-info text-center">
+									${contentDetail.dividePath[i+1]}
+								</div>
+							</div>
+						</c:forEach>	
+						</div>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
