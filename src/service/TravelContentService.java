@@ -211,5 +211,12 @@ public class TravelContentService {
 		return true;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////
-	
+	//게시글 삭제
+	public boolean deleteContent(int contentNum) {
+		if(dao.delContent(contentNum) >0 && dao.delContentDetail(contentNum)>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
