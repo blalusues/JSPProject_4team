@@ -168,7 +168,7 @@ public class TravelContentServlet extends HttpServlet {
 					detail.setContent(mReq.getParameter("content" + i));
 					for (int x = 1; x < maxPath[i] + 1; x++) {
 						plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
-								+ mReq.getParameter("sum" + i + "_" + x) + "%";
+								+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 					}
 					detail.setPath(plusPath);
 					detailList.add(detail);
