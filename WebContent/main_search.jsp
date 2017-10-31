@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@page import="naver.APIExamMemberProfile"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ page import="java.security.SecureRandom"%>
 <%@ page import="java.math.BigInteger"%>
 <%@ page import="java.net.URLEncoder"%>
-
+<%@ page import= "java.util.Enumeration" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -145,12 +146,13 @@
                </li>
                <li>   　  </li>
                <li class="nav-item">
-                  <a class="btn btn-secondary" href="<%=request.getContextPath()%>
-                        /content?task=contentList&search=&category=">Home</a>
+                  <a class="btn btn-secondary" href="<%=request.getContextPath()%>/content?task=contentList&search=&category=">Home</a>
                </li>
+               
                <li>   　  </li>
                     <li class="nav-item">
                        <button id="login_btn" type="button" class="btn btn-secondary">Login</button>
+                       <button id="logout_btn" type="button" class="btn btn-secondary">Logout</button>
                      </li>
             </ul>
          </div>
@@ -166,7 +168,7 @@
                <h2 class="section-heading text-uppercase">
                   <div class="col-lg-6">
                      <div class="input-group">
-                        <form action="<%=request.getContextPath()%>/content" method="post">
+                        <form action="<%=request.getContextPath()%>/content" method="get">
                            <input type="hidden" name="task" value="contentList"> 
                            <input type="hidden" name="category" value="${category}"> 
                            <span class="input-group-btn"> 
@@ -218,8 +220,7 @@
          </c:if>
          <c:forEach var="page" begin="${contentPage.startPage}"
             end="${contentPage.endPage}">
-            <a href="<%=request.getContextPath()%>/content?task=contentList&page=
-                  ${page}&search=${search}&category=${category}">   ${page} </a>
+            <a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">${page}</a>
          </c:forEach>
          <c:if test="${contentPage.endPage<contentPage.totalPage}">
             <a href="${myContextPath}/content?page=${contentPage.endPage+1}">
@@ -354,7 +355,20 @@
    <script src="./Bootstrap/js/agency.min.js"></script>
 
    <script type="text/javascript">
-   $(function(){
+   $(function() {
+         var session_name = "${sessionScope.access_token}";
+          var login = document.getElementById("login_btn");
+          var logout = document.getElementById("logout_btn");
+            
+          if ((session_name != null && session_name.length > 0) ) {
+            $("#login_btn").hide();
+            $("#logout_btn").show();
+         } else {
+            $("#login_btn").show();
+            $("#logout_btn").hide();
+      }
+   })
+   $(document).ready(function(){
       $("#write").click(function(){
          
          //세션 체크해서 없을 경우 로그인 화면 있으면 글쓰기
@@ -363,9 +377,9 @@
          //access_token ->  null 이면 로그인 x , null이 아니면 로그인o
 <%--          var session_name = "<%=(String)session.getAttribute("access_token")%>"; --%>
          var session_name = "${sessionScope.access_token}";
-         alert(session_name);
-         if (session_name != null && session_name.length > 0) {
-             bb();
+         if ((session_name != null && session_name.length > 0) ) {
+            alert(session_name);
+            bb();
          } else {
             $("#login_ok").click(function(){
                   //로그인화면 띄우기
@@ -377,16 +391,20 @@
       $("#login_btn").click(function(){
          var url = $('#apiURL').val();
          window.open(url,"", "width=430,height=500,location=no,status=no,scrollbars=yes");
-         alert('되라');
+      })
+      $("#logout_btn").click(function(){
+    	  <% session.removeAttribute("access_token"); %>
+         aa();
       })
    })
    
    function aa(){
-      location.href= request.getContextPath() + "/content?task=contentList&search=&category="
-	}
+      window.location.reload(true);
+   }
    function bb(){
-		location.href="/JSPProject_4team/content?task=wirteForm"
-	}
+      location.href="/JSPProject_4team/content?task=wirteForm"
+   }
+
 </script>
 </body>
 </html>

@@ -62,7 +62,7 @@ public class TravelContentServlet extends HttpServlet {
 			if (pageStr != null && pageStr.length() > 0) {
 				page = Integer.parseInt(pageStr);
 			}
-
+			request.setCharacterEncoding("EUC-KR");
 			String search = request.getParameter("search");
 			String category = request.getParameter("category");
 
@@ -95,18 +95,17 @@ public class TravelContentServlet extends HttpServlet {
 
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
-			
-			
+
 			ContentVO content = service.read(email, contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
-		
+
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
 			path = "update_form.jsp";
-		}else if (task.equals("deleteForm")) {
+		} else if (task.equals("deleteForm")) {
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
-			if(service.deleteContent(contentNum) == true) {
+			if (service.deleteContent(contentNum) == true) {
 				path = "delete_success.jsp";
 			}
 		}
@@ -121,8 +120,8 @@ public class TravelContentServlet extends HttpServlet {
 		request.setCharacterEncoding("euc-kr");
 
 		if (request.getParameter("task") == null) {
-			System.out.println(request.getParameter("task"));
-			String uploadFolder = "c://kjhsample//";
+			System.out.println("task파라미터" + request.getParameter("task"));
+			String uploadFolder = "C:\\Users\\rlawhdgns\\Documents\\GitHub\\JSPProject_4team\\WebContent\\download";
 			MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
 					new DefaultFileRenamePolicy());
 			String task = mReq.getParameter("task");
@@ -134,17 +133,16 @@ public class TravelContentServlet extends HttpServlet {
 				String email = (String) session.getAttribute("email");
 				ContentVO content = new ContentVO();
 				List<ContentDetailVO> detailList = new ArrayList<>();
-				
 				content.setTitle(mReq.getParameter("title"));
 				content.setWriter(loginId);
 				content.setLocation(mReq.getParameter("locations"));
 				File uploadFile = mReq.getFile("main_image"); // 파일 업로드 완료
-				
+
 				content.setMain_img(mReq.getOriginalFileName("main_image"));
 				content.setStart_date(mReq.getParameter("start_date"));
 				content.setEmail(email);
 				// day 개수 (Day02까지 썼으면 day=2)
-				
+
 				String dayStr = mReq.getParameter("day");
 				int day = 0;
 				if (dayStr != null && dayStr.length() > 0) {
@@ -172,60 +170,24 @@ public class TravelContentServlet extends HttpServlet {
 					detail.setPath(plusPath);
 					detailList.add(detail);
 				}
-				if (service.write(content,detailList) == 1) {
+				if (service.write(content, detailList) == 1) {
 					path = "write_success.jsp";
 				} else {
 					path = "write_fail.jsp";
 				}
-				
-			}	RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 			dispatcher.forward(request, response);
-			
-			
 
 		} else {
 			String task = request.getParameter("task");
 			String path = "";
-			if (task.equals("contentList")) {
-				// 페이지 만들기
-				int page = 1;
-				ContentPageVO contentPage = null;
-				String pageStr = request.getParameter("page");
-				if (pageStr != null && pageStr.length() > 0) {
-					page = Integer.parseInt(pageStr);
-				}
-
-				String search = request.getParameter("search");
-				String category = request.getParameter("category");
-				System.out.println(search);
-				System.out.println(category);
-
-
-				if ((search.equals("") && category.equals(""))) {
-					// 둘 다 null이면 그냥 main
-					contentPage = service.makePage(1, page, search, category);
-					path = "main_search.jsp";
-				} else if (category.equals("")) {
-					// 타이틀 검색
-					contentPage = service.makePage(2, page, search, category);
-					path = "main_search.jsp";
-				} else if (search.equals("")) {
-					// 지역 검색
-					contentPage = service.makePage(3, page, search, category);
-					path = "main_search.jsp";
-				} else {
-					// 타이틀 + 지역 검색
-					contentPage = service.makePage(4, page, search, category);
-					path = "main_search.jsp";
-				}
-				request.setAttribute("contentPage", contentPage);
-				request.setAttribute("category", category);
-				request.setAttribute("search", search);
-			} else if (task.equals("commentCheck")) {
+			if (task.equals("commentCheck")) {
 				HttpSession session = request.getSession();
 				String loginId = (String) session.getAttribute("name");
-				String email = (String)session.getAttribute("email");
-				
+				String email = (String) session.getAttribute("email");
+
 				String articleNumStr = request.getParameter("comment_board");
 				int articleNum = Integer.parseInt(articleNumStr);
 				String comment_content = request.getParameter("comment_content");
@@ -236,7 +198,7 @@ public class TravelContentServlet extends HttpServlet {
 				comment.setWriter(loginId);
 				comment.setContent(comment_content);
 				comment.setEmail(email);
-				
+
 				boolean result = service.commentSignUp(comment);
 
 				if (result == true) {

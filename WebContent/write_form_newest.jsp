@@ -1,410 +1,446 @@
-<%@page import="naver.APIExamMemberProfile"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ page import="java.security.SecureRandom"%>
-<%@ page import="java.math.BigInteger"%>
-<%@ page import="java.net.URLEncoder"%>
-<%@ page import= "java.util.Enumeration" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+	pageEncoding="UTF-8"%>
 <head>
+<title>글작성</title>
 
-<!-- 글씨체 -->
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- include summernote css/js-->
 <link
-   href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Dosis:600"
-   rel="stylesheet">
-
-<link
-   href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css"
-   rel="stylesheet">
-
-<!-- 공유하기 -->
-
-<meta property="og:title" content="Travel">
-<meta property="og:url" content="http://127.0.0.1">
-<meta property="og:description" content="내용">
-
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<!-- include summernote-ko-KR -->
 
 <style type="text/css">
-#line {
-   font-size: 25px;
-   color: black;
+.bs-wizard {
+	/* 	margin-top: 40px; */
+	
 }
 
-#title {
-   font-family: 'Dosis', sans-serif;
-   font-family: 'Amatic SC', cursive;
-   font-size: 55px;
-   font-weight: bold;
-   color: #51a3f7;
+/*Form Wizard*/
+.bs-wizard {
+	border-bottom: solid 1px #e0e0e0;
+	padding: 0 0 10px 0;
 }
 
-#go {
-   font-family: 'Dosis', sans-serif;
-   font-family: 'Amatic SC', cursive;
-   font-size: 25px;
-   font-weight: bold;
+.bs-wizard>.bs-wizard-step {
+	padding: 0;
+	position: relative;
+	display: inline-block;
 }
 
-#dropdownMenuLink {
-   font-family: 'Nanum Gothic Coding', monospace;
+.bs-wizard>.bs-wizard-step+.bs-wizard-step {
+	
 }
 
-#selection {
-   font-family: 'Nanum Gothic Coding', monospace;
+/* Step 글씨 */
+.bs-wizard>.bs-wizard-step .bs-wizard-stepnum {
+	color: #595959;
+	font-size: 16px;
+	margin-bottom: 5px;
 }
+
+/* 요약 글씨 */
+.bs-wizard>.bs-wizard-step .bs-wizard-info {
+	color: #999;
+	font-size: 14px;
+}
+
+/* 큰 원 */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	display: block;
+	background: #fbe8aa;
+	top: 45px;
+	left: 50%;
+	margin-top: -15px;
+	margin-left: -15px;
+	border-radius: 50%;
+}
+
+/* 작은 원 */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot:after {
+	content: ' ';
+	width: 14px;
+	height: 14px;
+	background: #fbbd19;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+/* 진행바(막대기) */
+.bs-wizard>.bs-wizard-step>.progress {
+	position: relative;
+	border-radius: 0px;
+	height: 8px;
+	box-shadow: none;
+	margin: 15px 0;
+}
+
+.bs-wizard>.bs-wizard-step>.progress>.progress-bar {
+	width: 0px;
+	box-shadow: none;
+	background: #fbe8aa;
+}
+
+.bs-wizard>.bs-wizard-step.complete>.progress>.progress-bar {
+	width: 100%;
+}
+
+.bs-wizard>.bs-wizard-step.active>.progress>.progress-bar {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:first-child.active>.progress>.progress-bar {
+	width: 0%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child.active>.progress>.progress-bar {
+	width: 100%;
+}
+
+/* 진행 안 된 원 */
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot {
+	background-color: #f5f5f5;
+}
+
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot:after {
+	opacity: 0;
+}
+
+.bs-wizard>.bs-wizard-step:first-child>.progress {
+	left: 50%;
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child>.progress {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step.disabled a.bs-wizard-dot {
+	pointer-events: none;
+}
+/*END Form Wizard*/
 </style>
 
-<!------------- 로그인 알림창 ---------------->
-<!--------------------------------------->
+<!-- Swiper JS -->
+<script src="./dist/js/swiper.min.js"></script>
 
-<meta charset="EUC-KR">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+<script type="text/javascript">
+	var day = 1;
+	var count = new Array();
 
-<title>Share Your Story</title>
+	function func_add_day() {
+		count[day] = 1;
+		var newRoute;
+		// 경로 추가 버튼 클릭
+		$(document).on('click', '#addBtn' + day, function() {
+			// day 값 세팅해주기 (hidden 타입 세팅해놓거나 id값 가져오거나)
+			var fixedDay = $(this).attr("id").substr(6,6);
+			var dayAndCount = fixedDay + "_" + count[fixedDay];
+			
+			newRoute = "<div class='bs-wizard-step complete' id='day" + fixedDay + "'>"
+						+ "<div class='text-center bs-wizard-stepnum'>"
+						+ "<input type='text' placeholder='장소' "
+						+ "name='loc" + dayAndCount + "' size='7'></div>"
+						+ "<div class='progress'><div class='progress-bar'></div></div>"
+						+ "<a href='#' class='bs-wizard-dot'></a>"
+						+ "<div class='hide bs-wizard-info text-center'>"
+						+ "<textarea rows='3' cols='15' placeholder='요약' "
+						+ "name='sum" + dayAndCount + "' size='10'>"
+						+ "</textarea></div></div>";
+			$('#route' + fixedDay).append(newRoute);
 
-<!-- Bootstrap core CSS -->
-<link href="./Bootstrap/vendor/bootstrap/css/bootstrap.min.css"
-   rel="stylesheet">
+			var width = "width:" + (100 / count[fixedDay]) + "%";
+			$('#route' + fixedDay + '> *').attr("style", width);
 
-<!-- Custom fonts for this template -->
-<link href="./Bootstrap/vendor/font-awesome/css/font-awesome.min.css"
-   rel="stylesheet" type="text/css">
-<link
-   href="https://fonts.googleapis.com/Bootstrap/css?family=Montserrat:400,700"
-   rel="stylesheet" type="text/css">
-<link
-   href='https://fonts.googleapis.com/Bootstrap/css?family=Kaushan+Script'
-   rel='stylesheet' type='text/css'>
-<link
-   href='https://fonts.googleapis.com/Bootstrap/css?family=Droid+Serif:400,700,400italic,700italic'
-   rel='stylesheet' type='text/css'>
-<link
-   href='https://fonts.googleapis.com/Bootstrap/css?family=Roboto+Slab:400,100,300,700'
-   rel='stylesheet' type='text/css'>
+			count[fixedDay]++;
+			
+			// 이벤트 동적할당
+			$(document).on('mouseover', '.bs-wizard-dot', function() {
+				$(this).popover({
+					placement : 'bottom',
+					title : 'SUMMARY',
+					html : true,
+					// 같은 부모 노드에 있는 것들 중에서 검색
+					content : $(this).siblings('.bs-wizard-info').html()
+				})
+			})
+		})
+	}
+	$(func_add_day);
 
-<!-- Custom styles for this template -->
-<link href="./Bootstrap/css/agency.min.css" rel="stylesheet">
+	// Initialize Swiper
+	$(function() {
+		var swiper = new Swiper('.swiper-container', {
+			pagination : {
+				el : '.swiper-pagination',
+				clickable : true,
+			},
+			navigation : {
+				nextEl : '.swiper-button-next',
+				prevEl : '.swiper-button-prev',
+			},
+		});
+		// Day 추가 버튼 클릭
+		document.querySelector('.append-slide').addEventListener('click', function(e) {
+			e.preventDefault();
+			day++;
+			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
+								+ "<legend class='text-center'>Day " 
+								+ day
+								+ "</legend>"
+								+ "<div class='form-group'>"
+								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
+								+ "<div class='col-md-9'>"
+								+ "<input type='hidden' id='content" + day + "' name='content" + day + "'>"
+								+ "<div class='summernote'>"
+								+ "</div></div></div>"
+								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+								+ "style='border-bottom: 0;'></div><p align='center'>"
+								+ "<button id='addBtn" + day + "' type='button' "
+								+ "class='btn btn-default btn-lg' style='font-size: 12px'>"
+								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+								+ "경로 추가</button></p></div></fieldset></div>");
+			
+			// 새로 추가되는 summernote도 적용해주기
+			$('.summernote').summernote({
+				height : 300, // set editor height
+				minHeight : null, // set minimum height of editor
+				maxHeight : null, // set maximum height of editor
+				focus : true
+			});
+			
+			// Day 추가 될 때마다 click event 추가
+			func_add_day();
+			// 이벤트 버블링 방지
+			return false;
+		});
+		
+		$(document).on('click', '#submitBtn', function() {
+			var form = document.getElementById("form");
 
-</head>
+			// day 보내기
+			var allDay = document.createElement("input"); // input 엘리멘트 생성
+			allDay.setAttribute("type", "hidden"); // type 속성을 hidden으로 설정
+			allDay.setAttribute("name", "day"); // name 속성을 day로 설정
+			allDay.setAttribute("value", day); // value 속성을 삽입
+			form.appendChild(allDay); // form 엘리멘트에 input 엘리멘트 추가
 
-<body id="page-top">
+			// count 배열 보내기(maxPath)
+			var maxPath = new Array();
+			for (var i = 0; i < count.length; i++) {
+				maxPath[i] = document.createElement("input"); 	// input 엘리멘트 생성
+				maxPath[i].setAttribute("type", "hidden"); 		// type 속성을 hidden으로 설정
+				maxPath[i].setAttribute("name", "maxPath" + (i + 1));	// name 속성을 maxPath로 설정
+				maxPath[i].setAttribute("value", count[i+1] - 1); 		// value 속성을 삽입
+				form.appendChild(maxPath[i]);
+			}
+			
+			// content를 day 개수만큼 보내기
+			var content = new Array();
+			for (var j=0; j<day; j++) {
+				var html = $('.summernote').eq(j).summernote('code');
+				content[j] = document.getElementById("content" + (j + 1));
+				content[j].setAttribute("value", html);
+			}
+			
+			// hide 한 공간에 넣기
 
-   <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <h2 id=title>Whatever you go, Go with all your heart</h2>
-         </a>
-         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav text-uppercase ml-auto">
-               <li class="nav-item">
-                  <div class="dropdown show">
-                     <c:choose>
-                        <c:when test="${category eq '' || empty category}">
-                           <a class="btn btn-secondary dropdown-toggle"
-                              href="https://example.com" id="dropdownMenuLink"
-                              data-toggle="dropdown" aria-haspopup="true"
-                              aria-expanded="false"> 지역 선택 </a>
-                        </c:when>
-                        <c:otherwise>
-                           <a class="btn btn-secondary dropdown-toggle"
-                              href="https://example.com" id="dropdownMenuLink"
-                              data-toggle="dropdown" aria-haspopup="true"
-                              aria-expanded="false"> ${category} </a>
-                        </c:otherwise>
-                     </c:choose>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-                        id="selection">
-                        <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
-                           서울 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=경기도">
-                           경기도 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대전">
-                           대전 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대구">
-                           대구 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=부산">
-                           부산 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=인천">
-                           인천 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=강원도">
-                           강원도 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=충청도">
-                           충청도 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=전라도">
-                           전라도 </a> <a class="dropdown-item"
-                           href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=제주도">
-                           제주도 </a>
-                     </div>
-                  </div>
-               </li>
-               <li>   　  </li>
-               <li class="nav-item">
-                  <a class="btn btn-secondary" href="<%=request.getContextPath()%>
-                        /content?task=contentList&search=&category=">Home</a>
-               </li>
-               
-               <li>   　  </li>
-                    <li class="nav-item">
-                       <button id="login_btn" type="button" class="btn btn-secondary">Login</button>
-                       <button id="logout_btn" type="button" class="btn btn-secondary">Logout</button>
-                     </li>
-            </ul>
-         </div>
-      </div>
-   </nav>
-   <!-- Header -->
-   <!-- Services -->
-   <!-- Portfolio Grid -->
-   <section class="bg-light" id="portfolio">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-12 text-center">
-               <h2 class="section-heading text-uppercase">
-                  <div class="col-lg-6">
-                     <div class="input-group">
-                        <form action="<%=request.getContextPath()%>/content" method="post">
-                           <input type="hidden" name="task" value="contentList"> 
-                           <input type="hidden" name="category" value="${category}"> 
-                           <span class="input-group-btn"> 
-                           <c:if test="${empty search}">
-                              <input type="text" class="form-control" name="search"
-                                    size="500" placeholder="Search...  ">
-                           </c:if> 
-                           <c:if test="${not empty search}">
-                              <input type="text" class="form-control" name="search"
-                                    size="500" value="${search}">
-                           </c:if> 
-                           <input type="submit" class="btn btn-secondary" id="go" value="Go">
-                           </span>
-                        </form>
-                     </div>
-                  </div>
-               </h2>
-               <h3 class="section-subheading text-muted"></h3>
-            </div>
-         </div>
-         <div class="row">
-            <!-------------------------------- content 시작 ---------------------------------->
-            <c:forEach var="content" items="${contentPage.contentList}">
-               <div class="col-md-4 col-sm-6 portfolio-item">
-                  <a class="portfolio-link"
-                     href="<%=request.getContextPath()%>/content?task=read&contentNumber=${content.content_no}">
-                     <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                           <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                     </div> <img class="img-fluid" src="./download/${content.main_img}" alt="">
-                  </a>
-                  <div class="portfolio-caption">
-                     <h4>${content.title}</h4>
-                     <p class="text-muted">${content.read_count}VIEW</p>
-                  </div>
-               </div>
-            </c:forEach>
-            <!-------------------------------- content 끝 ---------------------------------->
-         </div>
-      </div>
-   </section>
-   <!---------------------- 페이지 버튼 시작 -------------------------->
-   <div class="text-center" style="color: black">
-      <ul id="line">
-         <c:if test="${contentPage.startPage>1}">
-            <a href="${myContextPath}/content?page=${contentPage.startPage-1}">[이전]</a>
-         </c:if>
-         <c:forEach var="page" begin="${contentPage.startPage}"
-            end="${contentPage.endPage}">
-            <a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">${page}</a>
-         </c:forEach>
-         <c:if test="${contentPage.endPage<contentPage.totalPage}">
-            <a href="${myContextPath}/content?page=${contentPage.endPage+1}">
-               [다음] </a>
-         </c:if>
-      </ul>
-   </div>
-   <!---------------------- 페이지 버튼 끝 -------------------------->
-   <!-- About -->
-   <!-- Team -->
-   <!-- Clients -->
-   <section class="py-5">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-3 col-sm-6">
-               <a href="#"> <img class="img-fluid d-block mx-auto"
-                  src="img/logos/envato.jpg" alt="">
-               </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <a href="#"> <img class="img-fluid d-block mx-auto"
-                  src="img/logos/designmodo.jpg" alt="">
-               </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <a href="#"> <img class="img-fluid d-block mx-auto"
-                  src="img/logos/themeforest.jpg" alt="">
-               </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <a href="#"> <img class="img-fluid d-block mx-auto"
-                  src="img/logos/creative-market.jpg" alt="">
-               </a>
-            </div>
-         </div>
-      </div>
-   </section>
+			form.submit();
+		})
+		$('.summernote').summernote({
+			height : 300, // set editor height
+			minHeight : null, // set minimum height of editor
+			maxHeight : null, // set maximum height of editor
+			focus : true
+		// set focus to editable area after initializing summernote
+		});
+		// 		$(document).ready(function() {
+		// 			$('#save_button').click(function() {
+		// 				var markupStr = 'hello world';
+		// 				$('#summernote').summernote('code', markupStr);
+		// 				$('#contents').val(markupStr);
+		// 			});
 
-   <!-- Contact -->
+		// 		})
 
-   <!-------------------------------글 쓰기 버튼 ------------------------->
-   <div style="position: fixed; bottom: 60px; right: 20px;">
-      <%
-         String clientId = "TZblhGxHqxzRPDaQz4FJ";//애플리케이션 클라이언트 아이디값";
-         String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/callback", "UTF-8");
-         SecureRandom random = new SecureRandom();
-         String state = new BigInteger(130, random).toString();
-         String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-         apiURL += "&client_id=" + clientId;
-         apiURL += "&redirect_uri=" + redirectURI;
-         apiURL += "&state=" + state;
-         session.setAttribute("state", state);
-      %>
-      <button id="write"
-         style="background-color: transparent; border: 0; outline: 0; float: right; cursor: pointer;"
-         class="btn btn-info btn-lg" data-toggle="modal"
-         data-target="#myModal">
-         <img src="write.png" style="width: 70px; height: 70px">
-      </button>
-      <input type="hidden" id="apiURL" value="<%=apiURL%>">
-      <!-- Modal -->
-   </div>
-   <!-- Footer -->
-   <footer>
-      <div class="container">
-         <div class="row">
-            <div class="col-md-4">
-               <span class="copyright" id="tail">Copyright &copy; Your
-                  Website 2017</span>
-            </div>
-            <div class="col-md-4">
-               <ul class="list-inline social-buttons">
-                  <li class="list-inline-item"><a
-                     href="https://twitter.com/intent/tweet?text=TEXT&url=http://127.0.0.1"
-                     target="_blank"> <i class="fa fa-twitter"></i>
-                  </a></li>
-                  <li class="list-inline-item"><a
-                     href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1"
-                     target="_blank"> <i class="fa fa-facebook"></i>
-                  </a></li>
-                  <li class="list-inline-item"><a
-                     href="https://www.instagram.com/?hl=ko" target="_blank"> <i
-                        class="fa fa-linkedin"></i>
-                  </a></li>
-               </ul>
-            </div>
-            <div class="col-md-4">
-               <ul class="list-inline quicklinks">
-                  <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                  <li class="list-inline-item"><a href="#">Terms of Use</a></li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </footer>
-   <!-- /.modal -->
-   <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-         <!-- Modal content-->
-         <div class="modal-content">
-            <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-               <p>
-                  로그인이 필요한 기능입니다. <br>로그인하시겠습니까?
-               </p>
-            </div>
-            <div class="modal-footer">
-               <button id="login_no" type="button" class="btn btn-default"
-                  data-dismiss="modal" style="margin-right: 10px; color: white">NO</button>
-               <button id="login_ok" type="button" class="btn btn-default"
-                  data-dismiss="modal" style="color: white">OK</button>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- Bootstrap core JavaScript -->
-   <script src="./Bootstrap/vendor/jquery/jquery.min.js"></script>
-   <script src="./Bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-   <!-- Plugin JavaScript -->
-   <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-   <script src="./Bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-   <!-- Contact form JavaScript -->
-   <script src="./Bootstrap/js/jqBootstrapValidation.js"></script>
-   <script src="./Bootstrap/js/contact_me.js"></script>
-
-   <!-- Custom scripts for this template -->
-   <script src="./Bootstrap/js/agency.min.js"></script>
-
-   <script type="text/javascript">
-   $(function() {
-         var session_name = "${sessionScope.access_token}";
-          var login = document.getElementById("login_btn");
-          var logout = document.getElementById("logout_btn");
-            
-          if ((session_name != null && session_name.length > 0) ) {
-            $("#login_btn").hide();
-            $("#logout_btn").show();
-         } else {
-            $("#login_btn").show();
-            $("#logout_btn").hide();
-      }
-   })
-   $(document).ready(function(){
-      $("#write").click(function(){
-         
-         //세션 체크해서 없을 경우 로그인 화면 있으면 글쓰기
-         //원래는 session에 token을 저장해서 유효성을 체크해야 하지만 자동 로그인이 없기 때문에
-         //사용자가 사이트에 접속할 때마다 로그인을 해야하므로 session에 있는 access_token만 불러온다.
-         //access_token ->  null 이면 로그인 x , null이 아니면 로그인o
-<%--          var session_name = "<%=(String)session.getAttribute("access_token")%>"; --%>
-         var session_name = "${sessionScope.access_token}";
-         if ((session_name != null && session_name.length > 0) ) {
-          
-            bb();
-         } else {
-            $("#login_ok").click(function(){
-                  //로그인화면 띄우기
-                  var url = $('#apiURL').val();
-                  window.open(url,"", "width=430,height=500,location=no,status=no,scrollbars=yes");
-            })
-         }
-      })
-      $("#login_btn").click(function(){
-         var url = $('#apiURL').val();
-         window.open(url,"", "width=430,height=500,location=no,status=no,scrollbars=yes");
-      })
-      $("#logout_btn").click(function(){
-         <% session.removeAttribute("access_token"); %>
-         aa();
-      })
-   })
-   
-   function aa(){
-      window.location.reload(true);
-   }
-   function bb(){
-      location.href="/JSPProject_4team/content?task=wirteForm"
-   }
-
+	});
 </script>
+<script src="lang/summernote-ko-KR.js"></script>
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="./dist/css/swiper.min.css">
+
+<!-- Swiper styles -->
+<style>
+html, body {
+	position: relative;
+	height: 100%;
+}
+
+body {
+	background: #eee;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 700px;
+	margin: 20px auto;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.append-buttons {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.append-buttons a {
+	display: inline-block;
+	border: 1px solid #007aff;
+	color: #007aff;
+	text-decoration: none;
+	padding: 4px 10px;
+	border-radius: 4px;
+	margin: 0 10px;
+	font-size: 13px;
+}
+</style>
+</head>
+<body>
+	<form id="form" class="form-horizontal"
+		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="task" value="write" />
+		<fieldset>
+			<legend class="text-center">WRITE</legend>
+			<!-- 제목, 장소, 날짜 -->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="title">제목</label>
+				<div class="col-md-9">
+					<input id="title" name="title" type="text" placeholder="제목을 입력해주세요"
+						class="form-control input-md">
+				</div>
+			</div>
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="place">장소</label>
+				<div class="col-md-3">
+					<select id="place" name="locations" class="form-control">
+						<option value="서울">서울</option>
+						<option value="경기도">경기도</option>
+						<option value="대전">대전</option>
+						<option value="대구">대구</option>
+						<option value="부산">부산</option>
+						<option value="인천">인천</option>
+						<option value="강원도">강원도</option>
+						<option value="충청도">충청도</option>
+						<option value="전라도">전라도</option>
+						<option value="제주도">제주도</option>
+					</select>
+				</div>
+			</div>
+			<!-- start date-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="start_date">출발 일</label>
+				<div class="col-md-3">
+					<input id="start_date" name="start_date" type="text"
+						placeholder="ex) 2017-01-01" class="form-control input-md">
+				</div>
+			</div>
+
+			<!-- end date-->
+			<!-- File Button -->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="source_image">대표사진</label>
+				<div class="col-md-9">
+					<input id="main_image" name="main_image" class="input-file"
+						type="file">
+				</div>
+			</div>
+			<!----------------------------------- Swiper --------------------------------------->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<fieldset>
+							<legend class="text-center">Day 1</legend>
+							<!------------------------- 에디터 부분 ------------------------>
+							<!-- Select Basic -->
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="source_tags">내용</label>
+								<div class="col-md-9">
+									<input type="hidden" id="content1" name="content1">
+									<div class="summernote">
+									</div>
+								</div>
+							</div>
+							<!----------------------- 경로 부분 ---------------------->
+							<div class="container">
+								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
+								<p align="center">
+									<button id="addBtn1" type="button"
+										class="btn btn-default btn-lg" style="font-size: 12px">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										경로 추가
+									</button>
+								</p>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
+			<p class="append-buttons">
+				<a href="#" class="append-slide">+ Day</a>
+				<a href="#" class="append-slide" id="submitBtn">작성</a>
+			</p>
+		</fieldset>
+	</form>
 </body>
 </html>
