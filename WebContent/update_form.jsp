@@ -1,237 +1,444 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-   pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <head>
-<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<title>ê¸€ìˆ˜ì •</title>
 
-<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å ÀÚ¹Ù½ºÅ©¸³Æ® -->
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/result-light.css">
-
-<!-- ´ÙÀ½ ¿¡µğÅÍ »ç¿ë -->
+<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 <link rel="stylesheet"
-   href="/JSPProject_4team/daumeditor/css/editor.css" type="text/css"
-   charset="utf-8" />
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
-   src="/JSPProject_4team/daumeditor/js/editor_loader.js?environment=development"
-   type="text/javascript" charset="utf-8"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  ìë°”ìŠ¤í¬ë¦½íŠ¸ -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- include summernote css/js-->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<!-- include summernote-ko-KR -->
 
 <style type="text/css">
-input {
-   font: 14px sans-serif;
+.bs-wizard {
+	/* 	margin-top: 40px; */
+	
 }
+
+/*Form Wizard*/
+.bs-wizard {
+	border-bottom: solid 1px #e0e0e0;
+	padding: 0 0 10px 0;
+}
+
+.bs-wizard>.bs-wizard-step {
+	padding: 0;
+	position: relative;
+	display: inline-block;
+}
+
+.bs-wizard>.bs-wizard-step+.bs-wizard-step {
+	
+}
+
+/* Step ê¸€ì”¨ */
+.bs-wizard>.bs-wizard-step .bs-wizard-stepnum {
+	color: #595959;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+/* ìš”ì•½ ê¸€ì”¨ */
+.bs-wizard>.bs-wizard-step .bs-wizard-info {
+	color: #999;
+	font-size: 14px;
+}
+
+/* í° ì› */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	display: block;
+	background: #fbe8aa;
+	top: 45px;
+	left: 50%;
+	margin-top: -15px;
+	margin-left: -15px;
+	border-radius: 50%;
+}
+
+/* ì‘ì€ ì› */
+.bs-wizard>.bs-wizard-step>.bs-wizard-dot:after {
+	content: ' ';
+	width: 14px;
+	height: 14px;
+	background: #fbbd19;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+/* ì§„í–‰ë°”(ë§‰ëŒ€ê¸°) */
+.bs-wizard>.bs-wizard-step>.progress {
+	position: relative;
+	border-radius: 0px;
+	height: 8px;
+	box-shadow: none;
+	margin: 15px 0;
+}
+
+.bs-wizard>.bs-wizard-step>.progress>.progress-bar {
+	width: 0px;
+	box-shadow: none;
+	background: #fbe8aa;
+}
+
+.bs-wizard>.bs-wizard-step.complete>.progress>.progress-bar {
+	width: 100%;
+}
+
+.bs-wizard>.bs-wizard-step.active>.progress>.progress-bar {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:first-child.active>.progress>.progress-bar {
+	width: 0%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child.active>.progress>.progress-bar {
+	width: 100%;
+}
+
+/* ì§„í–‰ ì•ˆ ëœ ì› */
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot {
+	background-color: #f5f5f5;
+}
+
+.bs-wizard>.bs-wizard-step.disabled>.bs-wizard-dot:after {
+	opacity: 0;
+}
+
+.bs-wizard>.bs-wizard-step:first-child>.progress {
+	left: 50%;
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step:last-child>.progress {
+	width: 50%;
+}
+
+.bs-wizard>.bs-wizard-step.disabled a.bs-wizard-dot {
+	pointer-events: none;
+}
+/*END Form Wizard*/
 </style>
 
-<title>ÈÄ±â ¼öÁ¤</title>
+<!-- Swiper JS -->
+<script src="./dist/js/swiper.min.js"></script>
 
 <script type="text/javascript">
-   // ¼öÁ¤ÇÏ·Á¸é mouseClick À§Ä¡ ÀÎ½ÄÇØ¼­ ±× ºÎºĞÀÇ input ¿­¾îÁÖ°í 
-   // ¾È¿¡ text·Î ±âÁ¸ °ª ³Ö°í ÇÏ¸é µÉ µí 
-   // ¿øÀ» Å¬¸¯ÇÏ¸é ¿ä¾àÀÌ ¶ß°í, ÅØ½ºÆ®¹Ú½º¸¦ Å¬¸¯ÇÏ¸é ¼öÁ¤ »èÁ¦ ÇÒ ¼ö ÀÖ°Ô 
-   // ½Ã°£ ³²À¸¸é ¼öÁ¤ÇÏ°Ú¾¹´Ï´ç,,,
+	var day = 1;
+	var count = new Array();
 
-   window.onload = function() {
-      var canvas = document.getElementById('myCanvas'), ctx = canvas
-            .getContext('2d'), font = '14px sans-serif', hasInput = false, btn = document
-            .getElementById('btn'),
-      // count ´Â Ãß°¡ ¹öÆ°À» ´©¸¥ È½¼ö 
-      count = 0;
+	function func_add_day() {
+		count[day] = 1;
+		var newRoute;
+		// ê²½ë¡œ ì¶”ê°€ ë²„íŠ¼ í´ë¦­
+		$(document).on('click', '#addBtn' + day, function() {
+			// day ê°’ ì„¸íŒ…í•´ì£¼ê¸° (hidden íƒ€ì… ì„¸íŒ…í•´ë†“ê±°ë‚˜ idê°’ ê°€ì ¸ì˜¤ê±°ë‚˜)
+			var fixedDay = $(this).attr("id").substr(6,6);
+			var dayAndCount = fixedDay + "_" + count[fixedDay];
+			
+			newRoute = "<div class='bs-wizard-step complete' id='day" + fixedDay + "'>"
+						+ "<div class='text-center bs-wizard-stepnum'>"
+						+ "<input type='text' placeholder='ì¥ì†Œ' "
+						+ "name='loc" + dayAndCount + "' size='7'></div>"
+						+ "<div class='progress'><div class='progress-bar'></div></div>"
+						+ "<a href='#' class='bs-wizard-dot'></a>"
+						+ "<div class='hide bs-wizard-info text-center'>"
+						+ "<textarea rows='3' cols='15' placeholder='ìš”ì•½' "
+						+ "name='sum" + dayAndCount + "' size='10'>"
+						+ "</textarea></div></div>";
+			$('#route' + fixedDay).append(newRoute);
 
-      var texts = [];
+			var width = "width:" + (100 / count[fixedDay]) + "%";
+			$('#route' + fixedDay + '> *').attr("style", width);
 
-      // ±âº» ½ÃÀÛÁ¡°ú Ãâ¹ßÁ¡
-      ctx.beginPath();
-      ctx.arc(100, 100, 3, Math.PI * 1.5, Math.PI * 4);
-      ctx.arc(100, 700, 3, Math.PI * 1.5, Math.PI * 4);
-      ctx.fill();
-      ctx.stroke();
-      addInput(120, 100 - 6);
-      addInput(120, 700 - 6);
+			count[fixedDay]++;
+			
+			// ì´ë²¤íŠ¸ ë™ì í• ë‹¹
+			$(document).on('mouseover', '.bs-wizard-dot', function() {
+				$(this).popover({
+					placement : 'bottom',
+					title : 'SUMMARY',
+					html : true,
+					// ê°™ì€ ë¶€ëª¨ ë…¸ë“œì— ìˆëŠ” ê²ƒë“¤ ì¤‘ì—ì„œ ê²€ìƒ‰
+					content : $(this).siblings('.bs-wizard-info').html()
+				})
+			})
+		})
+	}
+	$(func_add_day);
 
-      // Ãß°¡ ¹öÆ°À» ´©¸£¸é ¿ø°ú ÅØ½ºÆ® ¹Ú½º°¡ ±×·ÁÁü  
-      // Ãß°¡ ¹öÆ°À» ´©¸£¸é ´Ù Áö¿ì°í ±× Àü ÅØ½ºÆ®´Â ÇÑ Ä­ À§·Î ¿Ã¸®°í ¿ø + ÅØ½ºÆ®¹Ú½º Ãß°¡ 
-      btn.onclick = function(e) {
-         if (hasInput)
-            return;
-         count++;
-         var y = 600 / (count + 1) + 100;
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
-         // °æ·Î ±×¸®±â 
-         drawPath(y);
-      }
+	// Initialize Swiper
+	$(function() {
+		var swiper = new Swiper('.swiper-container', {
+			pagination : {
+				el : '.swiper-pagination',
+				clickable : true,
+			},
+			navigation : {
+				nextEl : '.swiper-button-next',
+				prevEl : '.swiper-button-prev',
+			},
+		});
+		// Day ì¶”ê°€ ë²„íŠ¼ í´ë¦­
+		document.querySelector('.append-slide').addEventListener('click', function(e) {
+			e.preventDefault();
+			day++;
+			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
+								+ "<legend class='text-center'>Day " 
+								+ day
+								+ "</legend>"
+								+ "<div class='form-group'>"
+								+ "<label class='col-md-2 control-label' for='source_tags'>ë‚´ìš©</label>"
+								+ "<div class='col-md-9'>"
+								+ "<input type='hidden' id='content" + day + "' name='content" + day + "'>"
+								+ "<div class='summernote'>"
+								+ "</div></div></div>"
+								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+								+ "style='border-bottom: 0;'></div><p align='center'>"
+								+ "<button id='addBtn" + day + "' type='button' "
+								+ "class='btn btn-default btn-lg' style='font-size: 12px'>"
+								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+								+ "ê²½ë¡œ ì¶”ê°€</button></p></div></fieldset></div>");
+			
+			// ìƒˆë¡œ ì¶”ê°€ë˜ëŠ” summernoteë„ ì ìš©í•´ì£¼ê¸°
+			$('.summernote').summernote({
+				height : 300, // set editor height
+				minHeight : null, // set minimum height of editor
+				maxHeight : null, // set maximum height of editor
+				focus : true
+			});
+			
+			// Day ì¶”ê°€ ë  ë•Œë§ˆë‹¤ click event ì¶”ê°€
+			func_add_day();
+			// ì´ë²¤íŠ¸ ë²„ë¸”ë§ ë°©ì§€
+			return false;
+		});
+		
+		$(document).on('click', '#submitBtn', function() {
+			var form = document.getElementById("form");
 
-      function drawPath(y) {
-         ctx.beginPath();
-         ctx.arc(100, 100, 3, Math.PI * 1.5, Math.PI * 4);
-         ctx.arc(100, 700, 3, Math.PI * 1.5, Math.PI * 4);
-         ctx.fill();
-         ctx.stroke();
-         var textY = 100;
+			// day ë³´ë‚´ê¸°
+			var allDay = document.createElement("input"); // input ì—˜ë¦¬ë©˜íŠ¸ ìƒì„±
+			allDay.setAttribute("type", "hidden"); // type ì†ì„±ì„ hiddenìœ¼ë¡œ ì„¤ì •
+			allDay.setAttribute("name", "day"); // name ì†ì„±ì„ dayë¡œ ì„¤ì •
+			allDay.setAttribute("value", day); // value ì†ì„±ì„ ì‚½ì…
+			form.appendChild(allDay); // form ì—˜ë¦¬ë©˜íŠ¸ì— input ì—˜ë¦¬ë©˜íŠ¸ ì¶”ê°€
 
-         // ÅØ½ºÆ® À§·Î ¶¯±â±â
-         for (var i = 0; i < texts.length; i++) {
-            var text = texts[i].text;
-            drawText(text, 120, textY - 6);
-            textY += 600 / (count + 1);
-         }
-         // ¿ø, ÅØ½ºÆ® ¹Ú½º Ãß°¡ 
-         for (var i = 0; i < count; i++) {
-            ctx.beginPath();
-            ctx.arc(100, y, 3, Math.PI * 1.5, Math.PI * 4);
-            ctx.fill();
-            ctx.stroke();
-            y += 600 / (count + 1);
-         }
-         addInput(120, 700 - 6);
-      }
+			// count ë°°ì—´ ë³´ë‚´ê¸°(maxPath)
+			var maxPath = new Array();
+			for (var i = 0; i < count.length; i++) {
+				maxPath[i] = document.createElement("input"); 	// input ì—˜ë¦¬ë©˜íŠ¸ ìƒì„±
+				maxPath[i].setAttribute("type", "hidden"); 		// type ì†ì„±ì„ hiddenìœ¼ë¡œ ì„¤ì •
+				maxPath[i].setAttribute("name", "maxPath" + (i + 1));	// name ì†ì„±ì„ maxPathë¡œ ì„¤ì •
+				maxPath[i].setAttribute("value", count[i+1] - 1); 		// value ì†ì„±ì„ ì‚½ì…
+				form.appendChild(maxPath[i]);
+			}
+			
+			// contentë¥¼ day ê°œìˆ˜ë§Œí¼ ë³´ë‚´ê¸°
+			var content = new Array();
+			for (var j=0; j<day; j++) {
+				var html = $('.summernote').eq(j).summernote('code');
+				content[j] = document.getElementById("content" + (j + 1));
+				content[j].setAttribute("value", html);
+			}
 
-      function addInput(x, y) {
-         // input element »ı¼º 
-         var input = document.createElement('input');
+			form.submit();
+		})
+		$('.summernote').summernote({
+			height : 300, // set editor height
+			minHeight : null, // set minimum height of editor
+			maxHeight : null, // set maximum height of editor
+			focus : true
+		// set focus to editable area after initializing summernote
+		});
+		// 		$(document).ready(function() {
+		// 			$('#save_button').click(function() {
+		// 				var markupStr = 'hello world';
+		// 				$('#summernote').summernote('code', markupStr);
+		// 				$('#contents').val(markupStr);
+		// 			});
 
-         input.type = 'text';
-         input.style.position = 'fixed';
-         input.style.left = (x + 870) + 'px';
-         input.style.top = y + 'px';
+		// 		})
 
-         // »ç¿ëÀÚ°¡ Å°º¸µåÀÇ Å°¸¦ ´©¸¦ ¶§ ¹ß»ı 
-         input.onkeydown = handleEnter;
-
-         // body¿¡ input ³Ö±â 
-         document.body.appendChild(input);
-
-         input.focus();
-
-         hasInput = true;
-      }
-
-      // Å°º¸µåÀÇ Å°¸¦ ´­·¶À» ¶§ 
-      function handleEnter(e) {
-         var keyCode = e.keyCode;
-         // ¸¸¾à »ç¿ëÀÚ°¡ ¿£ÅÍ ´©¸£¸é drawText ÇÏ°Ô 
-         if (keyCode === 13) {
-            // ÅØ½ºÆ®¸¦ ±×¸®°í ÅØ½ºÆ®¹Ú½º´Â Áö¿ì´Â
-            drawText(this.value, parseInt(this.style.left, 10) - 870,
-                  parseInt(this.style.top, 10));
-            // texts ¹è¿­¿¡ °ª ³Ö±â
-            texts.push({
-               text : this.value
-            });
-            document.body.removeChild(this);
-            hasInput = false;
-         }
-      }
-
-      // canvas¿¡ text ±×¸®±â 
-      function drawText(txt, x, y) {
-         ctx.textBaseline = 'top';
-         ctx.textAlign = 'left';
-         ctx.font = font;
-         ctx.fillText(txt, x - 4, y - 4);
-      }
-
-      ///////////////////////////////////////
-      //daum Editor (´ÙÀ½ ¿¡µğÅÍ)
-      function setConfig() {
-         var config = {
-            txHost : '', /* ·±Å¸ÀÓ ½Ã ¸®¼Ò½ºµéÀ» ·ÎµùÇÒ ¶§ ÇÊ¿äÇÑ ºÎºĞÀ¸·Î, °æ·Î°¡ º¯°æµÇ¸é ÀÌ ºÎºĞ ¼öÁ¤ÀÌ ÇÊ¿ä. ex) http://xxx.xxx.com */
-            txPath : '', /* ·±Å¸ÀÓ ½Ã ¸®¼Ò½ºµéÀ» ·ÎµùÇÒ ¶§ ÇÊ¿äÇÑ ºÎºĞÀ¸·Î, °æ·Î°¡ º¯°æµÇ¸é ÀÌ ºÎºĞ ¼öÁ¤ÀÌ ÇÊ¿ä. ex) /xxx/xxx/ */
-            txService : 'sample', /* ¼öÁ¤ÇÊ¿ä¾øÀ½. */
-            txProject : 'sample', /* ¼öÁ¤ÇÊ¿ä¾øÀ½. ÇÁ·ÎÁ§Æ®°¡ ¿©·¯°³ÀÏ °æ¿ì¸¸ ¼öÁ¤ÇÑ´Ù. */
-            initializedId : "", /* ´ëºÎºĞÀÇ °æ¿ì¿¡ ºó¹®ÀÚ¿­ */
-            wrapper : "tx_trex_container", /* ¿¡µğÅÍ¸¦ µÑ·¯½Î°í ÀÖ´Â ·¹ÀÌ¾î ÀÌ¸§(¿¡µğÅÍ ÄÁÅ×ÀÌ³Ê) */
-            form : 'tx_editor_form' + "", /* µî·ÏÇÏ±â À§ÇÑ Form ÀÌ¸§ */
-            txIconPath : "/JSPProject_4team/daumeditor/images/icon/editor/", /*¿¡µğÅÍ¿¡ »ç¿ëµÇ´Â ÀÌ¹ÌÁö µğ·ºÅÍ¸®, ÇÊ¿ä¿¡ µû¶ó ¼öÁ¤ÇÑ´Ù. */
-            txDecoPath : "/JSPProject_4team/daumeditor/images/deco/contents/", /*º»¹®¿¡ »ç¿ëµÇ´Â ÀÌ¹ÌÁö µğ·ºÅÍ¸®, ¼­ºñ½º¿¡¼­ »ç¿ëÇÒ ¶§´Â ¿Ï¼ºµÈ ÄÁÅÙÃ÷·Î ¹èÆ÷µÇ±â À§ÇØ Àı´ë°æ·Î·Î ¼öÁ¤ÇÑ´Ù. */
-            canvas : {
-               styles : {
-                  color : "#123456", /* ±âº» ±ÛÀÚ»ö */
-                  fontFamily : "±¼¸²", /* ±âº» ±ÛÀÚÃ¼ */
-                  fontSize : "10pt", /* ±âº» ±ÛÀÚÅ©±â */
-                  backgroundColor : "#fff", /*±âº» ¹è°æ»ö */
-                  lineHeight : "1.5", /*±âº» ÁÙ°£°İ */
-                  padding : "8px" /* À§ÁöÀ¨ ¿µ¿ªÀÇ ¿©¹é */
-               },
-               showGuideArea : false
-            },
-            events : {
-               preventUnload : false
-            },
-            sidebar : {
-               attachbox : {
-                  show : true,
-                  confirmForDeleteAll : true
-               }
-            },
-            size : {
-            /* ÁöÁ¤µÈ º»¹®¿µ¿ªÀÇ ³ĞÀÌ°¡ ÀÖÀ» °æ¿ì¿¡ ¼³Á¤ */
-            }
-         };
-         EditorJSLoader.ready(function(Editor) {
-            editor = new Editor(config);
-         });
-      }
-      // ¸¶Áö¸·À¸·Î jquery ajax¸¦ ÀÌ¿ëÇÏ¿© template html ÆÄÀÏÀ» load ÈÄ setConfig ÇÔ¼ö¸¦ È£Ãâ
-
-      $(function() {
-         $.ajax({
-            type : "POST",
-            url : "/JSPProject_4team/daumeditor/editor_template.html",
-            success : function(data) {
-               $("#editorTd").html(data);
-               setConfig();
-            },
-            error : function(request, status, error) {
-               alert("¿¡·¯");
-            }
-         });
-      })
-
-   }
+	});
 </script>
+<script src="lang/summernote-ko-KR.js"></script>
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="./dist/css/swiper.min.css">
+
+<!-- Swiper styles -->
+<style>
+html, body {
+	position: relative;
+	height: 100%;
+}
+
+body {
+	background: #eee;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 700px;
+	margin: 20px auto;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.append-buttons {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.append-buttons a {
+	display: inline-block;
+	border: 1px solid #007aff;
+	color: #007aff;
+	text-decoration: none;
+	padding: 4px 10px;
+	border-radius: 4px;
+	margin: 0 10px;
+	font-size: 13px;
+}
+</style>
 </head>
 <body>
-   <div class="row">
-      <div class="col-md-8">
-         <form name="tx_editor_form" id="tx_editor_form" action="/servlet"
-            method="post">
-            <table>
-               <tr>
-                  <td>Á¦¸ñ</td>
-                  <td><input type="text" id="title" name="title" value="${content.title}"/>
-                  </td>
+	<form id="form" class="form-horizontal"
+		action="<%=request.getContextPath()%>/content" method="post">
+		<input type="hidden" name="task" value="updateRead" />
+		<fieldset>
+			<legend class="text-center">WRITE</legend>
+			<!-- ì œëª©, ì¥ì†Œ, ë‚ ì§œ -->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="title">ì œëª©</label>
+				<div class="col-md-9">
+					<input id="title" name="title" type="text" placeholder="ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"
+						class="form-control input-md">
+				</div>
+			</div>
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="place">ì¥ì†Œ</label>
+				<div class="col-md-3">
+					<select id="place" name="locations" class="form-control">
+						<option value="ì„œìš¸">ì„œìš¸</option>
+						<option value="ê²½ê¸°ë„">ê²½ê¸°ë„</option>
+						<option value="ëŒ€ì „">ëŒ€ì „</option>
+						<option value="ëŒ€êµ¬">ëŒ€êµ¬</option>
+						<option value="ë¶€ì‚°">ë¶€ì‚°</option>
+						<option value="ì¸ì²œ">ì¸ì²œ</option>
+						<option value="ê°•ì›ë„">ê°•ì›ë„</option>
+						<option value="ì¶©ì²­ë„">ì¶©ì²­ë„</option>
+						<option value="ì „ë¼ë„">ì „ë¼ë„</option>
+						<option value="ì œì£¼ë„">ì œì£¼ë„</option>
+					</select>
+				</div>
+			</div>
+			<!-- start date-->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="start_date">ì¶œë°œ ì¼</label>
+				<div class="col-md-3">
+					<input id="start_date" name="start_date" type="text"
+						placeholder="ex) 2017-01-01" class="form-control input-md">
+				</div>
+			</div>
 
-               </tr>
-
-               <tr>
-                  <td>³»¿ë</td>
-                  <td id="editorTd"></td>
-               </tr>
-               <tr>
-                  <td colspan="2"><input type="submit" value="ÀÛ¼º" /> <input
-                     type="button" value="Ãë¼Ò" /></td>
-               </tr>
-            </table>
-         </form>
-      </div>
-
-      <div class="col-md-4">
-         <canvas id="myCanvas" width="400" height="800"></canvas>
-         <button id="btn" type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> °æ·Î
-            Ãß°¡
-         </button>
-      </div>
-   </div>
+			<!-- end date-->
+			<!-- File Button -->
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="source_image">ëŒ€í‘œì‚¬ì§„</label>
+				<div class="col-md-9">
+					<input id="main_image" name="main_image" class="input-file"
+						type="file">
+				</div>
+			</div>
+			<!----------------------------------- Swiper --------------------------------------->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<fieldset>
+							<legend class="text-center">Day 1</legend>
+							<!------------------------- ì—ë””í„° ë¶€ë¶„ ------------------------>
+							<!-- Select Basic -->
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="source_tags">ë‚´ìš©</label>
+								<div class="col-md-9">
+									<input type="hidden" id="content1" name="content1">
+									<div class="summernote">
+									</div>
+								</div>
+							</div>
+							<!----------------------- ê²½ë¡œ ë¶€ë¶„ ---------------------->
+							<div class="container">
+								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
+								<p align="center">
+									<button id="addBtn1" type="button"
+										class="btn btn-default btn-lg" style="font-size: 12px">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										ê²½ë¡œ ì¶”ê°€
+									</button>
+								</p>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
+			<p class="append-buttons">
+				<a href="#" class="append-slide">+ Day</a>
+				<a href="#" class="append-slide" id="submitBtn">ìˆ˜ì •</a>
+			</p>
+		</fieldset>
+	</form>
 </body>
 </html>
