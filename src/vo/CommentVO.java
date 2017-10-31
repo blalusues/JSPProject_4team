@@ -8,16 +8,20 @@ public class CommentVO {
 	private String writer;
 	private String content;
 	private Date write_date;
+	private String email;
 	////////////////////////////////////////////////////////////
-	public CommentVO(int brdNo, int commentNum, String writer, String content, Date write_date) {
+	public CommentVO(int brdNo, int commentNum, String writer, String content, Date write_date, String email) {
 		super();
 		this.brdNo = brdNo;
 		this.commentNum = commentNum;
 		this.writer = writer;
 		this.content = content;
 		this.write_date = write_date;
+		this.email = email;
 	}
+	
 	public CommentVO() {}
+
 	//////////////////////////////////////////////////////////////
 	public int getBrdNo() {
 		return brdNo;
@@ -49,9 +53,19 @@ public class CommentVO {
 	public void setWrite_date(Date write_date) {
 		this.write_date = write_date;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "CommentVO [brdNo=" + brdNo + ", commentNum=" + commentNum + ", writer=" + writer + ", content="
-				+ content + ", write_date=" + write_date + "]";
+				+ content + ", write_date=" + write_date + ", email=" + email + "]";
 	}
+
 }

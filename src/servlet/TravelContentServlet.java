@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import service.TravelContentService;
 import vo.CommentVO;
 import vo.ContentDetailVO;
@@ -124,7 +126,7 @@ public class TravelContentServlet extends HttpServlet {
 		
 		// 글 작성 완료 후 submit 버튼 눌렀을 때
 		if (task.equals("write")) {
-			
+			System.out.println("@!#!@#@!#!@#");
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("name");
 			String email =(String) session.getAttribute("email");
@@ -216,6 +218,7 @@ public class TravelContentServlet extends HttpServlet {
 		} else if (task.equals("commentCheck")) {
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("name");
+			String email = (String) session.getAttribute("email");
 			
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
@@ -226,7 +229,8 @@ public class TravelContentServlet extends HttpServlet {
 			comment.setBrdNo(articleNum);
 			comment.setWriter(loginId);
 			comment.setContent(comment_content);
-		
+			comment.setEmail(email);
+			
 			boolean result = service.commentSignUp(comment);
 			
 			if (result == true) {

@@ -321,7 +321,7 @@ public class ContentDao {
 	//작성자,날짜,조회수 등등 select
 	public ContentVO contentSelect(int contentNumber) {
 		con = DBUtil.makeConnection();
-		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION "
+		String sql = "SELECT CONTENT_NO,TITLE,READ_COUNT,WRITER,WRITE_TIME,MAIN_IMG,LOCATION"
 				+ ",START_DATE,EMAIL FROM CONTENT WHERE CONTENT_NO=?";
 		ContentVO content = null;
 		
@@ -457,8 +457,8 @@ public class ContentDao {
 	public int insertComment(CommentVO comment) {
 		con = DBUtil.makeConnection();
 		int result = 0;
-		String sql = "INSERT INTO CMT(BRDNO,WRITER,CONTENT,WRITE_DATE) "
-				     + "VALUES(?,?,?,?)";
+		String sql = "INSERT INTO CMT(BRDNO,WRITER,CONTENT,WRITE_DATE,EMAIL) "
+				     + "VALUES(?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -466,6 +466,7 @@ public class ContentDao {
 			pstmt.setString(2, comment.getWriter());
 			pstmt.setString(3, comment.getContent());
 			pstmt.setTimestamp(4, new Timestamp(comment.getWrite_date().getTime()));
+			pstmt.setString(5, comment.getEmail());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -480,7 +481,7 @@ public class ContentDao {
 	
 	public List<CommentVO> selectComment(int articleNum) {
 		con = DBUtil.makeConnection();
-		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE FROM CMT WHERE BRDNO = ? "
+		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE,EMAIL FROM CMT WHERE BRDNO = ? "
 					+"ORDER BY COMNO DESC";
 		List<CommentVO> commentList = new ArrayList<>();
 
@@ -495,6 +496,7 @@ public class ContentDao {
 				comment.setWriter(rs.getString(2));
 				comment.setContent(rs.getString(3));
 				comment.setWrite_date(rs.getTimestamp(4));
+				comment.setEmail(rs.getString(5));
 
 				commentList.add(comment);
 			}
