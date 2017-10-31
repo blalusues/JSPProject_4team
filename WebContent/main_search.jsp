@@ -14,6 +14,8 @@
 	href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Dosis:600"
 	rel="stylesheet">
 
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+
 <!-- 공유하기 -->
 
 <meta property="og:title" content="Travel">
@@ -45,16 +47,10 @@ font-weight: bold;
 }
 
 
-@font-face {
-  font-family: 'Nanum Gothic Coding';
-  font-style: normal;
-  font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.eot);
-  src: url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.eot?#iefix) format('embedded-opentype'),
-       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.woff2) format('woff2'),
-       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.woff) format('woff'),
-       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.ttf) format('truetype');
-}
+#dropdownMenuLink {font-family: 'Nanum Gothic Coding', monospace;}
+
+
+#selection {font-family: 'Nanum Gothic Coding', monospace;}
 
 </style>
 
@@ -121,7 +117,7 @@ font-weight: bold;
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 지역 선택 </a>
 
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="selection">
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
 									서울 </a> <a class="dropdown-item"
@@ -280,7 +276,7 @@ font-weight: bold;
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					<span class="copyright">Copyright &copy; Your Website 2017</span>
+					<span class="copyright" id="tail">Copyright &copy; Your Website 2017</span>
 				</div>
 				<div class="col-md-4">
 					<ul class="list-inline social-buttons">
@@ -292,8 +288,8 @@ font-weight: bold;
 							href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1"
 							target="_blank"> <i class="fa fa-facebook"></i>
 						</a></li>
-						<li class="list-inline-item"><a href="#"> <i
-								class="fa fa-linkedin"></i>
+						<li class="list-inline-item"><a href="https://www.instagram.com/?hl=ko"> 
+						<i class="fa fa-linkedin"></i>
 						</a></li>
 					</ul>
 				</div>
