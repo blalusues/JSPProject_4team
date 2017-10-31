@@ -644,5 +644,44 @@ public class ContentDao {
 		return result;
 	
 	}
+	/////////////////////////////////////////////////////////////////////////
+	public int delContent(int contentNum) {
+		con = DBUtil.makeConnection();
+		int result =0;
+		String sql = "DELETE FROM CONTENT WHERE CONTENT_NO=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, contentNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delContent 에러");
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+		}
+		return result;
+	}
+	
+	public int delContentDetail(int contentNum) {
+		con = DBUtil.makeConnection();
+		int result =0;
+		String sql = "DELETE FROM CONTENTDETAIL WHERE CONTENT_NO=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, contentNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delContent 에러");
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeCon(con);
+			DBUtil.closePstmt(pstmt);
+		}
+		return result;
+	}
+
 
 }
