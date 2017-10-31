@@ -197,6 +197,9 @@ public class TravelContentServlet extends HttpServlet {
 
 				String search = request.getParameter("search");
 				String category = request.getParameter("category");
+				System.out.println(search);
+				System.out.println(category);
+
 
 				if ((search.equals("") && category.equals(""))) {
 					// 둘 다 null이면 그냥 main
