@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <title>글수정</title>
 
@@ -264,6 +265,7 @@
 
 			form.submit();
 		})
+		
 		$('.summernote').summernote({
 			height : 300, // set editor height
 			minHeight : null, // set minimum height of editor
@@ -279,7 +281,8 @@
 		// 			});
 
 		// 		})
-
+		
+	
 	});
 </script>
 <script src="lang/summernote-ko-KR.js"></script>
@@ -356,10 +359,10 @@ body {
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="title">제목</label>
+				<label class="col-md-2 control-label" for="title"></label>
 				<div class="col-md-9">
 					<input id="title" name="title" type="text" placeholder="제목을 입력해주세요"
-						class="form-control input-md">
+						class="form-control input-md" value="${content.title}">
 				</div>
 			</div>
 			<!-- Text input-->
@@ -385,7 +388,7 @@ body {
 				<label class="col-md-2 control-label" for="start_date">출발 일</label>
 				<div class="col-md-3">
 					<input id="start_date" name="start_date" type="text"
-						placeholder="ex) 2017-01-01" class="form-control input-md">
+						placeholder="ex) 2017-01-01" class="form-control input-md" value="${content.start_date}">
 				</div>
 			</div>
 
@@ -401,15 +404,16 @@ body {
 			<!----------------------------------- Swiper --------------------------------------->
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
+				<c:forEach var="contentDetail" items="${contentDetailList}">
 					<div class="swiper-slide">
 						<fieldset>
-							<legend class="text-center">Day 1</legend>
+							<legend class="text-center">Day ${contentDetail.day}</legend>
 							<!------------------------- 에디터 부분 ------------------------>
 							<!-- Select Basic -->
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="source_tags">내용</label>
 								<div class="col-md-9">
-									<input type="hidden" id="content1" name="content1">
+									<input type="hidden" id="content${contentDetail.day}" name="content${contentDetail.day}">
 									<div class="summernote">
 									</div>
 								</div>
@@ -427,7 +431,18 @@ body {
 							</div>
 						</fieldset>
 					</div>
+					<script type="text/javascript">
+						$(function(){
+							// summernote 내용 가져오기
+							var readContent = "${contentDetail.content}";
+							$('.summernote').eq(${contentDetail.day}-1).summernote('code', readContent);
+							
+							// 경로 그리기
+						});
+					</script>
+					</c:forEach>	
 				</div>
+				
 				<!-- Add Pagination -->
 				<div class="swiper-pagination"></div>
 				<!-- Add Arrows -->

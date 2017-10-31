@@ -215,7 +215,7 @@ table {
 								</form>
 							</c:if>
 						</td>
-					</tr>
+					</tr>	
 						<tr>
 						<td>${comment.content}</td>
 					</tr>
