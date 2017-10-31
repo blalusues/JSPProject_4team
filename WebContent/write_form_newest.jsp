@@ -368,6 +368,7 @@ body {
 				<div class="col-md-3">
 					<select id="place" name="locations" class="form-control">
 						<option value="서울">서울</option>
+						<option value="경기도">경기도</option>
 						<option value="대전">대전</option>
 						<option value="대구">대구</option>
 						<option value="부산">부산</option>

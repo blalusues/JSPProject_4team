@@ -107,20 +107,31 @@ font-weight: bold;
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
 
-					<li class="nav-item"></li>
+					<li class="nav-item">
+					</li>
 
 					<li class="nav-item">
-
 						<div class="dropdown show">
-							<a class="btn btn-secondary dropdown-toggle"
-								href="https://example.com" id="dropdownMenuLink"
-								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> 지역 선택 </a>
-
+							<c:choose>
+								<c:when test="${category eq '' || empty category}">
+									<a class="btn btn-secondary dropdown-toggle"
+									href="https://example.com" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> 지역 선택 </a>
+								</c:when>
+								<c:otherwise>
+									<a class="btn btn-secondary dropdown-toggle"
+									href="https://example.com" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> ${category} </a>
+								</c:otherwise>
+							</c:choose>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="selection">
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
 									서울 </a> <a class="dropdown-item"
+									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=경기도">
+									경기도 </a> <a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대전">
 									대전 </a> <a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=대구">
