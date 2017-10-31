@@ -132,7 +132,6 @@ public class TravelContentServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				String loginId = (String) session.getAttribute("name");
 				String email = (String) session.getAttribute("email");
-				System.out.println(email + " dasdasdasdasdasdsd");
 				ContentVO content = new ContentVO();
 				List<ContentDetailVO> detailList = new ArrayList<>();
 				
