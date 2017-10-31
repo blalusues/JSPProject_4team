@@ -163,9 +163,8 @@ table {
 						<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button class="btn btn-default" style="cursor: pointer;" type="button">
 							<em class="glyphicon glyphicon-align-center"></em>수정
 						</button></a>
-						<a href="<%=request.getContextPath()%>/content?task=deleteForm&contentNum=${content.content_no}"><button class="btn btn-default" style="cursor: pointer;" type="button">
 							<em class="glyphicon glyphicon-align-right"></em>삭제
-						</button></a>
+						<input class="btn btn-default" style="cursor: pointer;" type="button">
 					</c:if>
 					</div>
 				</div>

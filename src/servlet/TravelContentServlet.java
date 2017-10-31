@@ -173,15 +173,14 @@ public class TravelContentServlet extends HttpServlet {
 					detail.setPath(plusPath);
 					detailList.add(detail);
 				}
-				if (service.write(content, detailList) == 1) {
+				if (service.write(content,detailList) == 1) {
 					path = "write_success.jsp";
 				} else {
 					path = "write_fail.jsp";
 				}
 				
-			}	
-			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+			}	RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
 			
 			
 
