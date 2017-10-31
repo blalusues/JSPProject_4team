@@ -223,7 +223,8 @@ public class TravelContentServlet extends HttpServlet {
 			} else if (task.equals("commentCheck")) {
 				HttpSession session = request.getSession();
 				String loginId = (String) session.getAttribute("name");
-
+				String email = (String)session.getAttribute("email");
+				
 				String articleNumStr = request.getParameter("comment_board");
 				int articleNum = Integer.parseInt(articleNumStr);
 				String comment_content = request.getParameter("comment_content");
@@ -233,7 +234,8 @@ public class TravelContentServlet extends HttpServlet {
 				comment.setBrdNo(articleNum);
 				comment.setWriter(loginId);
 				comment.setContent(comment_content);
-
+				comment.setEmail(email);
+				
 				boolean result = service.commentSignUp(comment);
 
 				if (result == true) {
