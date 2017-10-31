@@ -147,8 +147,6 @@
 	var day = 1;
 	var count = new Array();
 
-	// 전에 꺼 버튼은 눌리는데 다음 꺼에 그리네????????ㅋㅋㅋㅋ
-
 	function func_add_day() {
 		count[day] = 1;
 		var newRoute;
@@ -156,16 +154,17 @@
 		$(document).on('click', '#addBtn' + day, function() {
 			// day 값 세팅해주기 (hidden 타입 세팅해놓거나 id값 가져오거나)
 			var fixedDay = $(this).attr("id").substr(6,6);
+			var dayAndCount = fixedDay + "_" + count[fixedDay];
 			
 			newRoute = "<div class='bs-wizard-step complete' id='day" + fixedDay + "'>"
 						+ "<div class='text-center bs-wizard-stepnum'>"
 						+ "<input type='text' placeholder='장소' "
-						+ "name='loc" + fixedDay + "_" + count[fixedDay] + "' size='7'></div>"
+						+ "name='loc" + dayAndCount + "' size='7'></div>"
 						+ "<div class='progress'><div class='progress-bar'></div></div>"
 						+ "<a href='#' class='bs-wizard-dot'></a>"
-						+ "<div class='bs-wizard-info text-center'>"
+						+ "<div class='hide bs-wizard-info text-center'>"
 						+ "<textarea rows='3' cols='15' placeholder='요약' "
-						+ "name='sum" + fixedDay + "_" + count[fixedDay] + "' size='10'>"
+						+ "name='sum" + dayAndCount + "' size='10'>"
 						+ "</textarea></div></div>";
 			$('#route' + fixedDay).append(newRoute);
 
@@ -173,6 +172,17 @@
 			$('#route' + fixedDay + '> *').attr("style", width);
 
 			count[fixedDay]++;
+			
+			// 이벤트 동적할당
+			$(document).on('mouseover', '.bs-wizard-dot', function() {
+				$(this).popover({
+					placement : 'bottom',
+					title : 'SUMMARY',
+					html : true,
+					// 같은 부모 노드에 있는 것들 중에서 검색
+					content : $(this).siblings('.bs-wizard-info').html()
+				})
+			})
 		})
 	}
 	$(func_add_day);
@@ -237,10 +247,10 @@
 			// count 배열 보내기(maxPath)
 			var maxPath = new Array();
 			for (var i = 0; i < count.length; i++) {
-				maxPath[i] = document.createElement("input"); // input 엘리멘트 생성
-				maxPath[i].setAttribute("type", "hidden"); // type 속성을 hidden으로 설정
-				maxPath[i].setAttribute("name", "maxPath" + (i + 1)); // name 속성을 maxPath로 설정
-				maxPath[i].setAttribute("value", count[i+1] - 1); // value 속성을 삽입
+				maxPath[i] = document.createElement("input"); 	// input 엘리멘트 생성
+				maxPath[i].setAttribute("type", "hidden"); 		// type 속성을 hidden으로 설정
+				maxPath[i].setAttribute("name", "maxPath" + (i + 1));	// name 속성을 maxPath로 설정
+				maxPath[i].setAttribute("value", count[i+1] - 1); 		// value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
 			
@@ -340,7 +350,7 @@ body {
 </head>
 <body>
 	<form id="form" class="form-horizontal"
-		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart-form/data">
+		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="task" value="write" />
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
@@ -357,7 +367,7 @@ body {
 				<label class="col-md-2 control-label" for="place">장소</label>
 				<div class="col-md-3">
 					<select id="place" name="locations" class="form-control">
-					<option value="서울">서울</option>
+						<option value="서울">서울</option>
 						<option value="대전">대전</option>
 						<option value="대구">대구</option>
 						<option value="부산">부산</option>
@@ -425,7 +435,7 @@ body {
 			</div>
 			<p class="append-buttons">
 				<a href="#" class="append-slide">+ Day</a>
-				<button type="button" id="submitBtn">작성</button>
+				<a href="#" class="append-slide" id="submitBtn">작성</a>
 			</p>
 		</fieldset>
 	</form>
