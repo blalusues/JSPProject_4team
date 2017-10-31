@@ -357,15 +357,15 @@ body {
 				<label class="col-md-2 control-label" for="place">장소</label>
 				<div class="col-md-3">
 					<select id="place" name="locations" class="form-control">
-						<option value="1">서울</option>
-						<option value="2">대전</option>
-						<option value="3">대구</option>
-						<option value="4">부산</option>
-						<option value="5">인천</option>
-						<option value="6">강원도</option>
-						<option value="7">충청도</option>
-						<option value="8">전라도</option>
-						<option value="9">제주도</option>
+					<option value="서울">서울</option>
+						<option value="대전">대전</option>
+						<option value="대구">대구</option>
+						<option value="부산">부산</option>
+						<option value="인천">인천</option>
+						<option value="강원도">강원도</option>
+						<option value="충청도">충청도</option>
+						<option value="전라도">전라도</option>
+						<option value="제주도">제주도</option>
 					</select>
 				</div>
 			</div>
