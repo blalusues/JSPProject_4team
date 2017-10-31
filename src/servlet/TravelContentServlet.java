@@ -164,6 +164,101 @@ public class TravelContentServlet extends HttpServlet {
 
 					ContentDetailVO detail = new ContentDetailVO();
 
+<<<<<<< HEAD
+			if ((search.equals("") && category.equals(""))) {
+				// 둘 다 null이면 그냥 main
+				contentPage = service.makePage(1, page, search, category);
+				path = "main_search.jsp";
+			} else if (category.equals("")) {
+				// 타이틀 검색
+				contentPage = service.makePage(2, page, search, category);
+				path = "main_search.jsp";
+			} else if (search.equals("")) {
+				// 지역 검색
+				contentPage = service.makePage(3, page, search, category);
+				path = "main_search.jsp";
+			} else {
+				// 타이틀 + 지역 검색
+				contentPage = service.makePage(4, page, search, category);
+				path = "main_search.jsp";
+			}
+			request.setAttribute("contentPage", contentPage);
+			request.setAttribute("category", category);
+			request.setAttribute("search", search);
+		} else if (task.equals("commentCheck")) {
+			HttpSession session = request.getSession();
+			String loginId = (String) session.getAttribute("name");
+			String email = (String) session.getAttribute("email");
+			
+			String articleNumStr = request.getParameter("comment_board");
+			int articleNum = Integer.parseInt(articleNumStr);
+			String comment_content = request.getParameter("comment_content");
+			comment_content = comment_content.replace("\r\n", "<br>");
+
+			CommentVO comment = new CommentVO();
+			comment.setBrdNo(articleNum);
+			comment.setWriter(loginId);
+			comment.setContent(comment_content);
+			comment.setEmail(email);
+			
+			boolean result = service.commentSignUp(comment);
+			
+			if (result == true) {
+				request.setAttribute("articleNum", articleNum);
+				path = "comment_success.jsp";
+			} else {
+				request.setAttribute("articleNum", articleNum);
+				path = "comment_fail.jsp";
+			}
+		} else if (task.equals("commentDelete")) {
+			String articleNumStr = request.getParameter("comment_board");
+			int articleNum = Integer.parseInt(articleNumStr);
+			CommentVO comment = new CommentVO();
+			String comment_numStr = request.getParameter("comment_num");
+			int comment_num = Integer.parseInt(comment_numStr);
+			comment.setCommentNum(comment_num);
+			boolean result = service.commentDelete(comment);
+
+			if (result == true) {
+				request.setAttribute("articleNum", articleNum);
+				path = "commentDelete_success.jsp";
+			} else {
+				request.setAttribute("articleNum", articleNum);
+				path = "commentDelete_fail.jsp";
+			}
+		} else if (task.contentEquals("updateRead")) {
+			ContentVO content = new ContentVO();
+			List<ContentDetailVO> detailList = new ArrayList<>();
+			List<ContentDetailVO> detailListOther = new ArrayList<>();
+			ContentDetailVO detail = new ContentDetailVO();
+			String contentNumStr = request.getParameter("글 번호 변수");
+			int contentNum = Integer.parseInt(contentNumStr);
+			int dayNumber = service.caculateDLNum(contentNum);
+			
+			content.setContent_no(contentNum);
+			content.setTitle(request.getParameter("title"));
+			content.setWriter(request.getParameter("writer"));
+			content.setLocation(request.getParameter("location"));
+			content.setMain_img(request.getParameter("main_img"));
+
+			String dayStr = request.getParameter("day");
+			int day = 0;
+			if (dayStr != null && dayStr.length() > 0) {
+				day = Integer.parseInt(dayStr);
+			}
+			
+			int[] maxPath = new int[5];
+			for (int y = 1; y < day + 1; y++) {
+				String pathStr = request.getParameter("maxPath" + y);
+				maxPath[y] = Integer.parseInt(pathStr);
+			}
+			
+			if (day > dayNumber) {// 수정시 day가 추가 되었을 때
+				for (int i = 1; i < dayNumber + 1; i++) {
+					String plusPath="";
+					
+=======
+>>>>>>> 909bca9da40d747c23b82763f73a79f9bb011012
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					for (int x = 1; x < maxPath[i] + 1; x++) {
