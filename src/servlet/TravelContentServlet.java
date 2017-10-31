@@ -34,12 +34,12 @@ public class TravelContentServlet extends HttpServlet {
 
 		if (task.equals("read")) { // 후기 읽기 10/24작성 중
 			HttpSession session = request.getSession();
-			String loginId = (String) session.getAttribute("name");
+			String email = (String) session.getAttribute("email");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
-			ContentVO content = service.read(loginId, contentNumber);
+			ContentVO content = service.read(email, contentNumber);
 			List<CommentVO> comment = service.commentSelect(content.getContent_no());
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetailList", contentDetailList);
@@ -85,10 +85,13 @@ public class TravelContentServlet extends HttpServlet {
 			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			path = "write_form_newest.jsp";
 		} else if (task.equals("updateForm")) {
+			HttpSession session = request.getSession();
+			String email =(String) session.getAttribute("email");
+			
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
 
-			ContentVO content = service.read("이메일 넣기", contentNum);
+			ContentVO content = service.read(email, contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
 
 			request.setAttribute("contentDetailList", contentDetailList);
@@ -121,17 +124,20 @@ public class TravelContentServlet extends HttpServlet {
 		
 		// 글 작성 완료 후 submit 버튼 눌렀을 때
 		if (task.equals("write")) {
+			
 			HttpSession session = request.getSession();
 			String loginId = (String) session.getAttribute("name");
-			ContentVO content = new ContentVO();
-			List<ContentDetailVO> detailList = new ArrayList<>();
+			String email =(String) session.getAttribute("email");
 			
+			ContentVO content = new ContentVO();
+			
+			List<ContentDetailVO> detailList = new ArrayList<>();
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(loginId);
 			content.setLocation(request.getParameter("locations"));
 			content.setMain_img(request.getParameter("main_image"));
 			content.setStart_date(request.getParameter("start_date"));
-		
+			content.setEmail(email);
 //			Date start_date = null, end_date= null;
 //			try {
 //				start_date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date"));

@@ -93,9 +93,9 @@ public class TravelContentService {
 		return path;
 	}
 
-	public ContentVO read(String id, int contentNumber) {
+	public ContentVO read(String email, int contentNumber) {
 		ContentVO content = dao.contentSelect(contentNumber);
-		if (content == null || content.getWriter().equals(id)) {
+		if (content == null || content.getEmail().equals(email)) {
 			return content;
 		} else {
 			dao.updateReadCount(contentNumber);
