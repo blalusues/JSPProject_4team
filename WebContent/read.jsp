@@ -211,7 +211,7 @@ table {
 			<br>
 			<c:if test="${not empty sessionScope.name}">
 				<form action="${myContextPath}/content" method="post">
-					<input type="hidden" name="comment_board" value="${content.content_no}"> 
+					<input type="hidden" name="comment_board" value="${content.content_no}">
 					<input type="hidden" name="task" value="commentCheck">
 					<table border="0">
 					<tr>

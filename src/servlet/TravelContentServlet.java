@@ -128,11 +128,9 @@ public class TravelContentServlet extends HttpServlet {
 			
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(loginId);
-			content.setLocation(request.getParameter("location"));
+			content.setLocation(request.getParameter("locations"));
 			content.setMain_img(request.getParameter("main_image"));
 			content.setStart_date(request.getParameter("start_date"));
-			
-			System.out.println(content);
 		
 //			Date start_date = null, end_date= null;
 //			try {
@@ -211,6 +209,9 @@ public class TravelContentServlet extends HttpServlet {
 			request.setAttribute("category", category);
 			request.setAttribute("search", search);
 		} else if (task.equals("commentCheck")) {
+			HttpSession session = request.getSession();
+			String loginId = (String) session.getAttribute("name");
+			
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
 			String comment_content = request.getParameter("comment_content");
@@ -218,7 +219,7 @@ public class TravelContentServlet extends HttpServlet {
 
 			CommentVO comment = new CommentVO();
 			comment.setBrdNo(articleNum);
-			comment.setWriter(request.getParameter("comment_id"));
+			comment.setWriter(loginId);
 			comment.setContent(comment_content);
 		
 			boolean result = service.commentSignUp(comment);

@@ -261,7 +261,7 @@ font-weight: bold;
 			session.setAttribute("state", state);
 		%>
 		<button id="write"
-			style="background-color: transparent; border: 0; outline: 0; float: right;"
+			style="background-color: transparent; border: 0; outline: 0; float: right; cursor: pointer;"
 			class="btn btn-info btn-lg" data-toggle="modal"
 			data-target="#myModal">
 			<img src="write.png" style="width: 70px; height: 70px">
