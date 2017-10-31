@@ -13,12 +13,11 @@ public class ContentVO {
 	String main_img;
 	String location;
 	String start_date;
-	String end_date;
 	String email;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	public ContentVO(int content_no, String title, int read_count, String writer, Date write_time, String main_img,
-			String location, String start_date, String end_date, String email) {
+			String location, String start_date, String email) {
 		super();
 		this.content_no = content_no;
 		this.title = title;
@@ -28,7 +27,6 @@ public class ContentVO {
 		this.main_img = main_img;
 		this.location = location;
 		this.start_date = start_date;
-		this.end_date = end_date;
 		this.email = email;
 	}
 	
@@ -101,16 +99,6 @@ public class ContentVO {
 		this.start_date = start_date;
 	}
 
-
-	public String getEnd_date() {
-		return end_date;
-	}
-
-
-	public void setEnd_date(String end_date) {
-		this.end_date = end_date;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -123,6 +111,8 @@ public class ContentVO {
 	public String toString() {
 		return "ContentVO [content_no=" + content_no + ", title=" + title + ", read_count=" + read_count + ", writer="
 				+ writer + ", write_time=" + write_time + ", main_img=" + main_img + ", location=" + location
-				+ ", start_date=" + start_date + ", end_date=" + end_date + ", email=" + email + "]";
+				+ ", start_date=" + start_date + ", email=" + email + "]";
 	}
+	
+	
 }
