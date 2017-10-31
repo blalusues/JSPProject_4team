@@ -135,11 +135,7 @@
 /*END Form Wizard*/
 </style>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.bs-wizard-dot').popover({
@@ -278,6 +274,7 @@ table {
 }
 
 </style>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -336,6 +333,7 @@ table {
 								</div>
 	 							<a href="#" class="bs-wizard-dot"></a>
 								<div class="hide bs-wizard-info text-center">
+									쿄쿄쿄
 									${contentDetail.dividePath[i+1]}
 								</div>
 							</div>
@@ -346,6 +344,7 @@ table {
 			</c:forEach>
 		</div>
 	</div>
+<!-- --------------------------	댓글 ------------------------ -->
 	<br>
 	<div id="div9" style="cursor: pointer;"
 		onclick="window.scrollTo(0,screen.height);">▼ comment</div>
