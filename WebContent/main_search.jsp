@@ -14,7 +14,9 @@
 	href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Dosis:600"
 	rel="stylesheet">
 
-<link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+<link
+	href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css"
+	rel="stylesheet">
 
 <!-- 공유하기 -->
 
@@ -29,8 +31,6 @@
 	color: black;
 }
 
-
-
 #title {
 	font-family: 'Dosis', sans-serif;
 	font-family: 'Amatic SC', cursive;
@@ -39,19 +39,20 @@
 	color: #51a3f7;
 }
 
-#go{
-font-family: 'Dosis', sans-serif;
+#go {
+	font-family: 'Dosis', sans-serif;
 	font-family: 'Amatic SC', cursive;
 	font-size: 25px;
-font-weight: bold;
+	font-weight: bold;
 }
 
+#dropdownMenuLink {
+	font-family: 'Nanum Gothic Coding', monospace;
+}
 
-#dropdownMenuLink {font-family: 'Nanum Gothic Coding', monospace;}
-
-
-#selection {font-family: 'Nanum Gothic Coding', monospace;}
-
+#selection {
+	font-family: 'Nanum Gothic Coding', monospace;
+}
 </style>
 
 <!------------- 로그인 알림창 ---------------->
@@ -98,39 +99,26 @@ font-weight: bold;
 			<a class="navbar-brand js-scroll-trigger" href="#page-top">
 				<h2 id=title>Whatever you go, Go with all your heart</h2>
 			</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button"
-				data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				Menu <i class="fa fa-bars"></i>
-			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
-
-					<li class="nav-item">
-						<a class="btn btn-secondary" href="<%=request.getContextPath()%>
-						/content?task=contentList&search=&category=">
-						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-						</a>
-					</li>
-
 					<li class="nav-item">
 						<div class="dropdown show">
 							<c:choose>
 								<c:when test="${category eq '' || empty category}">
 									<a class="btn btn-secondary dropdown-toggle"
-									href="https://example.com" id="dropdownMenuLink"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> 지역 선택 </a>
+										href="https://example.com" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false"> 지역 선택 </a>
 								</c:when>
 								<c:otherwise>
 									<a class="btn btn-secondary dropdown-toggle"
-									href="https://example.com" id="dropdownMenuLink"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> ${category} </a>
+										href="https://example.com" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false"> ${category} </a>
 								</c:otherwise>
 							</c:choose>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="selection">
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
+								id="selection">
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/content?task=contentList&search=${search}&category=서울">
 									서울 </a> <a class="dropdown-item"
@@ -155,6 +143,11 @@ font-weight: bold;
 							</div>
 						</div>
 					</li>
+					<li>   　  </li>
+					<li class="nav-item">
+						<a class="btn btn-secondary" href="<%=request.getContextPath()%>
+								/content?task=contentList&search=&category=">Home</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -169,17 +162,19 @@ font-weight: bold;
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-								<form action="<%=request.getContextPath()%>/content"
-									method="post">
-									<input type="hidden" name="task" value="contentList"> <input
-										type="hidden" name="category" value="${category}"> <span
-										class="input-group-btn"> <c:if test="${empty search}">
-											<input type="text" class="form-control" name="search"
+								<form action="<%=request.getContextPath()%>/content" method="post">
+									<input type="hidden" name="task" value="contentList"> 
+									<input type="hidden" name="category" value="${category}"> 
+									<span class="input-group-btn"> 
+									<c:if test="${empty search}">
+										<input type="text" class="form-control" name="search"
 												size="500" placeholder="Search...">
-										</c:if> <c:if test="${not empty search}">
-											<input type="text" class="form-control" name="search"
+									</c:if> 
+									<c:if test="${not empty search}">
+										<input type="text" class="form-control" name="search"
 												size="500" value="${search}">
-										</c:if> <input type="submit" class="btn btn-secondary" id="go" value="Go">
+									</c:if> 
+									<input type="submit" class="btn btn-secondary" id="go" value="Go">
 									</span>
 								</form>
 							</div>
@@ -219,9 +214,8 @@ font-weight: bold;
 			</c:if>
 			<c:forEach var="page" begin="${contentPage.startPage}"
 				end="${contentPage.endPage}">
-				<a
-					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
-					${page} </a>
+				<a href="<%=request.getContextPath()%>/content?task=contentList&page=
+						${page}&search=${search}&category=${category}">	${page} </a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
 				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
@@ -283,15 +277,14 @@ font-weight: bold;
 		</button>
 		<input type="hidden" id="apiURL" value="<%=apiURL%>">
 		<!-- Modal -->
-
 	</div>
-
 	<!-- Footer -->
 	<footer>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					<span class="copyright" id="tail">Copyright &copy; Your Website 2017</span>
+					<span class="copyright" id="tail">Copyright &copy; Your
+						Website 2017</span>
 				</div>
 				<div class="col-md-4">
 					<ul class="list-inline social-buttons">
@@ -303,8 +296,9 @@ font-weight: bold;
 							href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1"
 							target="_blank"> <i class="fa fa-facebook"></i>
 						</a></li>
-						<li class="list-inline-item"><a href="https://www.instagram.com/?hl=ko"> 
-						<i class="fa fa-linkedin"></i>
+						<li class="list-inline-item"><a
+							href="https://www.instagram.com/?hl=ko" target="_blank"> <i
+								class="fa fa-linkedin"></i>
 						</a></li>
 					</ul>
 				</div>
