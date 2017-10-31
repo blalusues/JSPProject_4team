@@ -261,11 +261,10 @@ public class TravelContentServlet extends HttpServlet {
 			List<ContentDetailVO> detailList = new ArrayList<>();
 			List<ContentDetailVO> detailListOther = new ArrayList<>();
 			ContentDetailVO detail = new ContentDetailVO();
-
 			String contentNumStr = request.getParameter("글 번호 변수");
 			int contentNum = Integer.parseInt(contentNumStr);
 			int dayNumber = service.caculateDLNum(contentNum);
-
+			
 			content.setContent_no(contentNum);
 			content.setTitle(request.getParameter("title"));
 			content.setWriter(request.getParameter("writer"));
