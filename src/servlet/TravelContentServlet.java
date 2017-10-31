@@ -134,6 +134,7 @@ public class TravelContentServlet extends HttpServlet {
 			content.setMain_img(request.getParameter("main_image"));
 			content.setStart_date(request.getParameter("start_date"));
 			content.setEnd_date(request.getParameter("end_date"));
+			
 			System.out.println(content);
 		
 //			Date start_date = null, end_date= null;

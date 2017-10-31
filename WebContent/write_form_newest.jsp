@@ -153,26 +153,24 @@
 		count[day] = 1;
 		var newRoute;
 		// 경로 추가 버튼 클릭
-		$(document)
-				.on(
-						'click',
-						'#addBtn' + day,
-						function() {
-							newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
-									+ "<div class='text-center bs-wizard-stepnum'>"
-									+ "<input type='text' name='loc" + day + "_" + count[day] + "' size='7'></div>"
-									+ "<div class='progress'><div class='progress-bar'></div></div>"
-									+ "<a href='#' class='bs-wizard-dot'></a>"
-									+ "<div class='bs-wizard-info text-center'>"
-									+ "<textarea rows='3' cols='15' name='sum" + day + "_" + count[day] + "' size='10'>"
-									+ "</textarea></div></div>";
-							$('#route' + day).append(newRoute);
+		$(document).on('click', '#addBtn' + day, function() {
+			newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
+						+ "<div class='text-center bs-wizard-stepnum'>"
+						+ "<input type='text' placeholder='장소' "
+						+ "name='loc" + day + "_" + count[day] + "' size='7'></div>"
+						+ "<div class='progress'><div class='progress-bar'></div></div>"
+						+ "<a href='#' class='bs-wizard-dot'></a>"
+						+ "<div class='bs-wizard-info text-center'>"
+						+ "<textarea rows='3' cols='15' placeholder='요약' "
+						+ "name='sum" + day + "_" + count[day] + "' size='10'>"
+						+ "</textarea></div></div>";
+			$('#route' + day).append(newRoute);
 
-							var width = "width:" + (100 / count[day]) + "%";
-							$('#route' + day + '> *').attr("style", width);
+			var width = "width:" + (100 / count[day]) + "%";
+			$('#route' + day + '> *').attr("style", width);
 
-							count[day]++;
-						})
+			count[day]++;
+		})
 	}
 	$(func_add_day);
 
@@ -189,35 +187,39 @@
 			},
 		});
 		// Day 추가 버튼 클릭
-		document
-				.querySelector('.append-slide')
-				.addEventListener(
-						'click',
-						function(e) {
-							e.preventDefault();
-							day++;
-							swiper
-									.appendSlide("<div class='swiper-slide'><fieldset>"
-											+ "<legend class='text-center'>Day "
-											+ day
-											+ "</legend>"
-											+ "<div class='form-group'>"
-											+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
-											+ "<div class='col-md-9'>"
-											+ "<textarea name='content" + day + "' id='summernote' value=''></textarea>"
-											+ "<input type='hidden' name='contents' value='' id='contents'>"
-											+ "</div></div>"
-											+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
+		document.querySelector('.append-slide').addEventListener('click', function(e) {
+			e.preventDefault();
+			day++;
+			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
+								+ "<legend class='text-center'>Day "
+								+ day
+								+ "</legend>"
+								+ "<div class='form-group'>"
+								+ "<label class='col-md-2 control-label' for='source_tags'>내용</label>"
+								+ "<div class='col-md-9'>"
+								+ "<input type='hidden' id='content" + day + "' name='content" + day + "'>"
+								+ "<div class='summernote'>"
+								+ "</div></div></div>"
+								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
-											+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
-											+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
-											+ "경로 추가</button></p></div></fieldset></div>");
-
-							// Day 추가 될 때마다 click event 추가
-							func_add_day();
-							// 이벤트 버블링 방지
-							return false;
-						});
+								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
+								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+								+ "경로 추가</button></p></div></fieldset></div>");
+			
+			$('.summernote').summernote({
+				height : 300, // set editor height
+				minHeight : null, // set minimum height of editor
+				maxHeight : null, // set maximum height of editor
+				focus : true
+			// set focus to editable area after initializing summernote
+			});
+			
+			// Day 추가 될 때마다 click event 추가
+			func_add_day();
+			// 이벤트 버블링 방지
+			return false;
+		});
+		
 		$(document).on('click', '#submitBtn', function() {
 			var form = document.getElementById("form");
 
@@ -237,11 +239,18 @@
 				maxPath[i].setAttribute("value", count[i + 1] - 1); // value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
-			var html = $('#summernote').summernote('code');
-			$('#contents').val(html);
+			
+			// contents를 day 개수만큼 보내기
+			var content = new Array();
+			for (var j=0; j<2; j++) {
+				var html = $('.summernote').eq(j).summernote('code');
+				content[j] = document.getElementById("content"+(j+1));
+				content[j].setAttribute("value", html);
+			}
+
 			form.submit();
 		})
-		$('#summernote').summernote({
+		$('.summernote').summernote({
 			height : 300, // set editor height
 			minHeight : null, // set minimum height of editor
 			maxHeight : null, // set maximum height of editor
@@ -390,9 +399,8 @@ body {
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="source_tags">내용</label>
 								<div class="col-md-9">
+									<input type="hidden" id="content1" name="content1">
 									<div class="summernote">
-										<textarea name="content" id="summernote" value=""></textarea>
-										<input type="hidden" name="contents" value="" id="contents">
 									</div>
 								</div>
 							</div>
