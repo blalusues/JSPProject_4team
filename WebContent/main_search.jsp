@@ -108,6 +108,10 @@ font-weight: bold;
 				<ul class="navbar-nav text-uppercase ml-auto">
 
 					<li class="nav-item">
+						<a class="btn btn-secondary" href="<%=request.getContextPath()%>
+						/content?task=contentList&search=&category=">
+						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+						</a>
 					</li>
 
 					<li class="nav-item">
