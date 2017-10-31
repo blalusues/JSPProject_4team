@@ -174,7 +174,6 @@ public class TravelContentServlet extends HttpServlet {
 				}	
 				detail.setPath(plusPath);
 				detailList.add(detail);
-				System.out.println(detail);
 			}
 
 			if (service.write(content, detailList) == 1) {
