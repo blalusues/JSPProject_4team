@@ -154,22 +154,25 @@
 		var newRoute;
 		// 경로 추가 버튼 클릭
 		$(document).on('click', '#addBtn' + day, function() {
-			newRoute = "<div class='bs-wizard-step complete' id='day" + day + "'>"
+			// day 값 세팅해주기 (hidden 타입 세팅해놓거나 id값 가져오거나)
+			var fixedDay = $(this).attr("id").substr(6,6);
+			
+			newRoute = "<div class='bs-wizard-step complete' id='day" + fixedDay + "'>"
 						+ "<div class='text-center bs-wizard-stepnum'>"
 						+ "<input type='text' placeholder='장소' "
-						+ "name='loc" + day + "_" + count[day] + "' size='7'></div>"
+						+ "name='loc" + fixedDay + "_" + count[fixedDay] + "' size='7'></div>"
 						+ "<div class='progress'><div class='progress-bar'></div></div>"
 						+ "<a href='#' class='bs-wizard-dot'></a>"
 						+ "<div class='bs-wizard-info text-center'>"
 						+ "<textarea rows='3' cols='15' placeholder='요약' "
-						+ "name='sum" + day + "_" + count[day] + "' size='10'>"
+						+ "name='sum" + fixedDay + "_" + count[fixedDay] + "' size='10'>"
 						+ "</textarea></div></div>";
-			$('#route' + day).append(newRoute);
+			$('#route' + fixedDay).append(newRoute);
 
-			var width = "width:" + (100 / count[day]) + "%";
-			$('#route' + day + '> *').attr("style", width);
+			var width = "width:" + (100 / count[fixedDay]) + "%";
+			$('#route' + fixedDay + '> *').attr("style", width);
 
-			count[day]++;
+			count[fixedDay]++;
 		})
 	}
 	$(func_add_day);
@@ -191,7 +194,7 @@
 			e.preventDefault();
 			day++;
 			swiper.appendSlide("<div class='swiper-slide'><fieldset>"
-								+ "<legend class='text-center'>Day "
+								+ "<legend class='text-center'>Day " 
 								+ day
 								+ "</legend>"
 								+ "<div class='form-group'>"
@@ -202,16 +205,17 @@
 								+ "</div></div></div>"
 								+ "<div class='container'><div class='row bs-wizard' id='route" + day + "' " 
 								+ "style='border-bottom: 0;'></div><p align='center'>"
-								+ "<button id='addBtn" + day + "' type='button' class='btn btn-default btn-lg'>"
+								+ "<button id='addBtn" + day + "' type='button' "
+								+ "class='btn btn-default btn-lg' style='font-size: 12px'>"
 								+ "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
 								+ "경로 추가</button></p></div></fieldset></div>");
 			
+			// 새로 추가되는 summernote도 적용해주기
 			$('.summernote').summernote({
 				height : 300, // set editor height
 				minHeight : null, // set minimum height of editor
 				maxHeight : null, // set maximum height of editor
 				focus : true
-			// set focus to editable area after initializing summernote
 			});
 			
 			// Day 추가 될 때마다 click event 추가
@@ -230,21 +234,21 @@
 			allDay.setAttribute("value", day); // value 속성을 삽입
 			form.appendChild(allDay); // form 엘리멘트에 input 엘리멘트 추가
 
-			// count 배열 보내기
+			// count 배열 보내기(maxPath)
 			var maxPath = new Array();
 			for (var i = 0; i < count.length; i++) {
 				maxPath[i] = document.createElement("input"); // input 엘리멘트 생성
 				maxPath[i].setAttribute("type", "hidden"); // type 속성을 hidden으로 설정
 				maxPath[i].setAttribute("name", "maxPath" + (i + 1)); // name 속성을 maxPath로 설정
-				maxPath[i].setAttribute("value", count[i + 1] - 1); // value 속성을 삽입
+				maxPath[i].setAttribute("value", count[i+1] - 1); // value 속성을 삽입
 				form.appendChild(maxPath[i]);
 			}
 			
-			// contents를 day 개수만큼 보내기
+			// content를 day 개수만큼 보내기
 			var content = new Array();
-			for (var j=0; j<2; j++) {
+			for (var j=0; j<day; j++) {
 				var html = $('.summernote').eq(j).summernote('code');
-				content[j] = document.getElementById("content"+(j+1));
+				content[j] = document.getElementById("content" + (j + 1));
 				content[j].setAttribute("value", html);
 			}
 
@@ -336,7 +340,7 @@ body {
 </head>
 <body>
 	<form id="form" class="form-horizontal"
-		action="<%=request.getContextPath()%>/content" method="post">
+		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart-form/data">
 		<input type="hidden" name="task" value="write" />
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
