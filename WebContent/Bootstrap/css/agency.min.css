@@ -25,7 +25,7 @@ p {
 }
 
 a {
-	color: #51a3f7
+	color: #000000
 }
 
 a.active, a:active, a:focus, a:hover {
@@ -171,7 +171,7 @@ body {
 }
 
 #mainNav .navbar-brand {
-	color: white;
+	color: #51a3f7;
 	font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial,
 		cursive
 }

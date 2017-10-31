@@ -27,16 +27,35 @@
 	color: black;
 }
 
-body {
-	background-image: url('../img/background.jpg');
-}
+
 
 #title {
 	font-family: 'Dosis', sans-serif;
 	font-family: 'Amatic SC', cursive;
 	font-size: 55px;
 	font-weight: bold;
+	color: #51a3f7;
 }
+
+#go{
+font-family: 'Dosis', sans-serif;
+	font-family: 'Amatic SC', cursive;
+	font-size: 25px;
+font-weight: bold;
+}
+
+
+@font-face {
+  font-family: 'Nanum Gothic Coding';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothiccoding/v4/NanumGothicCoding-Regular.ttf) format('truetype');
+}
+
 </style>
 
 <!------------- 로그인 알림창 ---------------->
@@ -149,7 +168,7 @@ body {
 										</c:if> <c:if test="${not empty search}">
 											<input type="text" class="form-control" name="search"
 												size="500" value="${search}">
-										</c:if> <input type="submit" class="btn btn-secondary" value="Go">
+										</c:if> <input type="submit" class="btn btn-secondary" id="go" value="Go">
 									</span>
 								</form>
 							</div>
