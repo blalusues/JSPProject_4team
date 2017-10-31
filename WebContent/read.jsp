@@ -145,6 +145,15 @@ $(function(){
         content: $('.bs-wizard-info').html()
   })
 })
+
+	function delete_event(){
+		if(confirm("삭제하시겠습니까?")==true){
+			location.href='${pageContext.request.contextPath}/content?task=deleteForm&contentNum=${content.content_no}';
+		}
+		else{
+			return;
+		}
+	}
 </script>
 
 <style>
