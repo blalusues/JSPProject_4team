@@ -481,7 +481,7 @@ public class ContentDao {
 	
 	public List<CommentVO> selectComment(int articleNum) {
 		con = DBUtil.makeConnection();
-		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE FROM CMT WHERE BRDNO = ? "
+		String sql = "SELECT COMNO,WRITER,CONTENT,WRITE_DATE,EMAIL FROM CMT WHERE BRDNO = ? "
 					+"ORDER BY COMNO DESC";
 		List<CommentVO> commentList = new ArrayList<>();
 
@@ -496,6 +496,7 @@ public class ContentDao {
 				comment.setWriter(rs.getString(2));
 				comment.setContent(rs.getString(3));
 				comment.setWrite_date(rs.getTimestamp(4));
+				comment.setEmail(rs.getString(5));
 
 				commentList.add(comment);
 			}
