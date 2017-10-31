@@ -34,12 +34,12 @@ public class TravelContentServlet extends HttpServlet {
 
 		if (task.equals("read")) { // 후기 읽기 10/24작성 중
 			HttpSession session = request.getSession();
-			session.setAttribute("loginId", "123");
+			String loginId = (String) session.getAttribute("name");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
 			
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
-			ContentVO content = service.read("아이디수정하세염", contentNumber);
+			ContentVO content = service.read(loginId, contentNumber);
 			List<CommentVO> comment = service.commentSelect(content.getContent_no());
 			if (contentDetailList != null) {
 				request.setAttribute("contentDetailList", contentDetailList);
@@ -85,12 +85,10 @@ public class TravelContentServlet extends HttpServlet {
 			// 글 쓰기 화면으로 갈 때(로그인 부분을 몰라서리...)
 			path = "write_form_newest.jsp";
 		} else if (task.equals("updateForm")) {
-			HttpSession session = request.getSession();
-			String loginId = (String) session.getAttribute("loginId");
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
 
-			ContentVO content = service.read("", contentNum);
+			ContentVO content = service.read("이메일 넣기", contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
 
 			request.setAttribute("contentDetailList", contentDetailList);
@@ -124,16 +122,15 @@ public class TravelContentServlet extends HttpServlet {
 		// 글 작성 완료 후 submit 버튼 눌렀을 때
 		if (task.equals("write")) {
 			HttpSession session = request.getSession();
-			session.getAttribute("name");
+			String loginId = (String) session.getAttribute("name");
 			ContentVO content = new ContentVO();
 			List<ContentDetailVO> detailList = new ArrayList<>();
 			
 			content.setTitle(request.getParameter("title"));
-			content.setWriter(String.valueOf(request.getSession().getAttribute("name")));
+			content.setWriter(loginId);
 			content.setLocation(request.getParameter("location"));
 			content.setMain_img(request.getParameter("main_image"));
 			content.setStart_date(request.getParameter("start_date"));
-			content.setEnd_date(request.getParameter("end_date"));
 			
 			System.out.println(content);
 		
@@ -145,8 +142,6 @@ public class TravelContentServlet extends HttpServlet {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			content.setStart_date(request.getParameter("start_date"));
-			content.setEnd_date(request.getParameter("end_date"));
 //			content.setWrite_time(new Date(System.currentTimeMillis()));
 			// day 개수 (Day02까지 썼으면 day=2)
 			String dayStr = request.getParameter("day");
@@ -225,9 +220,9 @@ public class TravelContentServlet extends HttpServlet {
 			comment.setBrdNo(articleNum);
 			comment.setWriter(request.getParameter("comment_id"));
 			comment.setContent(comment_content);
-			System.out.println("commentCheck");
+		
 			boolean result = service.commentSignUp(comment);
-			System.out.println("result: " + result);
+			
 			if (result == true) {
 				request.setAttribute("articleNum", articleNum);
 				path = "comment_success.jsp";
@@ -236,7 +231,6 @@ public class TravelContentServlet extends HttpServlet {
 				path = "comment_fail.jsp";
 			}
 		} else if (task.equals("commentDelete")) {
-			System.out.println("ddd");
 			String articleNumStr = request.getParameter("comment_board");
 			int articleNum = Integer.parseInt(articleNumStr);
 			CommentVO comment = new CommentVO();
