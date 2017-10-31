@@ -99,15 +99,9 @@
 			<a class="navbar-brand js-scroll-trigger" href="#page-top">
 				<h2 id=title>Whatever you go, Go with all your heart</h2>
 			</a>
-
-
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
-
 					<li class="nav-item">
-
-
-
 						<div class="dropdown show">
 							<c:choose>
 								<c:when test="${category eq '' || empty category}">
@@ -149,32 +143,11 @@
 							</div>
 						</div>
 					</li>
-					
-					
 					<li>   　  </li>
-				
 					<li class="nav-item">
-
-						
-							<a class="btn btn-secondary"
-								href="<%=request.getContextPath()%>
-						/content?task=contentList&search=&category=">
-
-								<span class="glyphicon glyphicon-home" aria-hidden="true">
-							</span> Home
-							</a>
-
-
-
+						<a class="btn btn-secondary" href="<%=request.getContextPath()%>
+								/content?task=contentList&search=&category=">Home</a>
 					</li>
-
-
-					
-					
-					
-					
-					
-					
 				</ul>
 			</div>
 		</div>
@@ -189,18 +162,19 @@
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-								<form action="<%=request.getContextPath()%>/content"
-									method="post">
-									<input type="hidden" name="task" value="contentList"> <input
-										type="hidden" name="category" value="${category}"> <span
-										class="input-group-btn"> <c:if test="${empty search}">
-											<input type="text" class="form-control" name="search"
+								<form action="<%=request.getContextPath()%>/content" method="post">
+									<input type="hidden" name="task" value="contentList"> 
+									<input type="hidden" name="category" value="${category}"> 
+									<span class="input-group-btn"> 
+									<c:if test="${empty search}">
+										<input type="text" class="form-control" name="search"
 												size="500" placeholder="Search...">
-										</c:if> <c:if test="${not empty search}">
-											<input type="text" class="form-control" name="search"
+									</c:if> 
+									<c:if test="${not empty search}">
+										<input type="text" class="form-control" name="search"
 												size="500" value="${search}">
-										</c:if> <input type="submit" class="btn btn-secondary" id="go"
-										value="Go">
+									</c:if> 
+									<input type="submit" class="btn btn-secondary" id="go" value="Go">
 									</span>
 								</form>
 							</div>
@@ -240,9 +214,8 @@
 			</c:if>
 			<c:forEach var="page" begin="${contentPage.startPage}"
 				end="${contentPage.endPage}">
-				<a
-					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
-					${page} </a>
+				<a href="<%=request.getContextPath()%>/content?task=contentList&page=
+						${page}&search=${search}&category=${category}">	${page} </a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
 				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
@@ -304,9 +277,7 @@
 		</button>
 		<input type="hidden" id="apiURL" value="<%=apiURL%>">
 		<!-- Modal -->
-
 	</div>
-
 	<!-- Footer -->
 	<footer>
 		<div class="container">
