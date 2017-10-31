@@ -383,7 +383,7 @@ public class ContentDao {
 	public int insertContent(ContentVO content) {
 		con = DBUtil.makeConnection();
 		String sql = "INSERT INTO CONTENT(TITLE, WRITER, WRITE_TIME, MAIN_IMG, READ_COUNT, "
-				+ "LOCATION + START_DATE + END_DATE + EMAIL) VALUES(?,?,?,?,?,?,?,?,?)";
+				+ "LOCATION,START_DATE,END_DATE,EMAIL) VALUES(?,?,?,?,?,?,?,?,?)";
 		int result = 0;
 		
 		try {
