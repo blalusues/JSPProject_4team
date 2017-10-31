@@ -191,7 +191,7 @@ table {
 						<td><b>${comment.writer}</b>&nbsp;&nbsp;<span id="font1">${comment.write_date}</span>
 						</td>
 						<td id="x-form">
-							<c:if test="${sessionScope.name == comment.writer}">
+							<c:if test="${sessionScope.email == comment.email}">
 								<form action="${myContextPath}/content" method="post">
 									<input type="hidden" name="comment_board"
 										value="${content.content_no}"> 
