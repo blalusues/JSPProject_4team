@@ -191,7 +191,7 @@ table {
 						<td><b>${comment.writer}</b>&nbsp;&nbsp;<span id="font1">${comment.write_date}</span>
 						</td>
 						<td id="x-form">
-							<c:if test="${sessionScope.loginId == comment.writer}">
+							<c:if test="${sessionScope.name == comment.writer}">
 								<form action="${myContextPath}/content" method="post">
 									<input type="hidden" name="comment_board"
 										value="${content.content_no}"> 
@@ -209,10 +209,9 @@ table {
 				<li class="li1"></li>
 			</c:forEach>
 			<br>
-			<c:if test="${not empty sessionScope.loginId}">
+			<c:if test="${not empty sessionScope.name}">
 				<form action="${myContextPath}/content" method="post">
 					<input type="hidden" name="comment_board" value="${content.content_no}"> 
-					<input type="hidden" name="comment_id" value="${sessionScope.loginId}"> 
 					<input type="hidden" name="task" value="commentCheck">
 					<table border="0">
 					<tr>
