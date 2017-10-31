@@ -7,6 +7,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+
+<!-- 글씨체 -->
+
+<link
+	href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Dosis:600"
+	rel="stylesheet">
+
 <!-- 공유하기 -->
 
 <meta property="og:title" content="Travel">
@@ -15,14 +22,21 @@
 
 
 <style type="text/css">
-	#line{ 
-		font-size: 40px;
-		color: black;
-	}
+#line {
+	font-size: 25px;
+	color: black;
+}
 
-	body{
-		background-image:url('../img/background.jpg');
-	}
+body {
+	background-image: url('../img/background.jpg');
+}
+
+#title {
+	font-family: 'Dosis', sans-serif;
+	font-family: 'Amatic SC', cursive;
+	font-size: 55px;
+	font-weight: bold;
+}
 </style>
 
 <!------------- 로그인 알림창 ---------------->
@@ -66,8 +80,9 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">Whatever
-				you go, Go with all your heart </a>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">
+				<h2 id=title>Whatever you go, Go with all your heart</h2>
+			</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -124,18 +139,18 @@
 					<h2 class="section-heading text-uppercase">
 						<div class="col-lg-6">
 							<div class="input-group">
-								<form action="<%=request.getContextPath()%>/content" method="post">
-								<input type="hidden" name="task" value="contentList">
-								<input type="hidden" name="category" value="${category}">
-								<span class="input-group-btn">
-								<c:if test="${empty search}">
-									<input type="text" class="form-control" name="search" size="500" placeholder="Search..."> 
-								</c:if>
-								<c:if test="${not empty search}">
-									<input type="text" class="form-control" name="search" size="500" value="${search}"> 
-								</c:if>
-								<input type="submit" class="btn btn-secondary" value="Go">
-								</span>
+								<form action="<%=request.getContextPath()%>/content"
+									method="post">
+									<input type="hidden" name="task" value="contentList"> <input
+										type="hidden" name="category" value="${category}"> <span
+										class="input-group-btn"> <c:if test="${empty search}">
+											<input type="text" class="form-control" name="search"
+												size="500" placeholder="Search...">
+										</c:if> <c:if test="${not empty search}">
+											<input type="text" class="form-control" name="search"
+												size="500" value="${search}">
+										</c:if> <input type="submit" class="btn btn-secondary" value="Go">
+									</span>
 								</form>
 							</div>
 						</div>
@@ -144,7 +159,7 @@
 				</div>
 			</div>
 			<div class="row">
-	<!-------------------------------- content 시작 ---------------------------------->
+				<!-------------------------------- content 시작 ---------------------------------->
 				<c:forEach var="content" items="${contentPage.contentList}">
 					<div class="col-md-4 col-sm-6 portfolio-item">
 						<a class="portfolio-link"
@@ -157,11 +172,11 @@
 						</a>
 						<div class="portfolio-caption">
 							<h4>${content.title}</h4>
-							<p class="text-muted">${content.read_count} VIEW</p>
+							<p class="text-muted">${content.read_count}VIEW</p>
 						</div>
 					</div>
 				</c:forEach>
-	<!-------------------------------- content 끝 ---------------------------------->
+				<!-------------------------------- content 끝 ---------------------------------->
 			</div>
 		</div>
 	</section>
@@ -169,15 +184,18 @@
 	<div class="text-center" style="color: black">
 		<ul id="line">
 			<c:if test="${contentPage.startPage>1}">
-				<a href="${myContextPath}/content?page=${contentPage.startPage-1}"> [이전] </a>
+				<a href="${myContextPath}/content?page=${contentPage.startPage-1}">
+					[이전] </a>
 			</c:if>
-			<c:forEach var="page" begin="${contentPage.startPage}" end="${contentPage.endPage}">
-				<a href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
-					${page} 
-				</a>
+			<c:forEach var="page" begin="${contentPage.startPage}"
+				end="${contentPage.endPage}">
+				<a
+					href="<%=request.getContextPath()%>/content?task=contentList&page=${page}&search=${search}&category=${category}">
+					${page} </a>
 			</c:forEach>
 			<c:if test="${contentPage.endPage<contentPage.totalPage}">
-				<a href="${myContextPath}/content?page=${contentPage.endPage+1}"> [다음] </a>
+				<a href="${myContextPath}/content?page=${contentPage.endPage+1}">
+					[다음] </a>
 			</c:if>
 		</ul>
 	</div>
@@ -218,8 +236,7 @@
 	<div style="position: fixed; bottom: 60px; right: 20px;">
 		<%
 			String clientId = "TZblhGxHqxzRPDaQz4FJ";//애플리케이션 클라이언트 아이디값";
-			String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/callback",
-					"UTF-8");
+			String redirectURI = URLEncoder.encode("http://localhost:3333/JSPProject_4team/callback", "UTF-8");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -248,11 +265,13 @@
 				</div>
 				<div class="col-md-4">
 					<ul class="list-inline social-buttons">
-						<li class="list-inline-item"><a href="https://twitter.com/intent/tweet?text=TEXT&url=http://127.0.0.1" target="_blank"> <i
-								class="fa fa-twitter"></i>
+						<li class="list-inline-item"><a
+							href="https://twitter.com/intent/tweet?text=TEXT&url=http://127.0.0.1"
+							target="_blank"> <i class="fa fa-twitter"></i>
 						</a></li>
-						<li class="list-inline-item"><a href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1" target="_blank"> <i
-								class="fa fa-facebook"></i>
+						<li class="list-inline-item"><a
+							href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1"
+							target="_blank"> <i class="fa fa-facebook"></i>
 						</a></li>
 						<li class="list-inline-item"><a href="#"> <i
 								class="fa fa-linkedin"></i>
