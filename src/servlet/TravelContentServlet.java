@@ -95,10 +95,11 @@ public class TravelContentServlet extends HttpServlet {
 
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
-
+			
+			
 			ContentVO content = service.read(email, contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
-
+		
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
 			path = "update_form.jsp";
