@@ -1,5 +1,7 @@
 package servlet;
 
+import java.io.File;
+
 //2017/10/23 생성
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.TravelContentService;
 import vo.CommentVO;
@@ -39,7 +42,7 @@ public class TravelContentServlet extends HttpServlet {
 			String email = (String) session.getAttribute("email");
 			String contentNumberStr = request.getParameter("contentNumber");
 			int contentNumber = Integer.parseInt(contentNumberStr);
-			
+
 			List<ContentDetailVO> contentDetailList = service.read(contentNumber);
 			ContentVO content = service.read(email, contentNumber);
 			List<CommentVO> comment = service.commentSelect(content.getContent_no());
@@ -88,8 +91,8 @@ public class TravelContentServlet extends HttpServlet {
 			path = "write_form_newest.jsp";
 		} else if (task.equals("updateForm")) {
 			HttpSession session = request.getSession();
-			String email =(String) session.getAttribute("email");
-			
+			String email = (String) session.getAttribute("email");
+
 			String contentNumStr = request.getParameter("contentNum");
 			int contentNum = Integer.parseInt(contentNumStr);
 
@@ -116,85 +119,52 @@ public class TravelContentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("euc-kr");
-		String task = request.getParameter("task");
-		String path = "";
-		
-		Enumeration<String> params = request.getParameterNames();
-		while(params.hasMoreElements()) {
-			System.out.println("--"+params.nextElement());
-		}
-		
-		// 글 작성 완료 후 submit 버튼 눌렀을 때
-		if (task.equals("write")) {
-			System.out.println("@!#!@#@!#!@#");
-			HttpSession session = request.getSession();
-			String loginId = (String) session.getAttribute("name");
-			String email =(String) session.getAttribute("email");
-			System.out.println(email+" dasdasdasdasdasdsd");
-			ContentVO content = new ContentVO();
-			
-			List<ContentDetailVO> detailList = new ArrayList<>();
-			content.setTitle(request.getParameter("title"));
-			content.setWriter(loginId);
-			content.setLocation(request.getParameter("locations"));
-			content.setMain_img(request.getParameter("main_image"));
-			content.setStart_date(request.getParameter("start_date"));
-			content.setEmail(email);
-//			Date start_date = null, end_date= null;
-//			try {
-//				start_date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start_date"));
-//				end_date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date"));
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			content.setWrite_time(new Date(System.currentTimeMillis()));
-			// day 개수 (Day02까지 썼으면 day=2)
-			String dayStr = request.getParameter("day");
-			int day = 0;
-			if (dayStr != null && dayStr.length() > 0) {
-				day = Integer.parseInt(dayStr);
-			}
 
-			int[] maxPath = new int[5];
-			for (int y = 1; y < day + 1; y++) {
-				String pathStr = request.getParameter("maxPath" + y);
-				maxPath[y] = Integer.parseInt(pathStr);
-			}
-			// day 개수만큼 detailList 만들기
-			// (Day02의 content, path의 parameter이름은 content2, path2)
-			for (int i = 1; i < day + 1; i++) {
-				String plusPath = "";
+		if (request.getParameter("task") == null) {
+			System.out.println(request.getParameter("task"));
+			String uploadFolder = "c://kjhsample//";
+			MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
+					new DefaultFileRenamePolicy());
+			String task = mReq.getParameter("task");
+			String path = "";
+			if (task.equals("write")) {
+				request.setCharacterEncoding("euc-kr");
+				HttpSession session = request.getSession();
+				String loginId = (String) session.getAttribute("name");
+				String email = (String) session.getAttribute("email");
+				System.out.println(email + " dasdasdasdasdasdsd");
+				ContentVO content = new ContentVO();
+				List<ContentDetailVO> detailList = new ArrayList<>();
+				
+				content.setTitle(mReq.getParameter("title"));
+				content.setWriter(loginId);
+				content.setLocation(mReq.getParameter("locations"));
+				File uploadFile = mReq.getFile("main_image"); // 파일 업로드 완료
+				
+				content.setMain_img(mReq.getOriginalFileName("main_image"));
+				content.setStart_date(mReq.getParameter("start_date"));
+				content.setEmail(email);
+				// day 개수 (Day02까지 썼으면 day=2)
+				
+				String dayStr = mReq.getParameter("day");
+				int day = 0;
+				if (dayStr != null && dayStr.length() > 0) {
+					day = Integer.parseInt(dayStr);
+				}
 
-				ContentDetailVO detail = new ContentDetailVO();
+				int[] maxPath = new int[5];
+				for (int y = 1; y < day + 1; y++) {
+					String pathStr = mReq.getParameter("maxPath" + y);
+					maxPath[y] = Integer.parseInt(pathStr);
+				}
+				// day 개수만큼 detailList 만들기
+				// (Day02의 content, path의 parameter이름은 content2, path2)
+				for (int i = 1; i < day + 1; i++) {
+					String plusPath = "";
 
-				detail.setDay(i);
-				detail.setContent(request.getParameter("content"+i));
-				for (int x = 1; x < maxPath[i] + 1; x++) {
-					plusPath = plusPath + request.getParameter("loc" + i + "_" + x) + "%" + 
-								request.getParameter("sum" + i + "_" +x) + "%";
-				}	
-				detail.setPath(plusPath);
-				detailList.add(detail);
-			}
+					ContentDetailVO detail = new ContentDetailVO();
 
-			if (service.write(content, detailList) == 1) {
-				path = "write_success.jsp";
-			} else {
-				path = "write_fail.jsp";
-			}
-		} else if (task.equals("contentList")) {
-			// 페이지 만들기
-			int page = 1;
-			ContentPageVO contentPage = null;
-			String pageStr = request.getParameter("page");
-			if (pageStr != null && pageStr.length() > 0) {
-				page = Integer.parseInt(pageStr);
-			}
-
-			String search = request.getParameter("search");
-			String category = request.getParameter("category");
-
+<<<<<<< HEAD
 			if ((search.equals("") && category.equals(""))) {
 				// 둘 다 null이면 그냥 main
 				contentPage = service.makePage(1, page, search, category);
@@ -287,87 +257,216 @@ public class TravelContentServlet extends HttpServlet {
 				for (int i = 1; i < dayNumber + 1; i++) {
 					String plusPath="";
 					
+=======
+>>>>>>> 909bca9da40d747c23b82763f73a79f9bb011012
 					detail.setDay(i);
 					detail.setContent(request.getParameter("content" + i));
 					for (int x = 1; x < maxPath[i] + 1; x++) {
-						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+								+ mReq.getParameter("sum" + i + "_" + x) + "%";
 					}
 					detail.setPath(plusPath);
-
 					detailList.add(detail);
 				}
-				for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
-					String plusPath="";
-					
-					detail.setDay(i);
-					detail.setContent(request.getParameter("content" + i));
-					for (int x = 1; x < maxPath[i] + 1; x++) {
-						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
-					}
-					detail.setPath(plusPath);
-
-					detailListOther.add(detail);
-				}
-
-				if (service.updateRead(content, detailList) && service.insertDay(contentNum, detailListOther)) {
-					path = "update_success.jsp";
+				if (service.write(content, detailList) == 1) {
+					path = "write_success.jsp";
 				} else {
-					path = "update_fail.jsp";
+					path = "write_fail.jsp";
 				}
-			} else if (day == dayNumber) { // 수정시 day가 같을 때
-				for (int i = 1; i < detailList.size() + 1; i++) {
-					String plusPath="";
-					
-					detail.setDay(i);
-					detail.setContent(request.getParameter("content" + i));
-					for (int x = 1; x < maxPath[i] + 1; x++) {
-						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
-					}
-					detail.setPath(plusPath);
+				
+			}RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
+			
+			
 
-					detailList.add(detail);
+		} else {
+			String task = request.getParameter("task");
+			String path = "";
+			if (task.equals("contentList")) {
+				// 페이지 만들기
+				int page = 1;
+				ContentPageVO contentPage = null;
+				String pageStr = request.getParameter("page");
+				if (pageStr != null && pageStr.length() > 0) {
+					page = Integer.parseInt(pageStr);
 				}
-				if (service.updateRead(content, detailList)) {
-					path = "update_success.jsp";
+
+				String search = request.getParameter("search");
+				String category = request.getParameter("category");
+
+				if ((search.equals("") && category.equals(""))) {
+					// 둘 다 null이면 그냥 main
+					contentPage = service.makePage(1, page, search, category);
+					path = "main_search.jsp";
+				} else if (category.equals("")) {
+					// 타이틀 검색
+					contentPage = service.makePage(2, page, search, category);
+					path = "main_search.jsp";
+				} else if (search.equals("")) {
+					// 지역 검색
+					contentPage = service.makePage(3, page, search, category);
+					path = "main_search.jsp";
 				} else {
-					path = "update_fail.jsp";
+					// 타이틀 + 지역 검색
+					contentPage = service.makePage(4, page, search, category);
+					path = "main_search.jsp";
 				}
-			} else if (day < dayNumber) { // 수정시 day가 삭제 되었을 때
-				for (int i = 1; i < detailList.size() + 1; i++) {
-					String plusPath="";
-					
-					detail.setDay(i);
-					detail.setContent(request.getParameter("content" + i));
-					for (int x = 1; x < maxPath[i] + 1; x++) {
-						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
-					}
-					detail.setPath(plusPath);
+				request.setAttribute("contentPage", contentPage);
+				request.setAttribute("category", category);
+				request.setAttribute("search", search);
+			} else if (task.equals("commentCheck")) {
+				HttpSession session = request.getSession();
+				String loginId = (String) session.getAttribute("name");
 
-					detailList.add(detail);
-				}
+				String articleNumStr = request.getParameter("comment_board");
+				int articleNum = Integer.parseInt(articleNumStr);
+				String comment_content = request.getParameter("comment_content");
+				comment_content = comment_content.replace("\r\n", "<br>");
 
-				for (int i = detailList.size() + 1; i < dayNumber + 1; i++) {
-					String plusPath="";
-					
-					detail.setDay(i);
-					detail.setContent(request.getParameter("content" + i));
-					for (int x = 1; x < maxPath[i] + 1; x++) {
-						plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
-					}
-					detail.setPath(plusPath);
+				CommentVO comment = new CommentVO();
+				comment.setBrdNo(articleNum);
+				comment.setWriter(loginId);
+				comment.setContent(comment_content);
 
-					detailListOther.add(detail);
-				}
+				boolean result = service.commentSignUp(comment);
 
-				if (service.updateRead(content, detailList) && service.DeleteDay(contentNum, detailListOther)) {
-					path = "update_success.jsp";
+				if (result == true) {
+					request.setAttribute("articleNum", articleNum);
+					path = "comment_success.jsp";
 				} else {
-					path = "update_fail.jsp";
+					request.setAttribute("articleNum", articleNum);
+					path = "comment_fail.jsp";
 				}
+			} else if (task.equals("commentDelete")) {
+				String articleNumStr = request.getParameter("comment_board");
+				int articleNum = Integer.parseInt(articleNumStr);
+				CommentVO comment = new CommentVO();
+				String comment_numStr = request.getParameter("comment_num");
+				int comment_num = Integer.parseInt(comment_numStr);
+				comment.setCommentNum(comment_num);
+				boolean result = service.commentDelete(comment);
+
+				if (result == true) {
+					request.setAttribute("articleNum", articleNum);
+					path = "commentDelete_success.jsp";
+				} else {
+					request.setAttribute("articleNum", articleNum);
+					path = "commentDelete_fail.jsp";
+				}
+			} else if (task.contentEquals("updateRead")) {
+				ContentVO content = new ContentVO();
+				List<ContentDetailVO> detailList = new ArrayList<>();
+				List<ContentDetailVO> detailListOther = new ArrayList<>();
+				ContentDetailVO detail = new ContentDetailVO();
+
+				String contentNumStr = request.getParameter("글 번호 변수");
+				int contentNum = Integer.parseInt(contentNumStr);
+				int dayNumber = service.caculateDLNum(contentNum);
+
+				content.setContent_no(contentNum);
+				content.setTitle(request.getParameter("title"));
+				content.setWriter(request.getParameter("writer"));
+				content.setLocation(request.getParameter("location"));
+				content.setMain_img(request.getParameter("main_img"));
+
+				String dayStr = request.getParameter("day");
+				int day = 0;
+				if (dayStr != null && dayStr.length() > 0) {
+					day = Integer.parseInt(dayStr);
+				}
+
+				int[] maxPath = new int[5];
+				for (int y = 1; y < day + 1; y++) {
+					String pathStr = request.getParameter("maxPath" + y);
+					maxPath[y] = Integer.parseInt(pathStr);
+				}
+
+				if (day > dayNumber) {// 수정시 day가 추가 되었을 때
+					for (int i = 1; i < dayNumber + 1; i++) {
+						String plusPath = "";
+
+						detail.setDay(i);
+						detail.setContent(request.getParameter("content" + i));
+						for (int x = 1; x < maxPath[i] + 1; x++) {
+							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						}
+						detail.setPath(plusPath);
+
+						detailList.add(detail);
+					}
+					for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
+						String plusPath = "";
+
+						detail.setDay(i);
+						detail.setContent(request.getParameter("content" + i));
+						for (int x = 1; x < maxPath[i] + 1; x++) {
+							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						}
+						detail.setPath(plusPath);
+
+						detailListOther.add(detail);
+					}
+
+					if (service.updateRead(content, detailList) && service.insertDay(contentNum, detailListOther)) {
+						path = "update_success.jsp";
+					} else {
+						path = "update_fail.jsp";
+					}
+				} else if (day == dayNumber) { // 수정시 day가 같을 때
+					for (int i = 1; i < detailList.size() + 1; i++) {
+						String plusPath = "";
+
+						detail.setDay(i);
+						detail.setContent(request.getParameter("content" + i));
+						for (int x = 1; x < maxPath[i] + 1; x++) {
+							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						}
+						detail.setPath(plusPath);
+
+						detailList.add(detail);
+					}
+					if (service.updateRead(content, detailList)) {
+						path = "update_success.jsp";
+					} else {
+						path = "update_fail.jsp";
+					}
+				} else if (day < dayNumber) { // 수정시 day가 삭제 되었을 때
+					for (int i = 1; i < detailList.size() + 1; i++) {
+						String plusPath = "";
+
+						detail.setDay(i);
+						detail.setContent(request.getParameter("content" + i));
+						for (int x = 1; x < maxPath[i] + 1; x++) {
+							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						}
+						detail.setPath(plusPath);
+
+						detailList.add(detail);
+					}
+
+					for (int i = detailList.size() + 1; i < dayNumber + 1; i++) {
+						String plusPath = "";
+
+						detail.setDay(i);
+						detail.setContent(request.getParameter("content" + i));
+						for (int x = 1; x < maxPath[i] + 1; x++) {
+							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+						}
+						detail.setPath(plusPath);
+
+						detailListOther.add(detail);
+					}
+
+					if (service.updateRead(content, detailList) && service.DeleteDay(contentNum, detailListOther)) {
+						path = "update_success.jsp";
+					} else {
+						path = "update_fail.jsp";
+					}
+				}
+
 			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
 		}
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
 	}
 }

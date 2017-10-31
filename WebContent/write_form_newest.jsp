@@ -350,7 +350,7 @@ body {
 </head>
 <body>
 	<form id="form" class="form-horizontal"
-		action="<%=request.getContextPath()%>/content" method="post">
+		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="task" value="write" />
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
