@@ -376,11 +376,6 @@ body {
 					<input id="start_date" name="start_date" type="text"
 						placeholder="ex) 2017-01-01" class="form-control input-md">
 				</div>
-				<label class="col-md-2 control-label" for="end_date">마지막 일</label>
-				<div class="col-md-3">
-					<input id="end_date" name="end_date" type="text"
-						placeholder="ex) 2017-01-03" class="form-control input-md">
-				</div>
 			</div>
 
 			<!-- end date-->
