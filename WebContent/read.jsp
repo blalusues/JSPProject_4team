@@ -135,9 +135,44 @@ table {
 #x-form {
 	text-align: right;
 }
+.btn-group{
+	float:right;
+}
+.btn{
+	margin-right: 5px;
+}
+
 </style>
 </head>
 <body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+					<div class="btn-group">	
+						 
+						<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category="><button class="btn btn-default" style="cursor: pointer;" type="button">
+							<em class="glyphicon glyphicon-align-left"></em>목록
+						</button></a> 
+					<c:if test="${sessionScope.email == content.email}">
+						<a href="<%=request.getContextPath()%>/content?task=updateForm&contentNum=${content.content_no}"><button class="btn btn-default" style="cursor: pointer;" type="button">
+							<em class="glyphicon glyphicon-align-center"></em>수정
+						</button></a>
+						<a href="<%=request.getContextPath()%>/content?task=deleteForm&contentNum=${content.content_no}"><button class="btn btn-default" style="cursor: pointer;" type="button">
+							<em class="glyphicon glyphicon-align-right"></em>삭제
+						</button></a>
+					</c:if>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 	<c:set var="myContextPath" value="${pageContext.request.contextPath}" />	
 	<div class="swiper-container gallery-top">
 		<div class="swiper-wrapper">
