@@ -148,6 +148,10 @@
 						<a class="btn btn-secondary" href="<%=request.getContextPath()%>
 								/content?task=contentList&search=&category=">Home</a>
 					</li>
+					<li>   　  </li>
+             	 	<li class="nav-item">
+                 		<button id="login_btn" type="button" class="btn btn-secondary">Login</button>
+               		</li>
 				</ul>
 			</div>
 		</div>
@@ -369,11 +373,14 @@
 				})
 			}
 		})
+		$("#login_btn").click(function(){
+			var url = $('#apiURL').val();
+			window.open(url,"", "width=430,height=500,location=no,status=no,scrollbars=yes");
+		})
 	})
 	
 	function aa(){
-// 		location.href="write_form.jsp";
-		location.href="/JSPProject_4team/content?task=wirteForm"
+		location.href= request.getContextPath() + "/content?task=contentList&search=&category="
 	}
 </script>
 </body>
