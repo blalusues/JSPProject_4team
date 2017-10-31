@@ -7,7 +7,9 @@
 <title>write 성공</title>
 </head>
 <body>
-wirte 성공
-<a href="<%=request.getContextPath()%>/content?task=contentList&search=&category=" ><button>메인화면으로</button></a>
+	<script type="text/javascript">
+			alert("등록 완료");
+			location.href='${pageContext.request.contextPath}/content?task=contentList&search=&category=';
+	</script>
 </body>
 </html>
