@@ -261,6 +261,8 @@
 				content[j] = document.getElementById("content" + (j + 1));
 				content[j].setAttribute("value", html);
 			}
+			
+			// hide 한 공간에 넣기
 
 			form.submit();
 		})
