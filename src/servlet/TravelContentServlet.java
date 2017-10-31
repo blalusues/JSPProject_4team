@@ -165,7 +165,7 @@ public class TravelContentServlet extends HttpServlet {
 					ContentDetailVO detail = new ContentDetailVO();
 
 					detail.setDay(i);
-					detail.setContent(request.getParameter("content" + i));
+					detail.setContent(mReq.getParameter("content" + i));
 					for (int x = 1; x < maxPath[i] + 1; x++) {
 						plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
 								+ mReq.getParameter("sum" + i + "_" + x) + "%";
