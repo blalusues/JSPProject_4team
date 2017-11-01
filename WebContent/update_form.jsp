@@ -461,6 +461,7 @@ body {
 							var readContent = "${contentDetail.content}";
 							$('.summernote').eq(${contentDetail.day}-1).summernote('code', readContent);
 						});
+						
 						func_add_day(${fn:length(contentDetail.dividePath)/2});
 						day++;
 					</script>
