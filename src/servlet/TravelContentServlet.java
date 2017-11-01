@@ -225,20 +225,26 @@ public class TravelContentServlet extends HttpServlet {
 					path = "commentDelete_fail.jsp";
 				}
 			} else if (task.contentEquals("updateRead")) {
+				request.setCharacterEncoding("euc-kr");
+				
+				String uploadFolder = "C:\\kjhsample";
+				MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
+						new DefaultFileRenamePolicy());
+			
 				ContentVO content = new ContentVO();
 				List<ContentDetailVO> detailList = new ArrayList<>();
 				List<ContentDetailVO> detailListOther = new ArrayList<>();
 				ContentDetailVO detail = new ContentDetailVO();
 
-				String contentNumStr = request.getParameter("글 번호 변수");
+				String contentNumStr = mReq.getParameter("글 번호 변수");
 				int contentNum = Integer.parseInt(contentNumStr);
 				int dayNumber = service.caculateDLNum(contentNum);
 
 				content.setContent_no(contentNum);
-				content.setTitle(request.getParameter("title"));
-				content.setWriter(request.getParameter("writer"));
-				content.setLocation(request.getParameter("location"));
-				content.setMain_img(request.getParameter("main_img"));
+				content.setTitle(mReq.getParameter("title"));
+				content.setLocation(mReq.getParameter("location"));
+				File uploadFile = mReq.getFile("main_image");
+				content.setMain_img(mReq.getOriginalFileName("main_image"));
 
 				String dayStr = request.getParameter("day");
 				int day = 0;
@@ -257,24 +263,24 @@ public class TravelContentServlet extends HttpServlet {
 						String plusPath = "";
 
 						detail.setDay(i);
-						detail.setContent(request.getParameter("content" + i));
+						detail.setContent(mReq.getParameter("content" + i));
 						for (int x = 1; x < maxPath[i] + 1; x++) {
-							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+							plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+									+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 						}
 						detail.setPath(plusPath);
-
 						detailList.add(detail);
 					}
 					for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
 						String plusPath = "";
 
 						detail.setDay(i);
-						detail.setContent(request.getParameter("content" + i));
+						detail.setContent(mReq.getParameter("content" + i));
 						for (int x = 1; x < maxPath[i] + 1; x++) {
-							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+							plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+									+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 						}
 						detail.setPath(plusPath);
-
 						detailListOther.add(detail);
 					}
 
@@ -288,9 +294,10 @@ public class TravelContentServlet extends HttpServlet {
 						String plusPath = "";
 
 						detail.setDay(i);
-						detail.setContent(request.getParameter("content" + i));
+						detail.setContent(mReq.getParameter("content" + i));
 						for (int x = 1; x < maxPath[i] + 1; x++) {
-							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+							plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+									+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 						}
 						detail.setPath(plusPath);
 
@@ -306,9 +313,10 @@ public class TravelContentServlet extends HttpServlet {
 						String plusPath = "";
 
 						detail.setDay(i);
-						detail.setContent(request.getParameter("content" + i));
+						detail.setContent(mReq.getParameter("content" + i));
 						for (int x = 1; x < maxPath[i] + 1; x++) {
-							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+							plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+									+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 						}
 						detail.setPath(plusPath);
 
@@ -319,9 +327,10 @@ public class TravelContentServlet extends HttpServlet {
 						String plusPath = "";
 
 						detail.setDay(i);
-						detail.setContent(request.getParameter("content" + i));
+						detail.setContent(mReq.getParameter("content" + i));
 						for (int x = 1; x < maxPath[i] + 1; x++) {
-							plusPath = plusPath + request.getParameter("day" + i + "path" + x) + "%";
+							plusPath = plusPath + mReq.getParameter("loc" + i + "_" + x) + "%"
+									+ mReq.getParameterValues("sum" + i + "_" + x)[0] + "%";
 						}
 						detail.setPath(plusPath);
 

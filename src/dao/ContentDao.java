@@ -533,13 +533,15 @@ public class ContentDao {
 	public int updateContent(ContentVO content) {
 		con = DBUtil.makeConnection();
 		int result =0;
-		String sql = "UPDATE CONTENT SET TITLE=?, WRITE_TIME=?, MAIN_IMG=? WHERE CONTENT_NO=?";
+		String sql = "UPDATE CONTENT SET TITLE=?, WRITE_TIME=?, MAIN_IMG=?,LOCATION=? WHERE CONTENT_NO=?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, content.getTitle());
 			pstmt.setTimestamp(2, new Timestamp(content.getWrite_time().getTime()));
 			pstmt.setString(3, content.getMain_img());
+			pstmt.setString(4, content.getLocation());
+			pstmt.setInt(5, content.getContent_no());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
