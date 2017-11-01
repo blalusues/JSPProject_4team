@@ -146,7 +146,7 @@
 <script src="./dist/js/swiper.min.js"></script>
 
 <script type="text/javascript">
-	var day = 0;
+	var day = 1;
 	var count = new Array();
 
 	function func_add_day(pathCount) {
@@ -466,8 +466,8 @@ body {
 							var readContent = "${contentDetail.content}";
 							$('.summernote').eq(${contentDetail.day}-1).summernote('code', readContent);
 						});
-						
-						func_add_day(${fn:length(contentDetail.dividePath)/2});
+						alert('${fn:length(contentDetail.dividePath)}');
+						func_add_day(parseInt(${fn:length(contentDetail.dividePath)/2})+1);
 						day++;
 					</script>
 					</c:forEach>	

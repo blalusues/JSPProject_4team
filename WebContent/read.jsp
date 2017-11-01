@@ -350,7 +350,7 @@ table {
 								</div>
 	 							<a href="#" class="bs-wizard-dot"></a>
 								<div class="hide bs-wizard-info text-center">
-									${contentDetail.dividePath[i+1]}
+									${contentDetail.dividePath[i+1]}   　  
 								</div>
 							</div>
 						</c:forEach>	
