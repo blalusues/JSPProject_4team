@@ -99,6 +99,9 @@ public class TravelContentServlet extends HttpServlet {
 			ContentVO content = service.read(email, contentNum);
 			List<ContentDetailVO> contentDetailList = service.read(contentNum);
 
+			int dayNumber = service.caculateDLNum(contentNum);
+			
+			request.setAttribute("dayNum", dayNumber);
 			request.setAttribute("contentDetailList", contentDetailList);
 			request.setAttribute("content", content);
 			path = "update_form.jsp";
@@ -187,11 +190,13 @@ public class TravelContentServlet extends HttpServlet {
 
 				String contentNumStr = mReq.getParameter("contentNum");
 				int contentNum = Integer.parseInt(contentNumStr);
-				int dayNumber = service.caculateDLNum(contentNum);
+				
+				String dayNumStr = mReq.getParameter("dayNum");
+				int dayNum = Integer.parseInt(dayNumStr);
 
 				content.setContent_no(contentNum);
 				content.setTitle(mReq.getParameter("title"));
-				content.setLocation(mReq.getParameter("location"));
+				content.setLocation(mReq.getParameter("locations"));
 				File uploadFile = mReq.getFile("main_image");
 				content.setMain_img(mReq.getOriginalFileName("main_image"));
 
@@ -207,8 +212,8 @@ public class TravelContentServlet extends HttpServlet {
 					maxPath[y] = Integer.parseInt(pathStr);
 				}
 
-				if (day > dayNumber) {// 수정시 day가 추가 되었을 때
-					for (int i = 1; i < dayNumber + 1; i++) {
+				if (day > dayNum) {// 수정시 day가 추가 되었을 때
+					for (int i = 1; i < dayNum + 1; i++) {
 						String plusPath = "";
 
 						detail.setDay(i);
@@ -220,7 +225,7 @@ public class TravelContentServlet extends HttpServlet {
 						detail.setPath(plusPath);
 						detailList.add(detail);
 					}
-					for (int i = dayNumber + 1; i < detailList.size() + 1; i++) {
+					for (int i = dayNum + 1; i < detailList.size() + 1; i++) {
 						String plusPath = "";
 
 						detail.setDay(i);
@@ -238,7 +243,7 @@ public class TravelContentServlet extends HttpServlet {
 					} else {
 						path = "update_fail.jsp";
 					}
-				} else if (day == dayNumber) { // 수정시 day가 같을 때
+				} else if (day == dayNum) { // 수정시 day가 같을 때
 					for (int i = 1; i < detailList.size() + 1; i++) {
 						String plusPath = "";
 
@@ -257,7 +262,7 @@ public class TravelContentServlet extends HttpServlet {
 					} else {
 						path = "update_fail.jsp";
 					}
-				} else if (day < dayNumber) { // 수정시 day가 삭제 되었을 때
+				} else if (day < dayNum) { // 수정시 day가 삭제 되었을 때
 					for (int i = 1; i < detailList.size() + 1; i++) {
 						String plusPath = "";
 
@@ -272,7 +277,7 @@ public class TravelContentServlet extends HttpServlet {
 						detailList.add(detail);
 					}
 
-					for (int i = detailList.size() + 1; i < dayNumber + 1; i++) {
+					for (int i = detailList.size() + 1; i < dayNum + 1; i++) {
 						String plusPath = "";
 
 						detail.setDay(i);
