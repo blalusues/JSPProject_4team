@@ -334,6 +334,9 @@ table {
 						<div class="bs-wizard" style="border-bottom: 0;">
 						<c:forEach var="i" begin="0" end="${fn:length(contentDetail.dividePath)-1}" step="2">
 							<div class="bs-wizard-step complete">
+<!-- 							<script type="text/javascript"> -->
+<%--  								$('.bs-wizard-step').attr("style", 'width:'+${200/fn:length(contentDetail.dividePath)}+'%') --%>
+<!-- 							</script> -->
 								<div class="text-center bs-wizard-stepnum">
 									${contentDetail.dividePath[i]}
 								</div>
@@ -342,7 +345,6 @@ table {
 								</div>
 	 							<a href="#" class="bs-wizard-dot"></a>
 								<div class="hide bs-wizard-info text-center">
-									쿄쿄쿄
 									${contentDetail.dividePath[i+1]}
 								</div>
 							</div>
