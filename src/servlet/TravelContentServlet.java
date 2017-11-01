@@ -121,11 +121,12 @@ public class TravelContentServlet extends HttpServlet {
 
 		if (request.getParameter("task") == null) {
 			System.out.println("task파라미터" + request.getParameter("task"));
-			String uploadFolder = "C:\\Users\\rlawhdgns\\Documents\\GitHub\\JSPProject_4team\\WebContent\\download";
+			String uploadFolder = "C:\\kjhsample";
 			MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
 					new DefaultFileRenamePolicy());
 			String task = mReq.getParameter("task");
 			String path = "";
+			
 			if (task.equals("write")) {
 				request.setCharacterEncoding("euc-kr");
 				HttpSession session = request.getSession();
@@ -176,61 +177,9 @@ public class TravelContentServlet extends HttpServlet {
 					path = "write_fail.jsp";
 				}
 
-			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-			dispatcher.forward(request, response);
-
-		} else {
-			String task = request.getParameter("task");
-			String path = "";
-			if (task.equals("commentCheck")) {
-				HttpSession session = request.getSession();
-				String loginId = (String) session.getAttribute("name");
-				String email = (String) session.getAttribute("email");
-
-				String articleNumStr = request.getParameter("comment_board");
-				int articleNum = Integer.parseInt(articleNumStr);
-				String comment_content = request.getParameter("comment_content");
-				comment_content = comment_content.replace("\r\n", "<br>");
-
-				CommentVO comment = new CommentVO();
-				comment.setBrdNo(articleNum);
-				comment.setWriter(loginId);
-				comment.setContent(comment_content);
-				comment.setEmail(email);
-
-				boolean result = service.commentSignUp(comment);
-
-				if (result == true) {
-					request.setAttribute("articleNum", articleNum);
-					path = "comment_success.jsp";
-				} else {
-					request.setAttribute("articleNum", articleNum);
-					path = "comment_fail.jsp";
-				}
-			} else if (task.equals("commentDelete")) {
-				String articleNumStr = request.getParameter("comment_board");
-				int articleNum = Integer.parseInt(articleNumStr);
-				CommentVO comment = new CommentVO();
-				String comment_numStr = request.getParameter("comment_num");
-				int comment_num = Integer.parseInt(comment_numStr);
-				comment.setCommentNum(comment_num);
-				boolean result = service.commentDelete(comment);
-
-				if (result == true) {
-					request.setAttribute("articleNum", articleNum);
-					path = "commentDelete_success.jsp";
-				} else {
-					request.setAttribute("articleNum", articleNum);
-					path = "commentDelete_fail.jsp";
-				}
-			} else if (task.contentEquals("updateRead")) {
+			} else if(task.equals("updateRead")) {
 				request.setCharacterEncoding("euc-kr");
 				
-				String uploadFolder = "C:\\kjhsample";
-				MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
-						new DefaultFileRenamePolicy());
-			
 				ContentVO content = new ContentVO();
 				List<ContentDetailVO> detailList = new ArrayList<>();
 				List<ContentDetailVO> detailListOther = new ArrayList<>();
@@ -343,7 +292,54 @@ public class TravelContentServlet extends HttpServlet {
 						path = "update_fail.jsp";
 					}
 				}
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
 
+		} else {
+			String task = request.getParameter("task");
+			String path = "";
+			if (task.equals("commentCheck")) {
+				HttpSession session = request.getSession();
+				String loginId = (String) session.getAttribute("name");
+				String email = (String) session.getAttribute("email");
+
+				String articleNumStr = request.getParameter("comment_board");
+				int articleNum = Integer.parseInt(articleNumStr);
+				String comment_content = request.getParameter("comment_content");
+				comment_content = comment_content.replace("\r\n", "<br>");
+
+				CommentVO comment = new CommentVO();
+				comment.setBrdNo(articleNum);
+				comment.setWriter(loginId);
+				comment.setContent(comment_content);
+				comment.setEmail(email);
+
+				boolean result = service.commentSignUp(comment);
+
+				if (result == true) {
+					request.setAttribute("articleNum", articleNum);
+					path = "comment_success.jsp";
+				} else {
+					request.setAttribute("articleNum", articleNum);
+					path = "comment_fail.jsp";
+				}
+			} else if (task.equals("commentDelete")) {
+				String articleNumStr = request.getParameter("comment_board");
+				int articleNum = Integer.parseInt(articleNumStr);
+				CommentVO comment = new CommentVO();
+				String comment_numStr = request.getParameter("comment_num");
+				int comment_num = Integer.parseInt(comment_numStr);
+				comment.setCommentNum(comment_num);
+				boolean result = service.commentDelete(comment);
+
+				if (result == true) {
+					request.setAttribute("articleNum", articleNum);
+					path = "commentDelete_success.jsp";
+				} else {
+					request.setAttribute("articleNum", articleNum);
+					path = "commentDelete_fail.jsp";
+				}
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 			dispatcher.forward(request, response);
