@@ -138,12 +138,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.bs-wizard-dot').popover({
-        placement: 'bottom',
-        title: 'SUMMARY',
-        html: true,
-        content: $('.bs-wizard-info').html()
-  })
+  	// 이벤트 동적할당
+	$(document).on('mouseover', '.bs-wizard-dot', function() {
+		$(this).popover({
+			placement : 'bottom',
+			title : 'SUMMARY',
+			html : true,
+			// 같은 부모 노드에 있는 것들 중에서 검색
+			content : $(this).siblings('.bs-wizard-info').html()
+		})
+	})
 })
 
 	function delete_event(){
@@ -332,6 +336,7 @@ table {
 				<div class="swiper-slide">
 					<div class="container">
 						<div class="bs-wizard" style="border-bottom: 0;">
+						<c:if test="${(fn:length(contentDetail.dividePath)-1) ne '0'}">
 						<c:forEach var="i" begin="0" end="${fn:length(contentDetail.dividePath)-1}" step="2">
 							<div class="bs-wizard-step complete">
 <!-- 							<script type="text/javascript"> -->
@@ -349,6 +354,7 @@ table {
 								</div>
 							</div>
 						</c:forEach>	
+						</c:if>
 						</div>
 					</div>
 				</div>

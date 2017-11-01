@@ -201,15 +201,16 @@
 				prevEl : '.swiper-button-prev',
 			},
 		});
-		
-		$('.bs-wizard-dot').popover({
-			placement : 'bottom',
-			title : 'SUMMARY',
-			html : true,
-			// 같은 부모 노드에 있는 것들 중에서 검색
-			content : $(this).siblings('.bs-wizard-info').html()
-		});
-		
+		// 이벤트 동적할당
+		$(document).on('mouseover', '.bs-wizard-dot', function() {
+			$(this).popover({
+				placement : 'bottom',
+				title : 'SUMMARY',
+				html : true,
+				// 같은 부모 노드에 있는 것들 중에서 검색
+				content : $(this).siblings('.bs-wizard-info').html()
+			})
+		})
 		// Day 추가 버튼 클릭
 		document.querySelector('.append-slide').addEventListener('click', function(e) {
 			e.preventDefault();
@@ -432,7 +433,8 @@ body {
 							<!----------------------- 경로 부분 ---------------------->
 							<div class="container">
 								<div class="row bs-wizard" id="route${contentDetail.day}" style="border-bottom: 0;">
-									<c:forEach var="i" begin="0" end="${(fn:length(contentDetail.dividePath)/2)-1}" step="1">
+									<c:if test="${(fn:length(contentDetail.dividePath)-1) ne '0'}">
+									<c:forEach var="i" begin="0" end="${((fn:length(contentDetail.dividePath)-1)/2)}" step="1">
 <!-- 										<script type="text/javascript"> -->
 <%-- //   											$('.bs-wizard-step').attr("style", 'width:'+${200/fn:length(contentDetail.dividePath)}+'%'); --%>
 <!-- 										</script>   -->
@@ -451,6 +453,7 @@ body {
 											</div>
 										</div>
 									</c:forEach>
+									</c:if>
 								</div>
 								<p align='center'><button id='addBtn${contentDetail.day}' type='button' class='btn btn-default btn-lg' style='font-size: 12px'>
 									<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
