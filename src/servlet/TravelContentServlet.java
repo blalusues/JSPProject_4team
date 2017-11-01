@@ -191,20 +191,24 @@ public class TravelContentServlet extends HttpServlet {
 				String contentNumStr = mReq.getParameter("contentNum");
 				int contentNum = Integer.parseInt(contentNumStr);
 				
+				// 수정 전 day 개수
 				String dayNumStr = mReq.getParameter("dayNum");
 				int dayNum = Integer.parseInt(dayNumStr);
-
+				
 				content.setContent_no(contentNum);
 				content.setTitle(mReq.getParameter("title"));
 				content.setLocation(mReq.getParameter("locations"));
 				File uploadFile = mReq.getFile("main_image");
 				content.setMain_img(mReq.getOriginalFileName("main_image"));
-
-				String dayStr = request.getParameter("day");
+				
+				// 수정 후 day 개수
+				String dayStr = mReq.getParameter("day");
 				int day = 0;
 				if (dayStr != null && dayStr.length() > 0) {
 					day = Integer.parseInt(dayStr);
 				}
+				System.out.println("수정 전 day : " + dayNum);
+				System.out.println("수정 후 day : " + day);
 
 				int[] maxPath = new int[5];
 				for (int y = 1; y < day + 1; y++) {
