@@ -124,7 +124,7 @@ public class TravelContentServlet extends HttpServlet {
 
 		if (request.getParameter("task") == null) {
 			System.out.println("task파라미터" + request.getParameter("task"));
-			String uploadFolder = "C:\\kjhsample";
+			String uploadFolder = "C:\\Users\\student\\Documents\\Github\\JSPProject_4team\\WebContent\\download";
 			MultipartRequest mReq = new MultipartRequest(request, uploadFolder, 1024 * 1024 * 40, "euc-kr",
 					new DefaultFileRenamePolicy());
 			String task = mReq.getParameter("task");

@@ -199,7 +199,7 @@
                         <div class="portfolio-hover-content">
                            <i class="fa fa-plus fa-3x"></i>
                         </div>
-                     </div> <img class="img-fluid" src="${content.main_img}" alt="">
+                     </div> <img class="img-fluid" src="./download/${content.main_img}" alt="">
                   </a>
                   <div class="portfolio-caption">
                      <h4>${content.title}</h4>
