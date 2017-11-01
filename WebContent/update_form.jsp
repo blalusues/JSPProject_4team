@@ -366,6 +366,7 @@ body {
 		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="task" value="updateRead" />
 		<input type="hidden" name="contentNum" value="${content.content_no}">
+		<input type="hidden" name="dayNum" value="${dayNumber}">
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->
