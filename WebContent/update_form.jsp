@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -365,6 +365,7 @@ body {
 	<form id="form" class="form-horizontal"
 		action="<%=request.getContextPath()%>/content" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="task" value="updateRead" />
+		<input type="hidden" name="contentNum" value="${content.content_no}">
 		<fieldset>
 			<legend class="text-center">WRITE</legend>
 			<!-- 제목, 장소, 날짜 -->

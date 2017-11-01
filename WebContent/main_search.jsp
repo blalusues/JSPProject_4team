@@ -378,7 +378,6 @@
 <%--          var session_name = "<%=(String)session.getAttribute("access_token")%>"; --%>
          var session_name = "${sessionScope.access_token}";
          if ((session_name != null && session_name.length > 0) ) {
-            alert(session_name);
             bb();
          } else {
             $("#login_ok").click(function(){

@@ -185,7 +185,7 @@ public class TravelContentServlet extends HttpServlet {
 				List<ContentDetailVO> detailListOther = new ArrayList<>();
 				ContentDetailVO detail = new ContentDetailVO();
 
-				String contentNumStr = mReq.getParameter("글 번호 변수");
+				String contentNumStr = mReq.getParameter("contentNum");
 				int contentNum = Integer.parseInt(contentNumStr);
 				int dayNumber = service.caculateDLNum(contentNum);
 
