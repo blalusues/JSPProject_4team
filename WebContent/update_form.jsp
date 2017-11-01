@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <head>
 <title>글수정</title>
 
@@ -25,10 +26,10 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <!-- include summernote-ko-KR -->
 
+<!-- route style -->
 <style type="text/css">
 .bs-wizard {
 	/* 	margin-top: 40px; */
-	
 }
 
 /*Form Wizard*/
@@ -145,11 +146,11 @@
 <script src="./dist/js/swiper.min.js"></script>
 
 <script type="text/javascript">
-	var day = 1;
+	var day = 0;
 	var count = new Array();
 
-	function func_add_day() {
-		count[day] = 1;
+	function func_add_day(pathCount) {
+		count[day] = pathCount;
 		var newRoute;
 		// 경로 추가 버튼 클릭
 		$(document).on('click', '#addBtn' + day, function() {
@@ -200,6 +201,15 @@
 				prevEl : '.swiper-button-prev',
 			},
 		});
+		
+		$('.bs-wizard-dot').popover({
+			placement : 'bottom',
+			title : 'SUMMARY',
+			html : true,
+			// 같은 부모 노드에 있는 것들 중에서 검색
+			content : $(this).siblings('.bs-wizard-info').html()
+		});
+		
 		// Day 추가 버튼 클릭
 		document.querySelector('.append-slide').addEventListener('click', function(e) {
 			e.preventDefault();
@@ -230,7 +240,7 @@
 			});
 			
 			// Day 추가 될 때마다 click event 추가
-			func_add_day();
+			func_add_day(1);
 			// 이벤트 버블링 방지
 			return false;
 		});
@@ -420,25 +430,39 @@ body {
 							</div>
 							<!----------------------- 경로 부분 ---------------------->
 							<div class="container">
-								<div class="row bs-wizard" id="route1" style="border-bottom: 0;"></div>
-								<p align="center">
-									<button id="addBtn1" type="button"
-										class="btn btn-default btn-lg" style="font-size: 12px">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										경로 추가
-									</button>
-								</p>
-							</div>
-						</fieldset>
-					</div>
+								<div class="row bs-wizard" id="route${contentDetail.day}" style="border-bottom: 0;">
+									<c:forEach var="i" begin="0" end="${(fn:length(contentDetail.dividePath)/2)-1}" step="1">
+<!-- 										<script type="text/javascript"> -->
+<%-- //   											$('.bs-wizard-step').attr("style", 'width:'+${200/fn:length(contentDetail.dividePath)}+'%'); --%>
+<!-- 										</script>   -->
+										<div class="bs-wizard-step complete" id="day${contentDetail.day}">
+											<div class="text-center bs-wizard-stepnum">
+												<input type="text" name="loc${contentDetail.day}_${i+1}" size="7" value="${contentDetail.dividePath[2*i]}">
+											</div>
+											<div class="progress">
+												<div class="progress-bar"></div>
+											</div>
+	 										<a href="#" class="bs-wizard-dot"></a>
+											<div class="hide bs-wizard-info text-center">
+												<textarea rows="3" cols="15" name="sum${contentDetail.day}_${i+1}">
+													${contentDetail.dividePath[2*i+1]}
+												</textarea>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+								<p align='center'><button id='addBtn${contentDetail.day}' type='button' class='btn btn-default btn-lg' style='font-size: 12px'>
+									<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
+									경로 추가</button></p></div></fieldset></div>
+							
 					<script type="text/javascript">
 						$(function(){
 							// summernote 내용 가져오기
 							var readContent = "${contentDetail.content}";
 							$('.summernote').eq(${contentDetail.day}-1).summernote('code', readContent);
-							
-							// 경로 그리기
 						});
+						func_add_day(${fn:length(contentDetail.dividePath)/2});
+						day++;
 					</script>
 					</c:forEach>	
 				</div>
